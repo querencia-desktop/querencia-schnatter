@@ -73,6 +73,12 @@ pruefe titel-12 'titel ungelesen=Some\(12\)' "$A" 5
 pruefe titel-0 'titel ungelesen=None fenster="Querencia (Nachrichten|Messages) – (Prüfseite|test page)"' "$A" 5
 pruefe rechtschreibung "rechtschreibung angefragt=.*angenommen=\[\"de_DE\", \"en_US\"\]|rechtschreibung angefragt=.*angenommen=\[\"en_US\"\]" "$A" 1
 sleep 1; foto start
+# 0.1.1 (QD-169): Grafik-Erkennung der Hülle gegen eglinfo -B, Bibliotheken der Prozesse
+G=$(grep -m1 "querencia-nachrichten: Grafik:" "$A")
+echo "INFO grafik ${G#*Grafik: }" >>"$E"
+pruefe grafik-ereignis "E [0-9.]+ grafik modus=automatisch grund=" "$A" 1
+python3 -I "$W/karten.py" "$APP" >"$L/karten.txt" 2>&1
+sed 's/^/INFO /' "$L/karten.txt" >>"$E"
 
 # Mikrofon: Frage, Ablehnen (Vorgabeknopf), zweite Anfrage aus dem Speicher
 q "key m"
@@ -144,6 +150,73 @@ if grep -q "browser http://127.0.0.1" "$L/geoeffnet.log" 2>/dev/null; then echo 
 q "key p"
 sleep 1
 [ "$(grep -c '"k":"audio_zustand"' "$O")" -ge 2 ] && echo "PASS seite-bleibt-nach-umleitung" >>"$E" || echo "FAIL seite-bleibt-nach-umleitung" >>"$E"
+
+# 0.1.1 (QD-162 a): andere Schemata nur nach Rückfrage; Abbrechen ist Vorgabe
+lebt() { # NAME: die Prüfseite antwortet noch (Taste p, eine Antwort mehr)
+  local vor; vor=$(grep -c '"k":"audio_zustand"' "$O")
+  q "key p"
+  for _ in $(seq 30); do [ "$(grep -c '"k":"audio_zustand"' "$O")" -gt "$vor" ] && break; sleep 0.1; done
+  [ "$(grep -c '"k":"audio_zustand"' "$O")" -gt "$vor" ] && echo "PASS $1" >>"$E" || echo "FAIL $1" >>"$E"
+}
+q "key s"
+pruefe ssh-frage "fremdes-schema frage ssh:" "$A" 5
+sleep 0.8; foto frage-fremdes-schema
+q "key Escape"
+pruefe ssh-abgebrochen "fremdes-schema ssh: abgebrochen" "$A" 5
+q "key s"
+warte "fremdes-schema frage ssh:.*" "$A" 5; sleep 0.5
+q "key Return"
+pruefe ssh-vorgabe-abbrechen "fremdes-schema ssh: abgebrochen" "$A" 3
+[ "$(grep -c 'fremdes-schema ssh: abgebrochen' "$A")" = 2 ] && echo "PASS ssh-zweimal-abgebrochen" >>"$E" || echo "FAIL ssh-zweimal-abgebrochen" >>"$E"
+sleep 0.5
+if grep -q "ssh://" "$L/geoeffnet.log" 2>/dev/null; then echo "FAIL ssh-ohne-zustimmung-geoeffnet" >>"$E"; else echo "PASS ssh-ohne-zustimmung-nicht-geoeffnet" >>"$E"; fi
+q "key s"
+warte "fremdes-schema frage ssh:" "$A" 5; sleep 0.5
+q "key Tab" "key Return"
+pruefe ssh-geoeffnet "fremdes-schema ssh: geoeffnet" "$A" 5
+pruefe ssh-an-programm "fremd ssh://nutzer@server.example/pfad\?x=1" "$L/geoeffnet.log" 5
+q "key o"
+pruefe smb-neues-fenster-frage "fremdes-schema frage smb:" "$A" 5
+q "key Escape"
+pruefe smb-abgebrochen "fremdes-schema smb: abgebrochen" "$A" 5
+q "key j"
+pruefe mailto-ohne-frage "browser mailto:jemand@example.org\?subject=Probe" "$L/geoeffnet.log" 5
+grep -q "fremdes-schema frage mailto" "$A" && echo "FAIL mailto-fragte" >>"$E" || echo "PASS mailto-fragt-nicht" >>"$E"
+lebt seite-bleibt-nach-schemata
+# 0.1.1 (QD-162 b): die Hauptseite wechselt nie auf data:, file:, fremdes blob:, javascript:
+q "key i"
+pruefe data-klick-gesperrt "decide-policy Antwort \{ hauptseite: true \} data:text/html,%3Ctitle%3Edata-klick.* -> Sperren\(data:\)" "$A" 5
+pruefe data-klick-protokoll "Wechsel auf data: abgelehnt" "$A" 1
+lebt seite-bleibt-nach-data-klick
+q "key l"
+pruefe data-rahmen-erlaubt '"k":"rahmen_data","v":"geladen"' "$O" 5
+q "key x"
+warte '"k":"hauptseite_data"' "$O" 3; sleep 4.5
+grep -E "decide-policy .*data:text/html,%3Ctitle%3Edata-weg" "$A" | sed 's/^.*decide-policy /INFO data-ohne-geste decide-policy /' >>"$E"
+if grep -qE "decide-policy Antwort \{ hauptseite: true \} data:text/html,%3Ctitle%3Edata-weg.* -> Sperren\(data:\)" "$A"; then
+  echo "PASS data-ohne-geste-an-der-antwort-gesperrt" >>"$E"
+else
+  grep -iE "top frame to data|data-weg" "$A" "$L/app.out" 2>/dev/null | head -3 | sed 's/^/INFO data-ohne-geste (keine Antwortprüfung) /' >>"$E"
+fi
+lebt seite-bleibt-nach-data-ohne-geste
+# file: und fremdes blob: ohne Geste: WebKit selbst oder die Hülle lehnt ab
+q "key q"
+pruefe file-abgelehnt "decide-policy .* file:///etc/hostname -> Sperren\(file:\)|Not allowed to load local resource: file:///etc/hostname" "$A" 6
+grep -E "decide-policy .* file:///etc/hostname|local resource: file:///etc/hostname" "$A" | sed 's/^/INFO file /' >>"$E"
+lebt seite-bleibt-nach-file
+q "key b"
+pruefe blob-fremd-abgelehnt "decide-policy .* blob:http://127.0.0.1:8765/.* -> Sperren\(blob: mit fremdem Ursprung\)|Not allowed to load local resource: blob:http://127.0.0.1:8765/" "$A" 6
+grep -E "decide-policy .* blob:http://127.0.0.1|local resource: blob:http://127.0.0.1" "$A" | sed 's/^/INFO blob /' >>"$E"
+lebt seite-bleibt-nach-blob
+grep -c "Wechsel auf .* abgelehnt" "$A" | sed 's/^/INFO ablehnungen-im-protokoll /' >>"$E"
+sleep 0.5; foto nach-haertung
+# javascript: ohne Geste: WebKit 2.52 fragt nicht (keine Entscheidung), die
+# Adresse läuft als Skript im eigenen Ursprung; gemessen, nicht bewertet
+q "key y"
+warte '"k":"hauptseite_javascript"' "$O" 3; sleep 4.5
+grep -c "decide-policy .*javascript:" "$A" | sed 's/^/INFO javascript-entscheidungen /' >>"$E"
+echo "INFO javascript-nach-3s uri=$(grep 'load-changed' "$A" | tail -1 | awk '{print $NF}') seite-antwortet=$(q "key p"; sleep 1; tail -1 "$O" | grep -c audio_zustand)" >>"$E"
+sleep 0.5; foto nach-javascript
 # Absturz des Web-Prozesses → Hinweis und Neuladen
 WP=$(webprozesse | tr '\n' ' ')
 echo "INFO webprozesse $WP" >>"$E"

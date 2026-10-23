@@ -204,10 +204,11 @@ impl Fenster {
                     geste: aktion.is_user_gesture(),
                 },
             );
-            crate::ereignis("create", &format!("{uri} -> {ziel:?}"));
-            if let Ziel::Extern(u) = ziel {
-                navigation::extern_oeffnen(&f.fenster, &u);
-            }
+            crate::ereignis(
+                "create",
+                &format!("{} -> {}", pruefung::adresse(Some(&uri)), ziel_text(&ziel)),
+            );
+            f.ziel_ausfuehren(&ziel);
             None
         });
         let w = Rc::downgrade(self);
@@ -358,20 +359,29 @@ impl Fenster {
         if ziel != Ziel::Weiter || !matches!(anfrage, Anfrage::Antwort { hauptseite: false }) {
             crate::ereignis(
                 "decide-policy",
-                &format!("{anfrage:?} {} -> {ziel:?}", pruefung::adresse(Some(&uri))),
+                &format!(
+                    "{anfrage:?} {} -> {}",
+                    pruefung::adresse(Some(&uri)),
+                    ziel_text(&ziel)
+                ),
             );
         }
+        if ziel == Ziel::Weiter {
+            return false;
+        }
+        entscheidung.ignore();
+        self.ziel_ausfuehren(&ziel);
+        true
+    }
+
+    /// Öffnet ein Ziel außerhalb (sofort oder nach Rückfrage) bzw.
+    /// protokolliert eine Sperre; das Verwerfen in WebKit macht der Aufrufer.
+    fn ziel_ausfuehren(&self, ziel: &Ziel) {
         match ziel {
-            Ziel::Weiter => false,
-            Ziel::Extern(u) => {
-                entscheidung.ignore();
-                navigation::extern_oeffnen(&self.fenster, &u);
-                true
-            }
-            Ziel::Verwerfen => {
-                entscheidung.ignore();
-                true
-            }
+            Ziel::Weiter | Ziel::Verwerfen => {}
+            Ziel::Extern(u) => navigation::extern_oeffnen(&self.fenster, u),
+            Ziel::Fragen(u) => navigation::fragen_und_oeffnen(self.fenster.upcast_ref(), u),
+            Ziel::Sperren(was) => crate::log(&format!("Wechsel auf {was} abgelehnt")),
         }
     }
 
@@ -497,7 +507,8 @@ impl Fenster {
                         f.laden();
                     }
                     Aenderung::Ton => f.view.set_is_muted(!f.einstellungen.ton()),
-                    Aenderung::Rechte => {}
+                    // gilt ab dem nächsten Start (grafik::vorbereiten)
+                    Aenderung::Rechte | Aenderung::Grafik => {}
                 }
             }),
         );
@@ -561,6 +572,17 @@ impl Fenster {
                 }
             },
         );
+    }
+}
+
+/// Ein Ziel fürs Protokoll, ohne Adresse (die steht davor, gekürzt).
+fn ziel_text(ziel: &Ziel) -> String {
+    match ziel {
+        Ziel::Weiter => "Weiter".into(),
+        Ziel::Extern(_) => "Extern".into(),
+        Ziel::Fragen(_) => "Fragen".into(),
+        Ziel::Verwerfen => "Verwerfen".into(),
+        Ziel::Sperren(was) => format!("Sperren({was})"),
     }
 }
 

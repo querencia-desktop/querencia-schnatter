@@ -64,8 +64,19 @@ fn stil_laden() {
 }
 
 fn main() -> glib::ExitCode {
-    i18n::init();
+    if std::env::args_os().nth(1).as_deref()
+        == Some(std::ffi::OsStr::new(huelle::grafik::PROBE_ARG))
+    {
+        return huelle::grafik::probe_im_kind();
+    }
     debug();
+    // QD-169: vor allem anderen (nur der Hauptfaden läuft), damit die
+    // Web-Prozesse die Umgebung erben
+    let einstellungen = huelle::einstellungen::Einstellungen::laden(
+        &huelle::sitzung::Ordner::aus_xdg().einstellungen(),
+    );
+    huelle::grafik::vorbereiten(einstellungen.grafik());
+    i18n::init();
     let modus = portal::prepare(PROGRAMM);
     glib::set_application_name(&i18n::gettext("Querencia Messages"));
     let app = gtk::Application::builder()

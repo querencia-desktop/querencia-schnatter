@@ -64,21 +64,24 @@ pub fn dienst(echt: Dienst) -> Dienst {
     }
 }
 
-/// `uri` fürs Protokoll: auf der Prüfseite ganz, sonst ohne Abfrage und
-/// Fragment (dort könnten Telefonnummern stehen).
+/// `uri` fürs Protokoll: auf der Prüfseite ganz, sonst bei http(s) ohne
+/// Abfrage und Fragment (dort könnten Telefonnummern stehen), bei jedem
+/// anderen Schema nur das Schema (`mailto:`, `data:` und Co. tragen den
+/// Inhalt im Pfad).
 pub fn adresse(uri: Option<&str>) -> String {
     let uri = uri.unwrap_or_default();
     if aktiv() {
         return uri.to_owned();
     }
     match glib::Uri::parse(uri, glib::UriFlags::NONE) {
-        Ok(u) => format!(
+        Ok(u) if matches!(u.scheme().to_ascii_lowercase().as_str(), "http" | "https") => format!(
             "{}://{}{}",
             u.scheme(),
             u.host().unwrap_or_default(),
             u.path()
         ),
-        Err(_) => uri.chars().take(60).collect(),
+        Ok(u) => format!("{}:", u.scheme()),
+        Err(_) => "(keine Adresse)".to_owned(),
     }
 }
 

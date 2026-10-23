@@ -1,6 +1,7 @@
 #!/bin/bash
 # Prüfhülle Querencia Nachrichten: ein Lauf.
 #   lauf.sh funktionen <de|en> <BxH> <hell|dunkel>
+#   lauf.sh grafik <de|en> <BxH> <hell|dunkel>        (0.1.1, QD-169)
 #   lauf.sh anmeldeseite <N|E> <de|en> <BxH> <hell|dunkel> <standard|linux>
 # Gestartet wird die Ablage-Kopie des Release-Baus (BIN=… überschreibt).
 # Ergebnis unter nachweis/<art>/<name>/. Sprache wie live: LANG=en_US.UTF-8,
@@ -10,10 +11,10 @@ HIER=$(cd "$(dirname "$0")" && pwd)
 R=$(cd "$HIER/.." && pwd)
 ART=${1:?funktionen|anmeldeseite}; shift
 case $ART in
-  funktionen) STUFE=L; SPR=${1:?}; RES=${2:?}; SCHEMA=${3:?}; KENNUNG=standard; NAME=$SPR-$RES-$SCHEMA ;;
+  funktionen|grafik) STUFE=L; SPR=${1:?}; RES=${2:?}; SCHEMA=${3:?}; KENNUNG=standard; NAME=$SPR-$RES-$SCHEMA ;;
   anmeldeseite) STUFE=${1:?}; SPR=${2:?}; RES=${3:?}; SCHEMA=${4:?}; KENNUNG=${5:?}
                 NAME=$STUFE-$KENNUNG-$SPR-$RES-$SCHEMA${NAMENSZUSATZ:+-$NAMENSZUSATZ} ;;
-  *) echo "lauf.sh funktionen|anmeldeseite …" >&2; exit 2 ;;
+  *) echo "lauf.sh funktionen|grafik|anmeldeseite …" >&2; exit 2 ;;
 esac
 BIN=${BIN:-$R/target/remap/release/querencia-nachrichten}
 [ -x "$BIN" ] || { echo "Release-Bau fehlt: $BIN (werkzeug/bauen.sh release)" >&2; exit 2; }

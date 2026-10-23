@@ -1,6 +1,7 @@
 //! Einstellungen der Hülle in `XDG_CONFIG_HOME/querencia-nachrichten/
 //! einstellungen.ini` (GLib-Schlüsseldatei, Ordner 0700): Fenstergröße,
-//! Zoom, Kennung (S4), Ton (E4) und die gespeicherten Rechte je Art (E3).
+//! Zoom, Kennung (S4), Ton (E4), Software-Grafik (QD-169) und die
+//! gespeicherten Rechte je Art (E3).
 //!
 //! Jede Änderung wird sofort geschrieben (`g_file_set_contents`, atomar).
 //! Fehlt die Datei oder ist sie unlesbar, gelten die Vorgaben.
@@ -9,9 +10,12 @@ use std::path::{Path, PathBuf};
 
 use gtk::glib;
 
+use super::grafik::Modus;
+
 const FENSTER: &str = "Fenster";
 const SEITE: &str = "Seite";
 const RECHTE: &str = "Rechte";
+const GRAFIK: &str = "Grafik";
 
 /// Vorgabegröße des Fensters (passt auch auf 1024×768).
 pub const BREITE: i32 = 1000;
@@ -170,6 +174,22 @@ impl Einstellungen {
         self.speichern();
     }
 
+    /// Software-Grafik für die Web-Prozesse; Vorgabe automatisch. Gilt ab
+    /// dem nächsten Start (`grafik::vorbereiten`).
+    pub fn grafik(&self) -> Modus {
+        self.werte
+            .string(GRAFIK, "software")
+            .ok()
+            .and_then(|m| Modus::aus(m.as_str()))
+            .unwrap_or(Modus::Automatisch)
+    }
+
+    pub fn grafik_setzen(&self, modus: Modus) {
+        self.werte
+            .set_string(GRAFIK, "software", modus.schluessel());
+        self.speichern();
+    }
+
     pub fn recht(&self, recht: Recht) -> Option<Antwort> {
         match self.werte.string(RECHTE, recht.schluessel()).ok()?.as_str() {
             "erlaubt" => Some(Antwort::Erlaubt),
@@ -214,6 +234,7 @@ mod tests {
         assert_eq!(e.zoom(), 1.0);
         assert_eq!(e.kennung(), Kennung::Standard);
         assert!(e.ton());
+        assert_eq!(e.grafik(), Modus::Automatisch);
         for r in Recht::ALLE {
             assert_eq!(e.recht(r), None);
         }
@@ -227,6 +248,7 @@ mod tests {
         e.zoom_setzen(1.25);
         e.kennung_setzen(Kennung::Linux);
         e.ton_setzen(false);
+        e.grafik_setzen(Modus::Aus);
         e.recht_setzen(Recht::Mikrofon, Antwort::Erlaubt);
         e.recht_setzen(Recht::Kamera, Antwort::Abgelehnt);
         let e = Einstellungen::laden(&f);
@@ -234,6 +256,7 @@ mod tests {
         assert_eq!(e.zoom(), 1.25);
         assert_eq!(e.kennung(), Kennung::Linux);
         assert!(!e.ton());
+        assert_eq!(e.grafik(), Modus::Aus);
         assert_eq!(e.recht(Recht::Mikrofon), Some(Antwort::Erlaubt));
         assert_eq!(e.recht(Recht::Kamera), Some(Antwort::Abgelehnt));
         assert_eq!(e.recht(Recht::Zwischenablage), None);
@@ -249,13 +272,14 @@ mod tests {
         std::fs::write(
             &f,
             "[Fenster]\nbreite=5\nhoehe=99999\n[Seite]\nzoom=40\nkennung=chrome\n\
-             [Rechte]\nmikrofon=vielleicht\n",
+             [Grafik]\nsoftware=immer\n[Rechte]\nmikrofon=vielleicht\n",
         )
         .unwrap();
         let e = Einstellungen::laden(&f);
         assert_eq!(e.fenster(), (BREITE, HOEHE, false));
         assert_eq!(e.zoom(), super::super::zoom::GROESSTER);
         assert_eq!(e.kennung(), Kennung::Standard);
+        assert_eq!(e.grafik(), Modus::Automatisch);
         assert_eq!(e.recht(Recht::Mikrofon), None);
         std::fs::write(&f, "kein ini\n[[").unwrap();
         assert_eq!(Einstellungen::laden(&f).kennung(), Kennung::Standard);

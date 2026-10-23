@@ -12,6 +12,7 @@ use gtk::prelude::*;
 use gtk::{gdk, glib};
 
 use super::einstellungen::{Antwort, Einstellungen, Kennung, Recht};
+use super::grafik::Modus;
 use crate::i18n::{gettext, gettext_f};
 
 /// Platz für ein Nebenfenster; hält das offene Fenster nur schwach.
@@ -136,6 +137,37 @@ pub fn frage(
     ja: &str,
     antwort: impl FnOnce(bool) + 'static,
 ) {
+    frage_bauen(eltern, symbol, haupt, text, None, nein, ja, antwort);
+}
+
+/// Wie [`frage`], dazu unter dem Text das Ziel (eine Adresse) in einem
+/// eigenen, auswählbaren Feld, das auch lange Adressen ohne Leerzeichen
+/// umbricht.
+#[allow(clippy::too_many_arguments)]
+pub fn frage_mit_ziel(
+    eltern: &gtk::Window,
+    symbol: &str,
+    haupt: &str,
+    text: &str,
+    ziel: &str,
+    nein: &str,
+    ja: &str,
+    antwort: impl FnOnce(bool) + 'static,
+) {
+    frage_bauen(eltern, symbol, haupt, text, Some(ziel), nein, ja, antwort);
+}
+
+#[allow(clippy::too_many_arguments)]
+fn frage_bauen(
+    eltern: &gtk::Window,
+    symbol: &str,
+    haupt: &str,
+    text: &str,
+    ziel: Option<&str>,
+    nein: &str,
+    ja: &str,
+    antwort: impl FnOnce(bool) + 'static,
+) {
     let w = fenster(eltern, &gettext("Querencia Messages"), true);
     let k_nein = gtk::Button::with_mnemonic(nein);
     let k_ja = gtk::Button::with_mnemonic(ja);
@@ -169,10 +201,20 @@ pub fn frage(
         geben(false);
         glib::Propagation::Proceed
     });
-    w.set_child(Some(&rahmen(
-        &meldung(symbol, haupt, text),
-        &knopfzeile(&[&k_nein, &k_ja]),
-    )));
+    let inhalt = meldung(symbol, haupt, text);
+    if let Some(ziel) = ziel
+        && let Some(rechts) = inhalt.last_child().and_downcast::<gtk::Box>()
+    {
+        let z = gtk::Label::new(Some(ziel));
+        z.set_xalign(0.0);
+        z.set_wrap(true);
+        z.set_wrap_mode(gtk::pango::WrapMode::WordChar);
+        z.set_max_width_chars(50);
+        z.set_selectable(true);
+        z.add_css_class("qn-ziel");
+        rechts.append(&z);
+    }
+    w.set_child(Some(&rahmen(&inhalt, &knopfzeile(&[&k_nein, &k_ja]))));
     w.set_default_widget(Some(&k_nein));
     GtkWindowExt::set_focus(&w, Some(&k_nein));
     w.present();
@@ -255,9 +297,62 @@ pub fn info(eltern: &gtk::Window, platz: &Platz, symbol: &str) {
         l.add_css_class("dim-label");
         inhalt.append(&l);
     }
+    inhalt.append(&grafik_zeilen());
     mit_schliessen(&w, &inhalt);
     platz.merken(&w);
     w.present();
+}
+
+/// Zwei Zeilen im Info-Dialog: welcher OpenGL-Renderer die Web-Prozesse
+/// haben (Probe mit der Umgebung der Hülle, die sie erben) und warum
+/// (QD-169).
+fn grafik_zeilen() -> gtk::Box {
+    use super::grafik::{self, Grund, Probe};
+    let b = gtk::Box::new(gtk::Orientation::Vertical, 2);
+    let renderer = gtk::Label::new(Some(&gettext_f(
+        "Web page graphics: {renderer}",
+        &[("renderer", &gettext("determining…"))],
+    )));
+    renderer.set_wrap(true);
+    renderer.set_max_width_chars(60);
+    renderer.set_justify(gtk::Justification::Center);
+    renderer.add_css_class("dim-label");
+    let grund = match grafik::stand().map(|s| s.grund) {
+        Some(Grund::Erkannt) => gettext(
+            "Software graphics, switched on automatically: OpenGL runs through zink on nouveau here.",
+        ),
+        Some(Grund::ProbeGescheitert) => {
+            gettext("Software graphics, switched on automatically: the graphics test failed.")
+        }
+        Some(Grund::Einstellung) => gettext("Software graphics, switched on in the preferences."),
+        Some(Grund::Umgebung) => {
+            gettext("Graphics settings come from the environment of the session.")
+        }
+        Some(Grund::Aus) => gettext("Software graphics are switched off in the preferences."),
+        Some(Grund::Hardware) | None => gettext("Graphics hardware as chosen by Mesa."),
+    };
+    let g = gtk::Label::new(Some(&grund));
+    g.set_wrap(true);
+    g.set_max_width_chars(60);
+    g.set_justify(gtk::Justification::Center);
+    g.add_css_class("dim-label");
+    b.append(&renderer);
+    b.append(&g);
+    let r = renderer.downgrade();
+    grafik::renderer_abfragen(move |p| {
+        let text = match &p {
+            Probe::Gelesen { renderer, .. } => renderer.clone(),
+            Probe::KeinGl(_) | Probe::Gescheitert(_) => gettext("unknown"),
+        };
+        crate::ereignis("grafik-info", &format!("{p:?}"));
+        if let Some(r) = r.upgrade() {
+            r.set_text(&gettext_f(
+                "Web page graphics: {renderer}",
+                &[("renderer", &text)],
+            ));
+        }
+    });
+    b
 }
 
 /// Die Hilfe als kurze Seite: Anmelden, keine Anrufe, Meldungen, Downloads,
@@ -350,7 +445,9 @@ pub fn hilfe(eltern: &gtk::Window, platz: &Platz) {
 }
 
 /// Die Einstellungen (Bearbeiten → Einstellungen): Kennung, Töne,
-/// gespeicherte Rechte. Jede Änderung gilt sofort; `geaendert` erfährt sie.
+/// Software-Grafik, gespeicherte Rechte. Jede Änderung wird sofort
+/// gespeichert und gilt sofort, die Software-Grafik ab dem nächsten Start;
+/// `geaendert` erfährt sie.
 pub fn einstellungen(
     eltern: &gtk::Window,
     platz: &Platz,
@@ -419,6 +516,41 @@ pub fn einstellungen(
     });
     inhalt.append(&ton);
 
+    inhalt.append(&ueberschrift(&gettext("Software graphics")));
+    let mut vorige: Option<gtk::CheckButton> = None;
+    for modus in Modus::ALLE {
+        let k = gtk::CheckButton::with_mnemonic(&match modus {
+            Modus::Automatisch => {
+                gettext("_Automatic: only where the graphics driver is known to fail")
+            }
+            Modus::An => gettext("_On: always draw web pages in software"),
+            Modus::Aus => gettext("Off: always use the graphics _hardware"),
+        });
+        k.set_group(vorige.as_ref());
+        k.set_active(e.grafik() == modus);
+        k.set_margin_start(12);
+        let ee = e.clone();
+        let g = geaendert.clone();
+        k.connect_toggled(move |k| {
+            if k.is_active() && ee.grafik() != modus {
+                ee.grafik_setzen(modus);
+                g(Aenderung::Grafik);
+            }
+        });
+        inhalt.append(&k);
+        vorige = Some(k);
+    }
+    let gh = gtk::Label::new(Some(&gettext(
+        "Software graphics avoid crashes with some graphics drivers. A change takes \
+         effect the next time Querencia Messages starts.",
+    )));
+    gh.set_xalign(0.0);
+    gh.set_wrap(true);
+    gh.set_max_width_chars(55);
+    gh.add_css_class("dim-label");
+    gh.set_margin_start(12);
+    inhalt.append(&gh);
+
     inhalt.append(&ueberschrift(&gettext("Remembered permissions")));
     let liste = gtk::Grid::builder()
         .column_spacing(12)
@@ -464,6 +596,7 @@ pub enum Aenderung {
     Kennung,
     Ton,
     Rechte,
+    Grafik,
 }
 
 fn recht_name(r: Recht) -> String {

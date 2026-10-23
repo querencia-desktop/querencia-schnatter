@@ -14,15 +14,25 @@
      m Mikrofon · k Kamera · z Zwischenablage lesen · g Standort ·
      f fremder Link · n fremder Link in neuem Fenster · w window.open ·
      e eigener Link · d Dateiwahl · t Textfeld · u Hauptseite ohne Geste weg ·
-     p Ton an/aus prüfen · c neue Meldung -->
+     p Ton an/aus prüfen · c neue Meldung.
+     Ab 0.1.1 (QD-162): s ssh-Link · o smb-Link in neuem Fenster · j mailto-Link ·
+     i data:-Link (Klick) · l data:-Rahmen ohne Geste (erlaubt) · x Hauptseite
+     ohne Geste auf data: · q … auf file: · b … auf fremdes blob: · y … auf
+     javascript: (je nach 3 s, ohne Geste) -->
 <h1>Prüfseite Querencia Nachrichten</h1>
 <p>Tasten: <kbd>m</kbd> Mikrofon, <kbd>k</kbd> Kamera, <kbd>z</kbd> Zwischenablage,
 <kbd>g</kbd> Standort, <kbd>f</kbd>/<kbd>n</kbd>/<kbd>w</kbd> fremde Links,
-<kbd>d</kbd> Dateiwahl, <kbd>t</kbd> Textfeld, <kbd>c</kbd> Meldung.</p>
+<kbd>d</kbd> Dateiwahl, <kbd>t</kbd> Textfeld, <kbd>c</kbd> Meldung;
+<kbd>s</kbd>/<kbd>o</kbd>/<kbd>j</kbd> andere Schemata, <kbd>i</kbd>/<kbd>l</kbd>/<kbd>x</kbd>/<kbd>q</kbd>/<kbd>b</kbd>/<kbd>y</kbd>
+Hauptseite auf data:, file:, blob:, javascript:.</p>
 <textarea id="text" spellcheck="true" lang="de" rows="3" cols="60">Dis ist ein Tset mit Feler und ein Speling mistake</textarea>
 <p><a id="fremd" href="https://example.org/fremd?x=1">fremder Link</a> ·
 <a id="fremdneu" href="https://example.org/neu" target="_blank">fremder Link, neues Fenster</a> ·
 <a id="eigen" href="http://localhost/#eigen">eigener Link</a></p>
+<p><a id="ssh" href="ssh://nutzer@server.example/pfad?x=1">ssh-Link</a> ·
+<a id="smbneu" href="smb://server.example/freigabe" target="_blank">smb-Link, neues Fenster</a> ·
+<a id="mail" href="mailto:jemand@example.org?subject=Probe">mailto-Link</a> ·
+<a id="datalink" href="data:text/html,%3Ctitle%3Edata-klick%3C/title%3Edata-klick">data:-Link</a></p>
 <input id="datei" type="file" multiple accept="image/*,video/*" style="display:none">
 <div id="log"></div>
 <script>
@@ -133,8 +143,31 @@ document.addEventListener('keydown', async ev => {
       zeige('umleitung', 'in 3 s ohne Geste');
       setTimeout(() => { location.href = 'http://127.0.0.1:8765/fremd-ohne-geste'; }, 3000);
       break;
+    case 's': document.getElementById('ssh').click(); break;
+    case 'o': document.getElementById('smbneu').click(); break;
+    case 'j': document.getElementById('mail').click(); break;
+    case 'i': document.getElementById('datalink').click(); break;
+    case 'l': {
+      const f = document.createElement('iframe');
+      f.style.display = 'none';
+      f.onload = () => zeige('rahmen_data', 'geladen');
+      f.src = 'data:text/html,%3Cp%3Erahmen%3C/p%3E';
+      document.body.appendChild(f);
+      break;
+    }
+    case 'x': ohneGeste('data', 'data:text/html,%3Ctitle%3Edata-weg%3C/title%3Edata-weg'); break;
+    case 'q': ohneGeste('file', 'file:///etc/hostname'); break;
+    case 'b': ohneGeste('blob', 'blob:http://127.0.0.1:8765/00000000-0000-4000-8000-000000000000'); break;
+    case 'y': ohneGeste('javascript', "javascript:'%3Ctitle%3Ejs-weg%3C/title%3Ejs-weg'"); break;
   }
 });
+// Hauptseite nach 3 s (Geste verfallen) auf ein seiteninternes Schema
+function ohneGeste(art, ziel) {
+  zeige('hauptseite_' + art, 'in 3 s ohne Geste');
+  setTimeout(() => {
+    try { location.href = ziel; } catch (e) { zeige('hauptseite_' + art + '_fehler', e.name); }
+  }, 3000);
+}
 document.getElementById('datei').addEventListener('change', e => zeige('dateiwahl_auswahl', e.target.files.length));
 document.getElementById('datei').addEventListener('cancel', () => zeige('dateiwahl_auswahl', 'abgebrochen'));
 window.addEventListener('hashchange', () => zeige('hash', location.hash));

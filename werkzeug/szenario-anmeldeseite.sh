@@ -34,6 +34,10 @@ else
 fi
 grim "$(printf '%s/anmeldeseite-%s-%s-%s-%s.png' "$OUT" "$KENNUNG" "$SPR" "$RES" "$SCHEMA")"
 python3 -I "$W/messen.py" "$APP" "$OUT/messung.json" > "$OUT/messung.txt" 2>&1
+# 0.1.1 (QD-169): Grafik-Entscheidung und Bibliotheken der Prozesse (maps)
+grep -m1 "querencia-nachrichten: Grafik:" "$A" | sed 's/^.*Grafik: /INFO grafik /' >>"$E"
+python3 -I "$W/karten.py" "$APP" > "$OUT/karten.txt" 2>&1
+sed 's/^/INFO /' "$OUT/karten.txt" >>"$E"
 grep 'E [0-9.]* zustand ' "$A" | tail -1 | sed 's/^.* zustand /INFO zustand /' >>"$E"
 grep -m1 'E [0-9.]* kennung ' "$A" | sed 's/^.* kennung /INFO kennung /' >>"$E"
 grep 'web-process-terminated\|load-failed' "$A" | sed 's/^/INFO /' >>"$E"

@@ -6,6 +6,7 @@ pub mod dialoge;
 pub mod downloads;
 pub mod einstellungen;
 pub mod fenster;
+pub mod grafik;
 pub mod meldungen;
 pub mod menue;
 pub mod navigation;
@@ -23,6 +24,7 @@ use gtk::gio;
 use gtk::prelude::*;
 
 use crate::dienst::Dienst;
+use crate::i18n::{gettext, gettext_f};
 use einstellungen::Einstellungen;
 use fenster::Fenster;
 use sitzung::Ordner;
@@ -94,8 +96,8 @@ pub fn starten(app: &gtk::Application, dienst: Dienst) {
 
 fn fehler_und_ende(app: &gtk::Application, text: &str) {
     let w = gtk::ApplicationWindow::new(app);
-    w.set_title(Some(&crate::i18n::gettext("Querencia Messages")));
-    let l = gtk::Label::new(Some(&crate::i18n::gettext_f(
+    w.set_title(Some(&gettext("Querencia Messages")));
+    let l = gtk::Label::new(Some(&gettext_f(
         "The data folder cannot be used: {error}",
         &[("error", text)],
     )));

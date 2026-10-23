@@ -36,21 +36,25 @@ msgstr "Mit WhatsApp Web im eigenen Fenster schreiben"
 msgid "WhatsApp;Chat;Messenger;Messages;"
 msgstr "WhatsApp;Chat;Messenger;Nachrichten;"
 
-#: src/huelle/dialoge.rs:178
+#: src/huelle/dialoge.rs:171 src/huelle/fenster.rs:57 src/huelle/fenster.rs:60 src/huelle/mod.rs:99 src/main.rs:81
+msgid "Querencia Messages"
+msgstr "Querencia Nachrichten"
+
+#: src/huelle/dialoge.rs:225
 msgid "_Close"
 msgstr "_Schließen"
 
 #. TRANSLATORS: Fenstertitel des Info-Dialogs
-#: src/huelle/dialoge.rs:200
+#: src/huelle/dialoge.rs:247
 msgid "About Querencia Messages"
 msgstr "Info zu Querencia Nachrichten"
 
-#: src/huelle/dialoge.rs:206
+#: src/huelle/dialoge.rs:253
 #, no-c-format
 msgid "Querencia Messages {version}"
 msgstr "Querencia Nachrichten {version}"
 
-#: src/huelle/dialoge.rs:212
+#: src/huelle/dialoge.rs:262
 msgid ""
 "WhatsApp Web in its own window for Querencia Desktop.\n"
 "\n"
@@ -62,152 +66,212 @@ msgstr ""
 "Nicht mit WhatsApp oder Meta verbunden. WhatsApp ist eine Marke\n"
 "ihres Inhabers. Anrufe sind nicht möglich."
 
-#: src/huelle/dialoge.rs:219
+#: src/huelle/dialoge.rs:269
 msgid "Alpha – not released for everyday use."
 msgstr "Alpha – nicht für den Alltag freigegeben."
 
-#: src/huelle/dialoge.rs:240
+#: src/huelle/dialoge.rs:290
 msgid "License: GPL-3.0-or-later"
 msgstr "Lizenz: GPL-3.0-or-later"
 
-#: src/huelle/dialoge.rs:241
+#: src/huelle/dialoge.rs:291
 #, no-c-format
 msgid "Web engine: WebKitGTK {version} (LGPL)"
 msgstr "Web-Engine: WebKitGTK {version} (LGPL)"
 
-#: src/huelle/dialoge.rs:261
+#: src/huelle/dialoge.rs:312 src/huelle/dialoge.rs:349
+#, no-c-format
+msgid "Web page graphics: {renderer}"
+msgstr "Grafik der Webseite: {renderer}"
+
+#: src/huelle/dialoge.rs:314
+msgid "determining…"
+msgstr "wird ermittelt …"
+
+#: src/huelle/dialoge.rs:321
+msgid ""
+"Software graphics, switched on automatically: OpenGL runs through zink on nouveau here."
+msgstr "Software-Grafik, automatisch eingeschaltet: OpenGL läuft hier über zink auf nouveau."
+
+#: src/huelle/dialoge.rs:325
+msgid ""
+"Software graphics, switched on automatically: the graphics test failed."
+msgstr "Software-Grafik, automatisch eingeschaltet: Die Grafikprüfung ist gescheitert."
+
+#: src/huelle/dialoge.rs:327
+msgid "Software graphics, switched on in the preferences."
+msgstr "Software-Grafik, in den Einstellungen eingeschaltet."
+
+#: src/huelle/dialoge.rs:329
+msgid "Graphics settings come from the environment of the session."
+msgstr "Die Grafikeinstellung kommt aus der Umgebung der Sitzung."
+
+#: src/huelle/dialoge.rs:331
+msgid "Software graphics are switched off in the preferences."
+msgstr "Software-Grafik ist in den Einstellungen ausgeschaltet."
+
+#: src/huelle/dialoge.rs:332
+msgid "Graphics hardware as chosen by Mesa."
+msgstr "Grafikhardware, wie Mesa sie wählt."
+
+#: src/huelle/dialoge.rs:345
+msgid "unknown"
+msgstr "unbekannt"
+
+#: src/huelle/dialoge.rs:364
 msgid "Querencia Messages Help"
 msgstr "Hilfe zu Querencia Nachrichten"
 
-#: src/huelle/dialoge.rs:267
+#: src/huelle/dialoge.rs:370
 msgid "What this is"
 msgstr "Was das ist"
 
-#: src/huelle/dialoge.rs:268
+#: src/huelle/dialoge.rs:371
 msgid ""
 "Querencia Messages shows WhatsApp Web in its own window. It is not affiliated with WhatsApp; your messages go directly between this window and WhatsApp."
 msgstr ""
 "Querencia Nachrichten zeigt WhatsApp Web in einem eigenen Fenster. Das Programm ist nicht mit WhatsApp verbunden; Ihre Nachrichten gehen direkt zwischen diesem Fenster und WhatsApp hin und her."
 
-#: src/huelle/dialoge.rs:275
+#: src/huelle/dialoge.rs:378
 msgid "Signing in"
 msgstr "Anmelden"
 
-#: src/huelle/dialoge.rs:276
+#: src/huelle/dialoge.rs:379
 msgid ""
 "Open WhatsApp on your phone, choose “Linked devices”, then “Link a device”, and scan the QR code in the window. You stay signed in until you log out."
 msgstr ""
 "Öffnen Sie WhatsApp auf dem Telefon, wählen Sie „Verknüpfte Geräte“, dann „Gerät hinzufügen“ und scannen Sie den QR-Code im Fenster. Sie bleiben angemeldet, bis Sie sich abmelden."
 
-#: src/huelle/dialoge.rs:283
+#: src/huelle/dialoge.rs:386
 msgid "No calls"
 msgstr "Keine Anrufe"
 
-#: src/huelle/dialoge.rs:284
+#: src/huelle/dialoge.rs:387
 msgid ""
 "Voice and video calls are not possible: the web engine of Ubuntu is built without WebRTC. Take calls on your phone. Voice messages work."
 msgstr ""
 "Sprach- und Videoanrufe sind nicht möglich: Die Web-Engine von Ubuntu ist ohne WebRTC gebaut. Nehmen Sie Anrufe am Telefon an. Sprachnachrichten gehen."
 
-#: src/huelle/dialoge.rs:291
+#: src/huelle/dialoge.rs:394
 msgid "Notifications"
 msgstr "Meldungen"
 
-#: src/huelle/dialoge.rs:292
+#: src/huelle/dialoge.rs:395
 msgid ""
 "New messages are announced by the notification area of the desktop while the window is open. Closing the window quits the program; then there are no notifications."
 msgstr ""
 "Neue Nachrichten meldet die Benachrichtigungszentrale des Desktops, solange das Fenster offen ist. Schließen beendet das Programm; dann gibt es keine Meldungen."
 
-#: src/huelle/dialoge.rs:299
+#: src/huelle/dialoge.rs:402
 msgid "Downloads"
 msgstr "Downloads"
 
-#: src/huelle/dialoge.rs:300
+#: src/huelle/dialoge.rs:403
 msgid ""
 "Downloaded files go to your Downloads folder without a question; a file never overwrites another one. A notification offers to open the file or its folder."
 msgstr ""
 "Heruntergeladene Dateien landen ohne Rückfrage im Download-Ordner; keine Datei überschreibt eine andere. Eine Meldung bietet an, die Datei oder ihren Ordner zu öffnen."
 
-#: src/huelle/dialoge.rs:307
+#: src/huelle/dialoge.rs:410
 msgid "Microphone, camera, clipboard"
 msgstr "Mikrofon, Kamera, Zwischenablage"
 
-#: src/huelle/dialoge.rs:308
+#: src/huelle/dialoge.rs:411
 msgid ""
 "The page asks once for each; the answer is remembered. Edit → Preferences forgets the answers."
 msgstr ""
 "Die Seite fragt je Art einmal; die Antwort wird gespeichert. Bearbeiten → Einstellungen vergisst die Antworten wieder."
 
-#: src/huelle/dialoge.rs:314
+#: src/huelle/dialoge.rs:417
 msgid "Logging out"
 msgstr "Abmelden"
 
-#: src/huelle/dialoge.rs:315
+#: src/huelle/dialoge.rs:418
 msgid ""
 "File → Log Out and Delete Data removes everything this program stored for WhatsApp Web on this computer. Your chats stay on your phone."
 msgstr ""
 "Datei → Abmelden und Daten löschen entfernt alles, was dieses Programm für WhatsApp Web auf diesem Rechner gespeichert hat. Ihre Chats bleiben auf dem Telefon."
 
-#: src/huelle/dialoge.rs:355
+#: src/huelle/dialoge.rs:460
 msgid "Querencia Messages Preferences"
 msgstr "Einstellungen von Querencia Nachrichten"
 
-#: src/huelle/dialoge.rs:364
+#: src/huelle/dialoge.rs:469
 msgid "Browser identification"
 msgstr "Browserkennung"
 
-#: src/huelle/dialoge.rs:365
+#: src/huelle/dialoge.rs:470
 msgid "_Standard of the web engine (WhatsApp sees Safari on a Mac)"
 msgstr "Standard der _Web-Engine (WhatsApp sieht Safari auf einem Mac)"
 
-#: src/huelle/dialoge.rs:368
+#: src/huelle/dialoge.rs:474
 msgid "_Linux identification without site exceptions"
 msgstr "_Linux-Kennung ohne Seitenausnahmen"
 
-#: src/huelle/dialoge.rs:376
+#: src/huelle/dialoge.rs:480
 msgid ""
 "Changing it reloads the page. If WhatsApp Web stops working, switch back."
 msgstr ""
 "Ein Wechsel lädt die Seite neu. Geht WhatsApp Web danach nicht mehr, wechseln Sie zurück."
 
-#: src/huelle/dialoge.rs:403
+#: src/huelle/dialoge.rs:507
 msgid "Sound"
 msgstr "Ton"
 
-#: src/huelle/dialoge.rs:404
+#: src/huelle/dialoge.rs:508
 msgid "_Play sounds and voice messages"
 msgstr "Töne und Sprachnachrichten _abspielen"
 
-#: src/huelle/dialoge.rs:415
+#: src/huelle/dialoge.rs:519
+msgid "Software graphics"
+msgstr "Software-Grafik"
+
+#: src/huelle/dialoge.rs:524
+msgid "_Automatic: only where the graphics driver is known to fail"
+msgstr "Au_tomatisch: nur, wo der Grafiktreiber bekanntermaßen versagt"
+
+#: src/huelle/dialoge.rs:526
+msgid "_On: always draw web pages in software"
+msgstr "A_n: Webseiten immer in Software zeichnen"
+
+#: src/huelle/dialoge.rs:527
+msgid "Off: always use the graphics _hardware"
+msgstr "A_us: immer die Grafikhardware nutzen"
+
+#: src/huelle/dialoge.rs:543
+msgid ""
+"Software graphics avoid crashes with some graphics drivers. A change takes effect the next time Querencia Messages starts."
+msgstr "Software-Grafik vermeidet Abstürze mit manchen Grafiktreibern. Eine Änderung gilt ab dem nächsten Start von Querencia Nachrichten."
+
+#: src/huelle/dialoge.rs:554
 msgid "Remembered permissions"
 msgstr "Gespeicherte Rechte"
 
-#: src/huelle/dialoge.rs:436
+#: src/huelle/dialoge.rs:575
 msgid "_Forget Answers"
 msgstr "Antworten _vergessen"
 
-#: src/huelle/dialoge.rs:464
+#: src/huelle/dialoge.rs:604
 msgid "Microphone"
 msgstr "Mikrofon"
 
-#: src/huelle/dialoge.rs:465
+#: src/huelle/dialoge.rs:605
 msgid "Camera"
 msgstr "Kamera"
 
-#: src/huelle/dialoge.rs:466
+#: src/huelle/dialoge.rs:606
 msgid "Reading the clipboard"
 msgstr "Zwischenablage lesen"
 
-#: src/huelle/dialoge.rs:472
+#: src/huelle/dialoge.rs:612
 msgid "allowed"
 msgstr "erlaubt"
 
-#: src/huelle/dialoge.rs:473
+#: src/huelle/dialoge.rs:613
 msgid "denied"
 msgstr "abgelehnt"
 
-#: src/huelle/dialoge.rs:474
+#: src/huelle/dialoge.rs:614
 msgid "not asked yet"
 msgstr "noch nicht gefragt"
 
@@ -215,7 +279,7 @@ msgstr "noch nicht gefragt"
 msgid "download"
 msgstr "download"
 
-#: src/huelle/downloads.rs:133 src/i18n.rs:132
+#: src/huelle/downloads.rs:133 src/i18n.rs:133
 msgid "Download finished"
 msgstr "Download abgeschlossen"
 
@@ -223,15 +287,15 @@ msgstr "Download abgeschlossen"
 msgid "Open"
 msgstr "Öffnen"
 
-#: src/huelle/downloads.rs:138
+#: src/huelle/downloads.rs:137
 msgid "Open Folder"
 msgstr "Ordner öffnen"
 
-#: src/huelle/downloads.rs:152
+#: src/huelle/downloads.rs:148
 msgid "Download failed"
 msgstr "Download fehlgeschlagen"
 
-#: src/huelle/downloads.rs:153
+#: src/huelle/downloads.rs:149
 #, no-c-format
 msgid "“{name}” could not be downloaded."
 msgstr "„{name}“ konnte nicht heruntergeladen werden."
@@ -241,49 +305,45 @@ msgstr "„{name}“ konnte nicht heruntergeladen werden."
 msgid "{program} – test page"
 msgstr "{program} – Prüfseite"
 
-#: src/huelle/fenster.rs:57 src/huelle/fenster.rs:60 src/main.rs:70
-msgid "Querencia Messages"
-msgstr "Querencia Nachrichten"
-
-#: src/huelle/fenster.rs:251
+#: src/huelle/fenster.rs:266
 #, no-c-format
 msgid "{service} could not be loaded: {error}"
 msgstr "{service} konnte nicht geladen werden: {error}"
 
-#: src/huelle/fenster.rs:392
+#: src/huelle/fenster.rs:428
 msgid "The page stopped unexpectedly and was reloaded."
 msgstr "Die Seite wurde unerwartet beendet und neu geladen."
 
-#: src/huelle/fenster.rs:398
+#: src/huelle/fenster.rs:432
 msgid ""
 "The page stopped unexpectedly several times. Reload it when you are ready."
 msgstr ""
 "Die Seite wurde mehrmals unerwartet beendet. Laden Sie sie neu, wenn Sie so weit sind."
 
-#: src/huelle/fenster.rs:487
+#: src/huelle/fenster.rs:526
 #, no-c-format
 msgid "Log out of {service} and delete its data?"
 msgstr "Von {service} abmelden und die Daten löschen?"
 
-#: src/huelle/fenster.rs:491
+#: src/huelle/fenster.rs:530
 msgid ""
 "Everything this program stored on this computer is deleted: the sign-in, cached chats and media, and the remembered permissions. Your chats stay on your phone. Downloaded files are kept."
 msgstr ""
 "Alles, was dieses Programm auf diesem Rechner gespeichert hat, wird gelöscht: die Anmeldung, zwischengespeicherte Chats und Medien und die gespeicherten Rechte. Ihre Chats bleiben auf dem Telefon. Heruntergeladene Dateien bleiben erhalten."
 
-#: src/huelle/fenster.rs:496
+#: src/huelle/fenster.rs:535 src/huelle/navigation.rs:178
 msgid "_Cancel"
 msgstr "_Abbrechen"
 
-#: src/huelle/fenster.rs:497
+#: src/huelle/fenster.rs:536
 msgid "_Log Out and Delete"
 msgstr "Ab_melden und löschen"
 
-#: src/huelle/fenster.rs:550 src/huelle/menue.rs:88
+#: src/huelle/fenster.rs:600 src/huelle/menue.rs:88
 msgid "_Reload"
 msgstr "Neu _laden"
 
-#: src/huelle/fenster.rs:553
+#: src/huelle/fenster.rs:603
 msgid "Close"
 msgstr "Schließen"
 
@@ -295,104 +355,123 @@ msgstr "_Abmelden und Daten löschen …"
 msgid "_Quit"
 msgstr "_Beenden"
 
-#: src/huelle/menue.rs:111
+#: src/huelle/menue.rs:112
 msgid "Cu_t"
 msgstr "_Ausschneiden"
 
-#: src/huelle/menue.rs:112
+#: src/huelle/menue.rs:118
 msgid "_Copy"
 msgstr "_Kopieren"
 
-#: src/huelle/menue.rs:113
+#: src/huelle/menue.rs:124
 msgid "_Paste"
 msgstr "E_infügen"
 
-#: src/huelle/menue.rs:116
+#: src/huelle/menue.rs:131
 msgid "Select _All"
 msgstr "Alles a_uswählen"
 
-#: src/huelle/menue.rs:122
+#: src/huelle/menue.rs:137
 msgid "Pr_eferences"
 msgstr "_Einstellungen"
 
-#: src/huelle/menue.rs:133
+#: src/huelle/menue.rs:149
 msgid "Zoom _In"
 msgstr "Ver_größern"
 
-#: src/huelle/menue.rs:134
+#: src/huelle/menue.rs:155
 msgid "Zoom _Out"
 msgstr "Ver_kleinern"
 
-#: src/huelle/menue.rs:136
+#: src/huelle/menue.rs:161
 msgid "_Normal Size"
 msgstr "_Normale Größe"
 
-#: src/huelle/menue.rs:143
+#: src/huelle/menue.rs:168
 msgid "_Full Screen"
 msgstr "_Vollbild"
 
-#: src/huelle/menue.rs:153
+#: src/huelle/menue.rs:179
 msgid "_Contents"
 msgstr "_Hilfe"
 
-#: src/huelle/menue.rs:154
+#: src/huelle/menue.rs:184
 msgid "_About"
 msgstr "_Info"
 
-#: src/huelle/menue.rs:163
+#: src/huelle/menue.rs:193
 msgid "_File"
 msgstr "_Datei"
 
-#: src/huelle/menue.rs:164
+#: src/huelle/menue.rs:194
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
-#: src/huelle/menue.rs:165
+#: src/huelle/menue.rs:195
 msgid "_View"
 msgstr "_Ansicht"
 
-#: src/huelle/menue.rs:166
+#: src/huelle/menue.rs:196
 msgid "_Help"
 msgstr "_Hilfe"
+
+#: src/huelle/mod.rs:100
+#, no-c-format
+msgid "The data folder cannot be used: {error}"
+msgstr "Der Datenordner ist nicht nutzbar: {error}"
+
+#: src/huelle/navigation.rs:171
+msgid "Open the link with another program?"
+msgstr "Link mit anderem Programm öffnen?"
+
+#: src/huelle/navigation.rs:172
+#, no-c-format
+msgid ""
+"The link is not a web or email address. Opening it starts the program that is registered for “{scheme}:” addresses with this target:"
+msgstr "Der Link ist keine Web- oder E-Mail-Adresse. Öffnen startet das Programm, das für Adressen mit „{scheme}:“ eingetragen ist, mit diesem Ziel:"
+
+#: src/huelle/navigation.rs:179
+msgid "_Open Link"
+msgstr "Link ö_ffnen"
 
 #: src/huelle/rechte.rs:91
 msgid "Your answer is remembered. Edit → Preferences can forget it again."
 msgstr ""
 "Die Antwort wird gespeichert; Bearbeiten → Einstellungen vergisst sie wieder."
 
-#: src/huelle/rechte.rs:96
+#: src/huelle/rechte.rs:94
 #, no-c-format
 msgid "Allow {service} to use the microphone?"
 msgstr "Darf {service} das Mikrofon benutzen?"
 
-#: src/huelle/rechte.rs:99
+#: src/huelle/rechte.rs:100
 msgid "The microphone is needed to record voice messages."
 msgstr "Das Mikrofon braucht die Seite, um Sprachnachrichten aufzunehmen."
 
-#: src/huelle/rechte.rs:103
+#: src/huelle/rechte.rs:104
 #, no-c-format
 msgid "Allow {service} to use the camera?"
 msgstr "Darf {service} die Kamera benutzen?"
 
-#: src/huelle/rechte.rs:106
+#: src/huelle/rechte.rs:107
 msgid "The camera is needed to take photos. Calls are not possible."
 msgstr "Die Kamera braucht die Seite für Fotos. Anrufe sind nicht möglich."
 
-#: src/huelle/rechte.rs:110
+#: src/huelle/rechte.rs:111
 #, no-c-format
 msgid "Allow {service} to read the clipboard?"
 msgstr "Darf {service} die Zwischenablage lesen?"
 
-#: src/huelle/rechte.rs:113
+#: src/huelle/rechte.rs:117
 msgid ""
 "The page can then read what you copied, also from other programs. Pasting with Ctrl+V works without this."
 msgstr ""
 "Die Seite kann dann lesen, was Sie kopiert haben, auch aus anderen Programmen. Einfügen mit Strg+V geht auch ohne."
 
-#: src/huelle/rechte.rs:210
+#: src/huelle/rechte.rs:223
 msgid "_Deny"
 msgstr "_Ablehnen"
 
-#: src/huelle/rechte.rs:211
+#: src/huelle/rechte.rs:224
 msgid "_Allow"
 msgstr "_Erlauben"

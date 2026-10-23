@@ -1,6 +1,6 @@
 [package]
 name = "querencia-nachrichten"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 rust-version = "1.92"
 description = "Querencia Nachrichten: schlanke GTK-4-Hülle um WhatsApp Web für Querencia Desktop"
@@ -29,5 +29,6 @@ lto = true
 codegen-units = 1
 
 [lints.rust]
-unsafe_code = "forbid"
+# Unsicher nur in src/huelle/grafik/ffi.rs (EGL-Abfrage, Umgebung beim Start)
+unsafe_code = "deny"
 unused_must_use = "deny"

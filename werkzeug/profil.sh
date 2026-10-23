@@ -7,9 +7,10 @@
 # DejaVu Sans 12 und Farbschema, Thema und Symbole als Link (in der Hülle
 # per --lesen sichtbar), Ablage-Kopie unter <profil>/opt/nachrichten/<sha16>/
 # mit share/locale wie die spätere Live-Ablage, Download-Ordner mit einer
-# schon vorhandenen probe-download.txt, Testöffner für https, Ordner und
-# Textdateien (testoeffner.sh protokolliert statt zu öffnen), Einstellungen
-# mit der gewählten Kennung.
+# schon vorhandenen probe-download.txt, Testöffner für https, mailto, ssh,
+# smb, Ordner und Textdateien (testoeffner.sh protokolliert statt zu
+# öffnen), Einstellungen mit der gewählten Kennung und, wenn GRAFIK gesetzt
+# ist, der Software-Grafik (automatisch, an, aus).
 set -euo pipefail
 HIER=$(cd "$(dirname "$0")" && pwd)
 R=$(cd "$HIER/.." && pwd)
@@ -46,9 +47,11 @@ cp "$BIN" "$A/querencia-nachrichten"
 (cd "$R" && python3 werkzeug/i18n.py mo "$A/share/locale" >/dev/null)
 chmod -R a-w "$A"
 ln -sfn "$A/querencia-nachrichten" "$P/opt/bin/querencia-nachrichten"
-# Testöffner statt Browser, Dateimanager und Texteditor
-for art in browser ordner datei; do
+# Testöffner statt Browser, Dateimanager, Texteditor und Programmen für
+# ssh: und smb: (0.1.1, QD-162 a)
+for art in browser ordner datei fremd; do
   case $art in
+    fremd) MT="x-scheme-handler/ssh;x-scheme-handler/smb;" ; ARG=%u ;;
     browser) MT="x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/mailto;" ; ARG=%u ;;
     ordner) MT="inode/directory;" ; ARG=%u ;;
     datei) MT="text/plain;" ; ARG=%u ;;
@@ -69,9 +72,12 @@ x-scheme-handler/https=qn-test-browser.desktop
 x-scheme-handler/mailto=qn-test-browser.desktop
 inode/directory=qn-test-ordner.desktop
 text/plain=qn-test-datei.desktop
+x-scheme-handler/ssh=qn-test-fremd.desktop
+x-scheme-handler/smb=qn-test-fremd.desktop
 X
 update-desktop-database "$P/data/applications" 2>/dev/null || true
 mkdir -p -m 700 "$P/config/querencia-nachrichten"
 printf '[Fenster]\nbreite=%s\nhoehe=%s\nmaximiert=false\n\n[Seite]\nkennung=%s\n' \
   "${FENSTER%x*}" "${FENSTER#*x}" "$KENNUNG" > "$P/config/querencia-nachrichten/einstellungen.ini"
+[ -n "${GRAFIK:-}" ] && printf '\n[Grafik]\nsoftware=%s\n' "$GRAFIK" >> "$P/config/querencia-nachrichten/einstellungen.ini"
 echo "$A"
