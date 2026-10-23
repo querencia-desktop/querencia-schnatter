@@ -100,9 +100,9 @@ Gemessen (23.10.2026, 8 Läufe, Binary `4c70dede…`): QR-Code nach 4,6–4,7 s;
 Standard: macOS-Safari-Kennung (Quirk), Seite wirbt für die Mac-App; Linux:
 WebKits Linux-Kennung, keine Mac-Werbung; Sprache der Seite `de`; die
 Anmeldeseite selbst bleibt hell, auch wenn `prefers-color-scheme: dark`
-gilt. Speicher (PSS) gesamt 748–787 MiB (Hülle 192–213, Netzwerkprozess
-41–50, Web-Prozesse ≈ 127 und 404–420); mit `GSK_RENDERER=cairo` 668 MiB
-(Hülle 90). Sandbox: beide Web-Prozesse in eigenen Namensräumen user, pid,
+gilt. Speicher (PSS) gesamt 748–787 MiB (Hülle 188–208, Netzwerkprozess
+40–48, Web-Prozesse ≈ 124 und 395–412); mit `GSK_RENDERER=cairo` 668 MiB
+(Hülle 88). Sandbox: beide Web-Prozesse in eigenen Namensräumen user, pid,
 net, mnt, ipc, uts, Seccomp 2, NoNewPrivs 1; `xdg-dbus-proxy` je
 Web-Prozess; Netzwerkprozess ohne Sandbox (wie vorgesehen).
 
