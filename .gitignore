@@ -13,6 +13,8 @@ __pycache__/
 # Vorlage der Integration: Binary und Katalog nicht ins Repo
 /integration/vorlage/querencia-nachrichten
 /integration/vorlage/share/
+/integration/int2/vorlage/querencia-nachrichten
+/integration/int2/vorlage/share/
 
 # Editor
 *.orig
