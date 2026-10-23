@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8">
+<title>WhatsApp</title>
+<style>
+  body { font: 15px sans-serif; margin: 16px; color: #222; background: #fff; }
+  @media (prefers-color-scheme: dark) { body { color: #ddd; background: #1e1e1e; } }
+  kbd { border: 1px solid #888; padding: 0 4px; border-radius: 3px; }
+  #log { font: 12px monospace; white-space: pre-wrap; max-height: 40vh; overflow: auto; }
+</style></head><body>
+<!-- Prüfseite Querencia Nachrichten (werkzeug/pruefseite.html): lokal unter
+     http://localhost/, kein Netz. Ergebnisse als Konsolenzeilen
+     „PRUEF {json}“ (nur auf der Prüfseite schreibt die Hülle die Konsole
+     nach stdout). Tasten (echte Nutzergeste über qeingabe):
+     m Mikrofon · k Kamera · z Zwischenablage lesen · g Standort ·
+     f fremder Link · n fremder Link in neuem Fenster · w window.open ·
+     e eigener Link · d Dateiwahl · t Textfeld · u Hauptseite ohne Geste weg ·
+     p Ton an/aus prüfen · c neue Meldung -->
+<h1>Prüfseite Querencia Nachrichten</h1>
+<p>Tasten: <kbd>m</kbd> Mikrofon, <kbd>k</kbd> Kamera, <kbd>z</kbd> Zwischenablage,
+<kbd>g</kbd> Standort, <kbd>f</kbd>/<kbd>n</kbd>/<kbd>w</kbd> fremde Links,
+<kbd>d</kbd> Dateiwahl, <kbd>t</kbd> Textfeld, <kbd>c</kbd> Meldung.</p>
+<textarea id="text" spellcheck="true" lang="de" rows="3" cols="60">Dis ist ein Tset mit Feler und ein Speling mistake</textarea>
+<p><a id="fremd" href="https://example.org/fremd?x=1">fremder Link</a> ·
+<a id="fremdneu" href="https://example.org/neu" target="_blank">fremder Link, neues Fenster</a> ·
+<a id="eigen" href="http://localhost/#eigen">eigener Link</a></p>
+<input id="datei" type="file" multiple accept="image/*,video/*" style="display:none">
+<div id="log"></div>
+<script>
+const zeige = (k, v) => {
+  console.log('PRUEF ' + JSON.stringify({k, v}));
+  document.getElementById('log').textContent += k + ' = ' + JSON.stringify(v) + '\n';
+};
+const schlafe = ms => new Promise(r => setTimeout(r, ms));
+
+function blobDownload(name, inhalt) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([inhalt], {type: 'text/plain'}));
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+function meldung(titel, text, tag) {
+  const n = new Notification(titel, {body: text, tag});
+  n.onshow = () => zeige('notification_onshow', tag);
+  n.onclick = () => zeige('notification_onclick', tag);
+  n.onclose = () => zeige('notification_onclose', tag);
+  n.onerror = e => zeige('notification_onerror', String(e));
+}
+
+async function medien(art) {
+  try {
+    const s = await navigator.mediaDevices.getUserMedia(art === 'audio' ? {audio: true} : {video: true});
+    zeige('getusermedia_' + art, 'erlaubt'); s.getTracks().forEach(t => t.stop());
+  } catch (e) { zeige('getusermedia_' + art, e.name); }
+}
+
+async function lauf() {
+  zeige('secure_context', window.isSecureContext);
+  zeige('origin', location.origin);
+  zeige('ua', navigator.userAgent);
+  zeige('dunkel', matchMedia('(prefers-color-scheme: dark)').matches);
+  zeige('rtc_peer_connection', typeof RTCPeerConnection !== 'undefined');
+  zeige('notification_permission', typeof Notification !== 'undefined' ? Notification.permission : 'fehlt');
+  for (const name of ['notifications', 'microphone', 'camera']) {
+    try { zeige('permissions_' + name, (await navigator.permissions.query({name})).state); }
+    catch (e) { zeige('permissions_' + name, 'fehler ' + e.name); }
+  }
+  try { meldung('Probe-Titel', 'Probe-Text äöü', 'probe-1'); }
+  catch (e) { zeige('notification_fehler', String(e)); }
+  // zwei Downloads mit demselben Namen (eine Datei liegt schon im Ordner)
+  blobDownload('probe-download.txt', 'Probe-Inhalt 1\n');
+  await schlafe(700);
+  blobDownload('probe-download.txt', 'Probe-Inhalt 2\n');
+  zeige('downloads_ausgeloest', 2);
+  try {
+    const ctx = new AudioContext();
+    const o = ctx.createOscillator(); const g = ctx.createGain();
+    g.gain.value = 0; o.connect(g).connect(ctx.destination); o.start();
+    window._ctx = ctx;
+    await schlafe(300);
+    zeige('audio_context', ctx.state);
+  } catch (e) { zeige('audio_context', 'fehler ' + e.name); }
+  try {
+    const au = document.createElement('audio'); au.loop = true; au.volume = 0;
+    au.src = 'data:audio/wav;base64,' + stilleWav(); window._au = au;
+    await au.play(); zeige('audio_element', 'spielt');
+  } catch (e) { zeige('audio_element', e.name); }
+  // Titelzähler
+  await schlafe(500); document.title = '(3) WhatsApp';
+  await schlafe(800); document.title = '(12) WhatsApp';
+  await schlafe(800); document.title = 'WhatsApp';
+  zeige('teil1_fertig', true);
+}
+
+function stilleWav() {
+  const n = 8000, b = new ArrayBuffer(44 + n * 2), v = new DataView(b);
+  const s = (o, t) => [...t].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+  s(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); s(8, 'WAVEfmt ');
+  v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, 8000, true); v.setUint32(28, 16000, true); v.setUint16(32, 2, true);
+  v.setUint16(34, 16, true); s(36, 'data'); v.setUint32(40, n * 2, true);
+  let bin = ''; new Uint8Array(b).forEach(x => bin += String.fromCharCode(x));
+  return btoa(bin);
+}
+
+document.addEventListener('keydown', async ev => {
+  const t = document.getElementById('text');
+  if (ev.target === t) {
+    if (ev.key === 'Escape') { t.blur(); zeige('textfeld', 'verlassen'); }
+    return;
+  }
+  zeige('taste', ev.key);
+  switch (ev.key) {
+    case 'm': await medien('audio'); break;
+    case 'k': await medien('video'); break;
+    case 'z':
+      try { const x = await navigator.clipboard.readText(); zeige('zwischenablage', 'gelesen ' + x.length + ' Zeichen'); }
+      catch (e) { zeige('zwischenablage', e.name); }
+      break;
+    case 'g':
+      navigator.geolocation.getCurrentPosition(() => zeige('standort', 'erlaubt'),
+                                               e => zeige('standort', 'abgelehnt ' + e.code));
+      break;
+    case 'f': document.getElementById('fremd').click(); break;
+    case 'n': document.getElementById('fremdneu').click(); break;
+    case 'w': zeige('window_open', String(window.open('https://example.org/fenster') !== null)); break;
+    case 'e': document.getElementById('eigen').click(); break;
+    case 'd': document.getElementById('datei').click(); zeige('dateiwahl', 'geklickt'); break;
+    case 't': ev.preventDefault(); t.focus(); t.setSelectionRange(t.value.length, t.value.length); zeige('textfeld', 'fokus'); break;
+    case 'c': meldung('Zweite Meldung', 'aus dem Fenster', 'probe-2'); break;
+    case 'p': zeige('audio_zustand', {ctx: window._ctx && window._ctx.state, element: window._au && !window._au.paused}); break;
+    case 'u':
+      zeige('umleitung', 'in 3 s ohne Geste');
+      setTimeout(() => { location.href = 'http://127.0.0.1:8765/fremd-ohne-geste'; }, 3000);
+      break;
+  }
+});
+document.getElementById('datei').addEventListener('change', e => zeige('dateiwahl_auswahl', e.target.files.length));
+document.getElementById('datei').addEventListener('cancel', () => zeige('dateiwahl_auswahl', 'abgebrochen'));
+window.addEventListener('hashchange', () => zeige('hash', location.hash));
+lauf();
+</script></body></html>

@@ -1,0 +1,26 @@
+[Desktop Entry]
+# Querencia Nachrichten. Desktop-ID = GApplication-ID org.querencia.Nachrichten,
+# damit labwc und die Fensterliste das Fenster dieser Datei zuordnen.
+# Vorlage: Name, GenericName, Comment und Keywords sind englisch; die
+# Übersetzungen (Name[de]= …) setzt `werkzeug/i18n.py desktop` aus po/*.po
+# ein (entspricht msgfmt --desktop). Erzeugt: org.querencia.Nachrichten.desktop.
+# Menü Internet (Network). Symbol vorerst „empathy“ aus dem Symbolthema
+# (Chat-Symbol aus GNOME 2), bis QD-166 das eigene Symbol liefert; kein
+# WhatsApp-Logo (R8).
+Type=Application
+Version=1.5
+Name[de]=Nachrichten
+Name=Messages
+GenericName[de]=Nachrichtenprogramm
+GenericName=Messenger
+Comment[de]=Mit WhatsApp Web im eigenen Fenster schreiben
+Comment=Chat with WhatsApp Web in its own window
+Exec=querencia-nachrichten
+TryExec=querencia-nachrichten
+Icon=empathy
+Terminal=false
+Categories=GTK;Network;InstantMessaging;Chat;
+Keywords[de]=WhatsApp;Chat;Messenger;Nachrichten;
+Keywords=WhatsApp;Chat;Messenger;Messages;
+StartupNotify=true
+StartupWMClass=org.querencia.Nachrichten

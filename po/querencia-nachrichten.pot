@@ -1,0 +1,383 @@
+# Übersetzungsvorlage für Querencia Nachrichten.
+# Copyright (C) 2026 Querencia
+# Diese Datei steht unter derselben Lizenz wie Querencia Nachrichten (GPL-3.0-or-later).
+# Erzeugt mit werkzeug/i18n.py pot – nicht von Hand bearbeiten.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: querencia-nachrichten\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#. TRANSLATORS: Desktop-Datei, Schlüssel Name
+#: data/org.querencia.Nachrichten.desktop.in:12
+msgid "Messages"
+msgstr ""
+
+#. TRANSLATORS: Desktop-Datei, Schlüssel GenericName
+#: data/org.querencia.Nachrichten.desktop.in:13
+msgid "Messenger"
+msgstr ""
+
+#. TRANSLATORS: Desktop-Datei, Schlüssel Comment
+#: data/org.querencia.Nachrichten.desktop.in:14
+msgid "Chat with WhatsApp Web in its own window"
+msgstr ""
+
+#. TRANSLATORS: Desktop-Datei, Schlüssel Keywords (Liste, Einträge mit ; trennen und abschließen)
+#: data/org.querencia.Nachrichten.desktop.in:20
+msgid "WhatsApp;Chat;Messenger;Messages;"
+msgstr ""
+
+#: src/huelle/dialoge.rs:178
+msgid "_Close"
+msgstr ""
+
+#. TRANSLATORS: Fenstertitel des Info-Dialogs
+#: src/huelle/dialoge.rs:200
+msgid "About Querencia Messages"
+msgstr ""
+
+#: src/huelle/dialoge.rs:206
+#, no-c-format
+msgid "Querencia Messages {version}"
+msgstr ""
+
+#: src/huelle/dialoge.rs:212
+msgid ""
+"WhatsApp Web in its own window for Querencia Desktop.\n"
+"\n"
+"Not affiliated with WhatsApp or Meta. WhatsApp is a trademark\n"
+"of its owner. Calls are not possible."
+msgstr ""
+
+#: src/huelle/dialoge.rs:219
+msgid "Alpha – not released for everyday use."
+msgstr ""
+
+#: src/huelle/dialoge.rs:240
+msgid "License: GPL-3.0-or-later"
+msgstr ""
+
+#: src/huelle/dialoge.rs:241
+#, no-c-format
+msgid "Web engine: WebKitGTK {version} (LGPL)"
+msgstr ""
+
+#: src/huelle/dialoge.rs:261
+msgid "Querencia Messages Help"
+msgstr ""
+
+#: src/huelle/dialoge.rs:267
+msgid "What this is"
+msgstr ""
+
+#: src/huelle/dialoge.rs:268
+msgid ""
+"Querencia Messages shows WhatsApp Web in its own window. It is not affiliated with WhatsApp; your messages go directly between this window and WhatsApp."
+msgstr ""
+
+#: src/huelle/dialoge.rs:275
+msgid "Signing in"
+msgstr ""
+
+#: src/huelle/dialoge.rs:276
+msgid ""
+"Open WhatsApp on your phone, choose “Linked devices”, then “Link a device”, and scan the QR code in the window. You stay signed in until you log out."
+msgstr ""
+
+#: src/huelle/dialoge.rs:283
+msgid "No calls"
+msgstr ""
+
+#: src/huelle/dialoge.rs:284
+msgid ""
+"Voice and video calls are not possible: the web engine of Ubuntu is built without WebRTC. Take calls on your phone. Voice messages work."
+msgstr ""
+
+#: src/huelle/dialoge.rs:291
+msgid "Notifications"
+msgstr ""
+
+#: src/huelle/dialoge.rs:292
+msgid ""
+"New messages are announced by the notification area of the desktop while the window is open. Closing the window quits the program; then there are no notifications."
+msgstr ""
+
+#: src/huelle/dialoge.rs:299
+msgid "Downloads"
+msgstr ""
+
+#: src/huelle/dialoge.rs:300
+msgid ""
+"Downloaded files go to your Downloads folder without a question; a file never overwrites another one. A notification offers to open the file or its folder."
+msgstr ""
+
+#: src/huelle/dialoge.rs:307
+msgid "Microphone, camera, clipboard"
+msgstr ""
+
+#: src/huelle/dialoge.rs:308
+msgid ""
+"The page asks once for each; the answer is remembered. Edit → Preferences forgets the answers."
+msgstr ""
+
+#: src/huelle/dialoge.rs:314
+msgid "Logging out"
+msgstr ""
+
+#: src/huelle/dialoge.rs:315
+msgid ""
+"File → Log Out and Delete Data removes everything this program stored for WhatsApp Web on this computer. Your chats stay on your phone."
+msgstr ""
+
+#: src/huelle/dialoge.rs:355
+msgid "Querencia Messages Preferences"
+msgstr ""
+
+#: src/huelle/dialoge.rs:364
+msgid "Browser identification"
+msgstr ""
+
+#: src/huelle/dialoge.rs:365
+msgid "_Standard of the web engine (WhatsApp sees Safari on a Mac)"
+msgstr ""
+
+#: src/huelle/dialoge.rs:368
+msgid "_Linux identification without site exceptions"
+msgstr ""
+
+#: src/huelle/dialoge.rs:376
+msgid ""
+"Changing it reloads the page. If WhatsApp Web stops working, switch back."
+msgstr ""
+
+#: src/huelle/dialoge.rs:403
+msgid "Sound"
+msgstr ""
+
+#: src/huelle/dialoge.rs:404
+msgid "_Play sounds and voice messages"
+msgstr ""
+
+#: src/huelle/dialoge.rs:415
+msgid "Remembered permissions"
+msgstr ""
+
+#: src/huelle/dialoge.rs:436
+msgid "_Forget Answers"
+msgstr ""
+
+#: src/huelle/dialoge.rs:464
+msgid "Microphone"
+msgstr ""
+
+#: src/huelle/dialoge.rs:465
+msgid "Camera"
+msgstr ""
+
+#: src/huelle/dialoge.rs:466
+msgid "Reading the clipboard"
+msgstr ""
+
+#: src/huelle/dialoge.rs:472
+msgid "allowed"
+msgstr ""
+
+#: src/huelle/dialoge.rs:473
+msgid "denied"
+msgstr ""
+
+#: src/huelle/dialoge.rs:474
+msgid "not asked yet"
+msgstr ""
+
+#: src/huelle/downloads.rs:42
+msgid "download"
+msgstr ""
+
+#: src/huelle/downloads.rs:133 src/i18n.rs:132
+msgid "Download finished"
+msgstr ""
+
+#: src/huelle/downloads.rs:136
+msgid "Open"
+msgstr ""
+
+#: src/huelle/downloads.rs:138
+msgid "Open Folder"
+msgstr ""
+
+#: src/huelle/downloads.rs:152
+msgid "Download failed"
+msgstr ""
+
+#: src/huelle/downloads.rs:153
+#, no-c-format
+msgid "“{name}” could not be downloaded."
+msgstr ""
+
+#: src/huelle/fenster.rs:55
+#, no-c-format
+msgid "{program} – test page"
+msgstr ""
+
+#: src/huelle/fenster.rs:57 src/huelle/fenster.rs:60 src/main.rs:70
+msgid "Querencia Messages"
+msgstr ""
+
+#: src/huelle/fenster.rs:251
+#, no-c-format
+msgid "{service} could not be loaded: {error}"
+msgstr ""
+
+#: src/huelle/fenster.rs:392
+msgid "The page stopped unexpectedly and was reloaded."
+msgstr ""
+
+#: src/huelle/fenster.rs:398
+msgid ""
+"The page stopped unexpectedly several times. Reload it when you are ready."
+msgstr ""
+
+#: src/huelle/fenster.rs:487
+#, no-c-format
+msgid "Log out of {service} and delete its data?"
+msgstr ""
+
+#: src/huelle/fenster.rs:491
+msgid ""
+"Everything this program stored on this computer is deleted: the sign-in, cached chats and media, and the remembered permissions. Your chats stay on your phone. Downloaded files are kept."
+msgstr ""
+
+#: src/huelle/fenster.rs:496
+msgid "_Cancel"
+msgstr ""
+
+#: src/huelle/fenster.rs:497
+msgid "_Log Out and Delete"
+msgstr ""
+
+#: src/huelle/fenster.rs:550 src/huelle/menue.rs:88
+msgid "_Reload"
+msgstr ""
+
+#: src/huelle/fenster.rs:553
+msgid "Close"
+msgstr ""
+
+#: src/huelle/menue.rs:94
+msgid "_Log Out and Delete Data…"
+msgstr ""
+
+#: src/huelle/menue.rs:100
+msgid "_Quit"
+msgstr ""
+
+#: src/huelle/menue.rs:111
+msgid "Cu_t"
+msgstr ""
+
+#: src/huelle/menue.rs:112
+msgid "_Copy"
+msgstr ""
+
+#: src/huelle/menue.rs:113
+msgid "_Paste"
+msgstr ""
+
+#: src/huelle/menue.rs:116
+msgid "Select _All"
+msgstr ""
+
+#: src/huelle/menue.rs:122
+msgid "Pr_eferences"
+msgstr ""
+
+#: src/huelle/menue.rs:133
+msgid "Zoom _In"
+msgstr ""
+
+#: src/huelle/menue.rs:134
+msgid "Zoom _Out"
+msgstr ""
+
+#: src/huelle/menue.rs:136
+msgid "_Normal Size"
+msgstr ""
+
+#: src/huelle/menue.rs:143
+msgid "_Full Screen"
+msgstr ""
+
+#: src/huelle/menue.rs:153
+msgid "_Contents"
+msgstr ""
+
+#: src/huelle/menue.rs:154
+msgid "_About"
+msgstr ""
+
+#: src/huelle/menue.rs:163
+msgid "_File"
+msgstr ""
+
+#: src/huelle/menue.rs:164
+msgid "_Edit"
+msgstr ""
+
+#: src/huelle/menue.rs:165
+msgid "_View"
+msgstr ""
+
+#: src/huelle/menue.rs:166
+msgid "_Help"
+msgstr ""
+
+#: src/huelle/rechte.rs:91
+msgid "Your answer is remembered. Edit → Preferences can forget it again."
+msgstr ""
+
+#: src/huelle/rechte.rs:96
+#, no-c-format
+msgid "Allow {service} to use the microphone?"
+msgstr ""
+
+#: src/huelle/rechte.rs:99
+msgid "The microphone is needed to record voice messages."
+msgstr ""
+
+#: src/huelle/rechte.rs:103
+#, no-c-format
+msgid "Allow {service} to use the camera?"
+msgstr ""
+
+#: src/huelle/rechte.rs:106
+msgid "The camera is needed to take photos. Calls are not possible."
+msgstr ""
+
+#: src/huelle/rechte.rs:110
+#, no-c-format
+msgid "Allow {service} to read the clipboard?"
+msgstr ""
+
+#: src/huelle/rechte.rs:113
+msgid ""
+"The page can then read what you copied, also from other programs. Pasting with Ctrl+V works without this."
+msgstr ""
+
+#: src/huelle/rechte.rs:210
+msgid "_Deny"
+msgstr ""
+
+#: src/huelle/rechte.rs:211
+msgid "_Allow"
+msgstr ""

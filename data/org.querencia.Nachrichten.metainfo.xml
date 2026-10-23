@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Querencia Nachrichten 0.1.0. Muster: querencia-dokumente (MetaInfo,
+     zweisprachig von Hand), Metadaten unter FSFAP. Kein WhatsApp-Logo,
+     Hinweis „nicht verbunden“ (R8). -->
+<component type="desktop-application">
+  <id>org.querencia.Nachrichten</id>
+  <name>Querencia Messages</name>
+  <name xml:lang="de">Querencia Nachrichten</name>
+  <summary>WhatsApp Web in its own window</summary>
+  <summary xml:lang="de">WhatsApp Web im eigenen Fenster</summary>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="org.querencia">
+    <name>Querencia Desktop</name>
+    <name xml:lang="de">Querencia Desktop</name>
+  </developer>
+  <project_group>Querencia</project_group>
+  <description>
+    <p>Querencia Messages shows WhatsApp Web in a window of its own, with the classic menu bar of Querencia Desktop. It keeps you signed in, announces new messages through the notifications of the desktop, shows the number of unread messages in the window title, saves downloads to the Downloads folder and checks spelling.</p>
+    <p xml:lang="de">Querencia Nachrichten zeigt WhatsApp Web in einem eigenen Fenster mit der klassischen Menüleiste von Querencia Desktop. Das Programm hält die Anmeldung, meldet neue Nachrichten über die Benachrichtigungen des Desktops, zeigt die Zahl ungelesener Nachrichten im Fenstertitel, legt Downloads im Download-Ordner ab und prüft die Rechtschreibung.</p>
+    <p>Calls are not possible. Not affiliated with WhatsApp or Meta.</p>
+    <p xml:lang="de">Anrufe sind nicht möglich. Nicht mit WhatsApp oder Meta verbunden.</p>
+  </description>
+  <url type="homepage">https://querencialinux.org</url>
+  <launchable type="desktop-id">org.querencia.Nachrichten.desktop</launchable>
+  <provides>
+    <binary>querencia-nachrichten</binary>
+  </provides>
+  <pkgname>querencia-nachrichten</pkgname>
+  <categories>
+    <category>Network</category>
+    <category>InstantMessaging</category>
+  </categories>
+  <keywords>
+    <keyword>WhatsApp</keyword>
+    <keyword>chat</keyword>
+    <keyword>messenger</keyword>
+    <keyword xml:lang="de">WhatsApp</keyword>
+    <keyword xml:lang="de">Chat</keyword>
+    <keyword xml:lang="de">Nachrichten</keyword>
+  </keywords>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-chat">intense</content_attribute>
+    <content_attribute id="social-audio">intense</content_attribute>
+    <content_attribute id="social-contacts">intense</content_attribute>
+  </content_rating>
+  <branding>
+    <color type="primary" scheme_preference="light">#F07746</color>
+    <color type="primary" scheme_preference="dark">#B8532B</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-10-23"/>
+  </releases>
+</component>

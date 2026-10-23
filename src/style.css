@@ -1,0 +1,25 @@
+/* Querencia Nachrichten: nur benannte Themenfarben (hell und dunkel ohne
+   eigene @media-Blöcke, QD-081), wie Querencia Dateien. */
+
+/* klassische Menüs (querencia-oberflaeche::classic_menu) */
+popover.querencia-menu { padding: 0; }
+popover.querencia-menu > contents { padding: 2px 0; border: 1px solid @borders; border-radius: 0; box-shadow: none; background-color: @theme_bg_color; color: @theme_fg_color; }
+popover.querencia-menu .qmenu { min-width: 150px; }
+popover.querencia-menu .qmenu-item { min-height: 20px; padding: 1px 10px 1px 4px; border: 1px solid transparent; outline: none; }
+popover.querencia-menu .qmenu-item .qmenu-arrow { color: alpha(@theme_fg_color, 0.7); }
+popover.querencia-menu .qmenu-item .qmenu-accel { color: alpha(@theme_fg_color, 0.7); }
+popover.querencia-menu .qmenu-item.qmenu-active { background-color: @theme_selected_bg_color; color: @theme_selected_fg_color; }
+popover.querencia-menu .qmenu-item.qmenu-active .qmenu-arrow,
+popover.querencia-menu .qmenu-item.qmenu-active .qmenu-accel { color: @theme_selected_fg_color; }
+popover.querencia-menu .qmenu-item:disabled { color: @insensitive_fg_color; }
+popover.querencia-menu separator { margin: 3px 1px; min-height: 1px; background-color: @borders; }
+
+/* Menüleiste */
+window.querencia-nachrichten box.querencia-menuleiste { background-color: @theme_bg_color; padding: 0 2px; border-bottom: 1px solid alpha(@borders, 0.5); }
+window.querencia-nachrichten menubutton.querencia-menuknopf > button { min-height: 0; padding: 2px 8px; border: 1px solid transparent; border-radius: 0; box-shadow: none; background: none; color: @theme_fg_color; }
+window.querencia-nachrichten menubutton.querencia-menuknopf arrow { min-width: 0; min-height: 0; margin: 0; padding: 0; -gtk-icon-source: none; }
+window.querencia-nachrichten menubutton.querencia-menuknopf > button:checked { background-color: @theme_selected_bg_color; color: @theme_selected_fg_color; }
+
+/* Hinweisleiste über der Seite (Absturz, Ladefehler) */
+window.querencia-nachrichten box.qn-hinweis { padding: 4px 8px; background-color: @theme_bg_color; border-bottom: 1px solid @borders; }
+window.querencia-nachrichten box.qn-hinweis button { min-height: 0; padding: 2px 8px; }

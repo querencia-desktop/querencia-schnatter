@@ -1,0 +1,24 @@
+Querencia Nachrichten – Teil von Querencia Desktop
+Copyright (C) 2026 Querencia Desktop contributors
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option)
+any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License in
+the file LICENSE for more details.
+
+Dateien mit eigenem Lizenzvermerk behalten diesen (README.md, Abschnitt
+„Lizenz“).
+
+Fremdbestandteile: Querencia Nachrichten linkt dynamisch gegen WebKitGTK 6.0
+(libwebkitgtk-6.0, LGPL-2.1 und BSD-2-Clause) und JavaScriptCore sowie GTK 4,
+GLib und libsoup (LGPL); die Rust-Bindings (gtk-rs, webkit6-rs) stehen unter
+MIT. Kein Code aus den Vorbildern ZapZap und WasIstLos (README, „Vorbilder“).
+Die Datei werkzeug/virtual-keyboard-unstable-v1.xml (nur Testwerkzeug) ist
+eine gekürzte Kopie aus wayland-protocols bzw. wlroots und behält ihren
+MIT-Vermerk im Dateikopf. werkzeug/reste.py ist unverändert aus dem
+Prüfrahmen von querencia-runtime übernommen (GPL-3.0-or-later).

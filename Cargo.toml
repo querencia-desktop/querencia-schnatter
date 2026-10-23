@@ -1,0 +1,33 @@
+[package]
+name = "querencia-nachrichten"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.92"
+description = "Querencia Nachrichten: schlanke GTK-4-Hülle um WhatsApp Web für Querencia Desktop"
+license = "GPL-3.0-or-later"
+publish = false
+
+[dependencies]
+# Dieselben Bindings wie die übrigen Querencia-Programme (gtk-rs 0.11).
+gtk = { package = "gtk4", version = "0.11", features = ["v4_12"] }
+# WebKitGTK 6.0 aus Ubuntu 26.04 (2.52.x, libwebkitgtk-6.0-4; E1). Die
+# Bindung steht unter MIT, WebKitGTK selbst unter LGPL-2.1/BSD (COPYRIGHT).
+webkit = { package = "webkit6", version = "0.6.1", features = ["v2_52"] }
+# Übersetzungen über GNU gettext (po/, .mo unter share/locale). Feature
+# gettext-system: das gettext der glibc statt eines mitgebauten libintl.
+gettext-rs = { version = "0.8", features = ["gettext-system"] }
+# Klassische Menüs, Symbolthema, Farbschema und Settings-Portal wie die
+# übrigen Querencia-Programme (E11: Pfad auf den Runtime-Checkout, Stand
+# bd420d7; vor der Veröffentlichung Git-Abhängigkeit mit Tag, README).
+querencia-oberflaeche = { path = "../querencia-runtime/crates/querencia-oberflaeche" }
+# Freie Namen für Downloads („foto 2.jpg“), dieselbe Regel wie Desktop und
+# Dateimanager (E6).
+querencia-dateiarbeit = { path = "../querencia-runtime/crates/querencia-dateiarbeit" }
+
+[profile.release]
+lto = true
+codegen-units = 1
+
+[lints.rust]
+unsafe_code = "forbid"
+unused_must_use = "deny"

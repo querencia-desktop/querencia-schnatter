@@ -1,0 +1,14 @@
+# Werkstatt-Ordner, Ausnahmen vom Doku-Standard (wie querencia-dokumente):
+# nachweis/ – Prüfnachweise der Prüfhülle (Protokolle, Fotos); von Git ignoriert, keine Projektdoku.
+nachweis/
+# gui-test/ – Wegwerfprofile der Prüfläufe; von Git ignoriert.
+gui-test/
+# tmp/ – Arbeitsdateien der Prüfgerüste; von Git ignoriert.
+tmp/
+
+# GitHub-Dateien, begründete Ausnahme vom Doku-Standard: SECURITY.md und die
+# PR-Vorlage unter .github/ stehen dort, wo GitHub sie erwartet; MARKE.md
+# steht wie LICENSE und COPYRIGHT im Root (Vorlage aller Querencia-Repos).
+SECURITY.md
+MARKE.md
+.github/
