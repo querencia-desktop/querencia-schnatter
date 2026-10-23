@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Prüfhülle Querencia Nachrichten: welche Grafikbibliotheken die Hülle und
-ihre Nachkommen geladen haben (QD-169). Liest nur /proc/<pid>/maps, beendet
+ihre Nachkommen geladen haben und mit welchen Grafik-Variablen sie laufen
+(QD-169). Liest nur /proc/<pid>/maps und /proc/<pid>/environ, beendet
 nichts.
 
 Aufruf: karten.py <pid der hülle>
 Je Prozess eine Zeile „karten <name> pid=<pid> gallium=ja|nein
-vulkan_nouveau=ja|nein vulkan=<ICDs> egl_mesa=ja|nein“; ein Prozess, dessen
-maps nicht lesbar ist, steht mit „nicht lesbar“ da.
+vulkan_nouveau=ja|nein vulkan=<ICDs> egl_mesa=ja|nein umgebung=<die drei
+Variablen des Grafik-Rückfalls aus /proc/<pid>/environ oder ->“; ein Prozess,
+dessen maps nicht lesbar ist, steht mit „nicht lesbar“ da.
 """
 import os
 import re
@@ -27,6 +29,20 @@ def name(pid):
             return f.read().strip()
     except OSError:
         return "?"
+
+
+VARIABLEN = ("LIBGL_ALWAYS_SOFTWARE", "MESA_LOADER_DRIVER_OVERRIDE", "GALLIUM_DRIVER")
+
+
+def umgebung(pid):
+    try:
+        with open(f"/proc/{pid}/environ", "rb") as f:
+            teile = f.read().split(b"\0")
+    except OSError as e:
+        return f"nicht-lesbar({e.strerror})"
+    werte = [t.decode(errors="replace") for t in teile
+             if t.split(b"=", 1)[0].decode(errors="replace") in VARIABLEN]
+    return ",".join(sorted(werte)) or "-"
 
 
 def main():
@@ -57,7 +73,8 @@ def main():
         egl = any(b.startswith("libEGL_mesa") for b in basis)
         print(f"karten {name(p)} pid={p} gallium={'ja' if gallium else 'nein'} "
               f"vulkan_nouveau={'ja' if nouveau else 'nein'} "
-              f"vulkan={','.join(icds) or '-'} egl_mesa={'ja' if egl else 'nein'}")
+              f"vulkan={','.join(icds) or '-'} egl_mesa={'ja' if egl else 'nein'} "
+              f"umgebung={umgebung(p)}")
 
 
 if __name__ == "__main__":

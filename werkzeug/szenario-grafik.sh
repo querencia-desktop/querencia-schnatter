@@ -4,9 +4,12 @@
 # (eigene Probe „--grafik-probe“ gegen eglinfo -B, surfaceless) und startet
 # die Hülle gegen die Prüfseite in vier Fällen: Einstellung automatisch, an,
 # aus und „Umgebung“ (die drei Variablen schon gesetzt, wie von einer
-# Sitzung). Je Fall: Protokollzeile, Ereignis, Bibliotheken der Hülle und
-# der Web-Prozesse (/proc/<pid>/maps, karten.py), Renderer im Info-Dialog
-# (Foto). Ergebnis: $OUT/ergebnis.txt.
+# Sitzung), dazu „vergleich“ mit einer Vergleichs-Binary (0.1.0, lauf.sh
+# VERGLEICH_BIN). Je Fall: Protokollzeile, Ereignis, Bibliotheken und
+# Grafik-Variablen der Hülle und der Web-Prozesse (/proc/<pid>/maps und
+# environ, karten.py), Bildbetrachter der Prüfseite (Taste v: Dekodier- und
+# Zeichenzeit, Foto, kein Absturz), Renderer im Info-Dialog (Foto).
+# Ergebnis: $OUT/ergebnis.txt.
 set -u
 . "$QN_PROFIL/env.sh"
 Q=$W/bin/qeingabe; QA=$W/bin/qausgabe
@@ -57,24 +60,42 @@ export WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1
 INI=$QN_PROFIL/config/querencia-nachrichten/einstellungen.ini
 . "$W/eingabe.sh"
 
-# 2. Die Hülle in vier Fällen
-for fall in automatisch an aus umgebung; do
+# 2. Die Hülle in vier Fällen (und mit der Vergleichs-Binary)
+FAELLE=${GRAFIK_FAELLE:-"automatisch an aus umgebung"}
+VB=$QN_PROFIL/opt/vergleich/querencia-nachrichten
+[ -x "$VB" ] && FAELLE="vergleich $FAELLE"
+for fall in $FAELLE; do
   sed -i '/^\[Grafik\]/,$d' "$INI"
   modus=$fall; [ "$fall" = umgebung ] && modus=automatisch
   printf '[Grafik]\nsoftware=%s\n' "$modus" >>"$INI"
   A=$L/app-$fall.log
   if [ "$fall" = umgebung ]; then env "${SW[@]}" "$BIN" >"$L/app-$fall.out" 2>"$A" &
+  elif [ "$fall" = vergleich ]; then "$VB" >"$L/app-$fall.out" 2>"$A" &
   else "$BIN" >"$L/app-$fall.out" 2>"$A" &
   fi
   APP=$!
   pruefe "$fall-seite-geladen" "teil1_fertig" "$A" 40
   sleep 2
+  # Bildbetrachter (wie bei WhatsApp Web): dreimal öffnen und schließen, Zeiten je Öffnen
+  for i in 1 2 3; do
+    q "key v"
+    for _ in $(seq 200); do [ "$(grep -c '"k":"bildbetrachter","v"' "$A")" -ge "$i" ] && break; sleep 0.1; done
+    [ "$i" = 1 ] && { sleep 0.3; foto "bildbetrachter-$fall"; }
+    q "key Escape" "wait 300"
+  done
+  echo "$(ja [ "$(grep -c '"k":"bildbetrachter","v"' "$A")" = 3 ]) $fall-bildbetrachter-dreimal-offen" >>"$E"
+  grep -o '"k":"bildbetrachter","v":{[^}]*}' "$A" | sed "s/^.*\"v\":/INFO $fall bildbetrachter /" >>"$E"
+  sleep 1
+  grep -q "web-process-terminated" "$A" && echo "FAIL $fall-bildbetrachter-ohne-absturz" >>"$E" || echo "PASS $fall-bildbetrachter-ohne-absturz" >>"$E"
   G=$(grep -m1 "querencia-nachrichten: Grafik:" "$A")
   echo "INFO $fall ${G#*querencia-nachrichten: }" >>"$E"
   python3 -I "$W/karten.py" "$APP" >"$L/karten-$fall.txt" 2>&1
   sed "s/^/INFO $fall /" "$L/karten-$fall.txt" >>"$E"
   WEB=$(grep '^karten WebKitWebProces' "$L/karten-$fall.txt" | grep -v 'nicht lesbar')
+  UMG=$(grep '^karten WebKitWebProces' "$L/karten-$fall.txt" | sed -n 's/.* umgebung=//p' | sort -u)
+  echo "INFO $fall webprozess-umgebung ${UMG//$'\n'/ | }" >>"$E"
   case $fall in
+    vergleich) SOFT=0 ;;
     automatisch)
       if [ "$ERKANNT" = 1 ]; then
         pruefe automatisch-erkannt "grafik modus=automatisch grund=Erkannt gesetzt=\[\"LIBGL_ALWAYS_SOFTWARE\", \"MESA_LOADER_DRIVER_OVERRIDE\", \"GALLIUM_DRIVER\"\]" "$A" 1
@@ -87,12 +108,21 @@ for fall in automatisch an aus umgebung; do
     aus) pruefe aus-keine-probe "grafik modus=aus grund=Aus gesetzt=\[\]" "$A" 1; SOFT=0 ;;
     umgebung) pruefe umgebung-keine-probe "grafik modus=automatisch grund=Umgebung gesetzt=\[\]" "$A" 1; SOFT=1 ;;
   esac
+  ALLE3="GALLIUM_DRIVER=llvmpipe,LIBGL_ALWAYS_SOFTWARE=1,MESA_LOADER_DRIVER_OVERRIDE=llvmpipe"
   if [ -z "$WEB" ]; then echo "FAIL $fall-webprozess-karten (keiner lesbar)" >>"$E"
   elif [ "$SOFT" = 1 ]; then
     echo "$(ja grep -q 'gallium=ja' <<<"$WEB") $fall-webprozess-libgallium" >>"$E"
     echo "$(ja nicht grep -q 'vulkan_nouveau=ja' <<<"$WEB") $fall-webprozess-ohne-libvulkan_nouveau" >>"$E"
-  elif [ "$ERKANNT" = 1 ]; then
-    echo "$(ja grep -q 'vulkan_nouveau=ja' <<<"$WEB") $fall-webprozess-zink-auf-nvk" >>"$E"
+    echo "$(ja [ "$UMG" = "$ALLE3" ]) $fall-webprozess-environ-drei-variablen" >>"$E"
+  else
+    [ "$ERKANNT" = 1 ] && echo "$(ja grep -q 'vulkan_nouveau=ja' <<<"$WEB") $fall-webprozess-zink-auf-nvk" >>"$E"
+    echo "$(ja [ "$UMG" = "-" ]) $fall-webprozess-environ-ohne-variablen" >>"$E"
+  fi
+  if [ "$fall" = vergleich ]; then
+    aktion app beenden
+    for _ in $(seq 50); do kill -0 "$APP" 2>/dev/null || break; sleep 0.2; done
+    kill -0 "$APP" 2>/dev/null && echo "FAIL $fall-beenden" >>"$E" || echo "PASS $fall-beenden" >>"$E"
+    continue
   fi
   # Info-Dialog: Renderer, wie ihn die Web-Prozesse sehen
   aktion win info

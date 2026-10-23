@@ -1,7 +1,7 @@
 #!/bin/bash
 # Prüfhülle Querencia Nachrichten: ein Lauf.
 #   lauf.sh funktionen <de|en> <BxH> <hell|dunkel>
-#   lauf.sh grafik <de|en> <BxH> <hell|dunkel>        (0.1.1, QD-169)
+#   [VERGLEICH_BIN=…] lauf.sh grafik <de|en> <BxH> <hell|dunkel>   (0.1.1, QD-169)
 #   lauf.sh anmeldeseite <N|E> <de|en> <BxH> <hell|dunkel> <standard|linux>
 # Gestartet wird die Ablage-Kopie des Release-Baus (BIN=… überschreibt).
 # Ergebnis unter nachweis/<art>/<name>/. Sprache wie live: LANG=en_US.UTF-8,
@@ -11,7 +11,8 @@ HIER=$(cd "$(dirname "$0")" && pwd)
 R=$(cd "$HIER/.." && pwd)
 ART=${1:?funktionen|anmeldeseite}; shift
 case $ART in
-  funktionen|grafik) STUFE=L; SPR=${1:?}; RES=${2:?}; SCHEMA=${3:?}; KENNUNG=standard; NAME=$SPR-$RES-$SCHEMA ;;
+  funktionen|grafik) STUFE=L; SPR=${1:?}; RES=${2:?}; SCHEMA=${3:?}; KENNUNG=standard
+                     NAME=$SPR-$RES-$SCHEMA${NAMENSZUSATZ:+-$NAMENSZUSATZ} ;;
   anmeldeseite) STUFE=${1:?}; SPR=${2:?}; RES=${3:?}; SCHEMA=${4:?}; KENNUNG=${5:?}
                 NAME=$STUFE-$KENNUNG-$SPR-$RES-$SCHEMA${NAMENSZUSATZ:+-$NAMENSZUSATZ} ;;
   *) echo "lauf.sh funktionen|grafik|anmeldeseite …" >&2; exit 2 ;;
@@ -26,6 +27,11 @@ rm -rf -- "$OUT"; mkdir -p "$OUT" "$P"
 # Fenster: auf 1920×1080 groß, auf 1024×768 die Vorgabegröße 1000×700
 case $RES in 1920x1080) FENSTER=1400x900 ;; *) FENSTER=1000x700 ;; esac
 bash "$HIER/profil.sh" "$P" "$BIN" "$SCHEMA" "$KENNUNG" "$FENSTER" >/dev/null
+# Grafik-Szenario: eine Vergleichs-Binary (z. B. 0.1.0 aus der Ablage, nur gelesen) ins Profil
+if [ -n "${VERGLEICH_BIN:-}" ]; then
+  mkdir -p "$P/opt/vergleich"; cp "$VERGLEICH_BIN" "$P/opt/vergleich/querencia-nachrichten"
+  (cd "$R" && python3 werkzeug/i18n.py mo "$P/opt/vergleich/share/locale" >/dev/null)
+fi
 cat >"$P/env.sh" <<X
 BIN=\$(ls "$P"/opt/bin/querencia-nachrichten)
 OUT=$OUT
@@ -40,6 +46,8 @@ FENSTER=$FENSTER
 export LANGUAGE=$SPR
 X
 [ -n "${GSK_RENDERER:-}" ] && echo "export GSK_RENDERER=$GSK_RENDERER" >>"$P/env.sh"
+# Grafik-Szenario: Fälle und Reihenfolge (Vorgabe: automatisch an aus umgebung)
+[ -n "${GRAFIK_FAELLE:-}" ] && echo "GRAFIK_FAELLE=\"$GRAFIK_FAELLE\"" >>"$P/env.sh"
 LESEN=(--lesen "$(readlink -f "$HOME/.local/share/themes/Querencia-Klassisch")/.."
        --lesen "$HOME/.local/share/icons/Querencia")
 bash "$HIER/huelle.sh" --profil "$P" --labwc --sprache en_US.UTF-8 --setenv "LANGUAGE=$SPR" \

@@ -97,19 +97,32 @@ die Adresse im eigenen Ursprung aus; das Szenario hält das nur fest.
 ## Grafik-Rückfall (Stufe L, 0.1.1, QD-169)
 
 ```bash
-bash werkzeug/lauf.sh grafik de 1920x1080 hell
-bash werkzeug/lauf.sh grafik en 1024x768 dunkel
+VERGLEICH_BIN=<0.1.0-Binary> bash werkzeug/lauf.sh grafik de 1920x1080 hell
+VERGLEICH_BIN=<0.1.0-Binary> bash werkzeug/lauf.sh grafik en 1024x768 dunkel
 ```
+
+Dazu `de 1024x768 hell` und `en 1920x1080 dunkel` (alle vier Kombinationen).
+`VERGLEICH_BIN` (wahlweise) kopiert eine zweite Binary ins Profil, etwa 0.1.0
+aus der Ablage, nur gelesen; sie läuft als Fall „vergleich“. `GRAFIK_FAELLE`
+legt Fälle und Reihenfolge fest, `NAMENSZUSATZ` hängt einen Zusatz an den
+Namen des Laufs.
 
 `werkzeug/szenario-grafik.sh` misst die Erkennung auf zwei Wegen: die
 Grafik-Probe des Programms (`querencia-nachrichten --grafik-probe`,
 surfaceless EGL, GLES 2) gegen `eglinfo -B -p surfaceless`, je ohne und mit
 den drei Variablen; dann startet es die Hülle gegen die Prüfseite viermal
 (Einstellung automatisch, an, aus, dazu „Umgebung“ mit schon gesetzten
-Variablen) und liest je Fall die Protokollzeile „Grafik:“, das Ereignis
-`grafik`, die geladenen Bibliotheken der Hülle und der Web-Prozesse aus
-`/proc/<pid>/maps` (`werkzeug/karten.py`: libgallium, libvulkan_nouveau,
-übrige Vulkan-Treiber, libEGL_mesa) und den Renderer im Info-Dialog (Foto).
+Variablen und „vergleich“) und liest je Fall die Protokollzeile „Grafik:“,
+das Ereignis `grafik`, die geladenen Bibliotheken und die Grafik-Variablen
+der Hülle und der Web-Prozesse aus `/proc/<pid>/maps` und
+`/proc/<pid>/environ` (`werkzeug/karten.py`: libgallium, libvulkan_nouveau,
+übrige Vulkan-Treiber, libEGL_mesa, die drei Variablen) und den Renderer im
+Info-Dialog (Foto). Dazu öffnet es je Fall dreimal den Bildbetrachter der
+Prüfseite (Taste `v`): ein Bild mit 3000×2000 Pixeln aus einem Canvas, als
+PNG-Blob, blendet in einer eigenen Ebene mit Zoom und Deckkraft ein wie bei
+WhatsApp Web. Gemessen werden Dekodieren, die erste Zeichnung nach dem
+Einfügen und die Bildabstände der Animation (`requestAnimationFrame`, 0,9 s);
+dazu gibt es ein Foto, und das Szenario prüft, dass kein Absturz folgt.
 
 Gemessen (23.10.2026, RTX 3060 mit nouveau, Mesa 26.0.8, je 32 von 32):
 Probe und eglinfo nennen beide „zink Vulkan 1.4(NVIDIA GeForce RTX 3060
@@ -120,6 +133,29 @@ libgallium und libEGL_mesa, **ohne** libvulkan_nouveau, Info-Dialog
 „llvmpipe“; aus: Web-Prozesse mit libvulkan_nouveau (zink auf NVK). Die Hülle
 selbst lädt in allen Fällen libvulkan_nouveau: GTK zeichnet über Vulkan, das
 die Variablen nicht berühren.
+
+Nachtrag (23.10.2026, alle vier Kombinationen, je 50 von 50, mit 0.1.0 als
+„vergleich“): `environ` der Web-Prozesse mit genau den drei Variablen bei
+automatisch, an und Umgebung, ohne sie bei aus und 0.1.0; das gilt auch in
+Stufe E mit WebKits Sandbox. Im `environ` der Hülle selbst stehen sie nicht,
+weil der Kernel dort die Umgebung beim Start zeigt; die Hülle setzt sie erst
+danach. Der Bildbetrachter öffnet in allen Fällen ohne Absturz.
+
+Zeichenzeit des Bildbetrachters (ms, Hülle ohne Bildschirm mit 60 Hz;
+Dekodieren / erste Zeichnung / Bildabstand im Mittel / p95 / größter):
+
+| Fall | Dekodieren | erste Zeichnung | Mittel | p95 | größter |
+|---|---|---|---|---|---|
+| 0.1.0 und 0.1.1 aus (zink auf NVK) | 67–77 | 17–31 | 17,0–18,5 | 17 | 78–137 |
+| 0.1.1 llvmpipe, warmer Shader-Cache | 66–109 | 17–61 | 16,4–19,7 | 17–21 | 43–187 |
+| 0.1.1 llvmpipe, erstes Öffnen mit kaltem Cache | 70–76 | 45–90 | ein Bild nach 1191–1255 | – | 1255 |
+
+Die Animation läuft mit llvmpipe so flüssig wie mit zink. Einmalig, beim
+ersten Bild mit llvmpipe in einem Profil, steht die Animation rund 1,2 s:
+llvmpipe übersetzt dann seine Shader und legt sie im Mesa-Cache ab
+(`~/.cache/mesa_shader_cache`). Mit umgekehrter Reihenfolge der Fälle trifft
+es den jeweils ersten llvmpipe-Fall, nicht den Modus. Im echten Betrieb
+geschieht das einmal je Mesa-Stand.
 
 ## Anmeldeseiten-Wächter (Stufe E, Muster `probe.py` der Machbarkeit)
 
@@ -157,6 +193,9 @@ Standard; PSS in MiB, Hülle / Netzwerk / Web-Prozesse):
 | 0.1.1 automatisch (2 Läufe) | llvmpipe | 976, 980 | 189–195 / 44 / 149–156 + 585–590 | 4,7–6,5 s |
 | 0.1.1 aus | zink auf NVK | 746 | 196 / 44 / 120 + 384 | 6,7 s |
 | 0.1.1 automatisch, 1024×768 dunkel, Linux-Kennung | llvmpipe | 937 | 178 / 43 / 155 + 558 | 4,8 s |
+| 0.1.0, 1920×1080 dunkel | zink auf NVK | 758 | 196 / – / 121 + 392 | 4,7 s |
+| 0.1.1 automatisch, 1920×1080 dunkel | llvmpipe | 997 | 200 / – / 157 + 594 | 4,5 s |
+| 0.1.1 automatisch, 1024×768 hell | llvmpipe | 940 | 177 / – / 147 + 570 | 4,5 s |
 
 Software-Grafik kostet auf der Anmeldeseite rund 240 MiB, fast alles im
 Web-Prozess der Seite (llvmpipe hält Texturen im Hauptspeicher). Die Karten
