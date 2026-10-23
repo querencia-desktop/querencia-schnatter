@@ -5,7 +5,9 @@
 Ubuntu 26.04 mit `build-essential pkg-config rustc cargo libgtk-4-dev
 libwebkitgtk-6.0-dev gettext` (Rust 1.93 aus dem Archiv reicht;
 `libwebkitgtk-6.0-dev` zieht `libjavascriptcoregtk-6.0-dev` und
-`libsoup-3.0-dev` mit). Zur Laufzeit: `libwebkitgtk-6.0-4` (2.52.x),
+`libsoup-3.0-dev` mit, `libgtk-4-dev` über `libepoxy-dev` auch `libegl-dev`:
+seit 0.1.1 linkt das Programm `libEGL.so.1` direkt für die Grafik-Probe).
+Zur Laufzeit: `libwebkitgtk-6.0-4` (2.52.x),
 empfohlen `hunspell-de-de`, `hunspell-en-us`, `gstreamer1.0-plugins-good`.
 
 Crates: gtk4 0.11 (Feature `v4_12`), webkit6 0.6.1 (Feature `v2_52`, E1),

@@ -5,6 +5,34 @@ nach [Semantic Versioning](https://semver.org/lang/de/). Solange die Hauptversio
 0 ist, kann sich alles ändern. Jede Zeile nennt, was Nutzer merken; Unfertiges
 steht als „unfertig“ da.
 
+## [0.1.1] – 2026-10-23
+
+### Neu
+- Software-Grafik für die Webseite, wo die Grafikhardware versagt: Läuft
+  OpenGL über zink auf nouveau (NVIDIA mit freiem Treiber, Mesa 26), stürzte
+  die Seite beim Öffnen eines Bildes ab (QD-169). Nachrichten erkennt das
+  beim Start und zeichnet die Seite dann in Software (llvmpipe). Bearbeiten →
+  Einstellungen → „Software-Grafik“: automatisch (Vorgabe), an, aus; gilt ab
+  dem nächsten Start. Der Info-Dialog nennt den Renderer der Seite und den
+  Grund. Kostet auf der Anmeldeseite rund 240 MiB mehr Speicher.
+- Links mit anderen Schemata als http, https und mailto (z. B. `ssh:`,
+  `smb:`, eigene Schemata) öffnen erst nach der Rückfrage „Link mit anderem
+  Programm öffnen?“, die das Ziel zeigt; Vorgabe ist „Abbrechen“.
+
+### Geändert
+- Die Seite kann das Fenster nicht mehr auf `data:`-, `file:`- oder fremde
+  `blob:`-Adressen wechseln; jede Ablehnung steht ohne Inhalt im Protokoll.
+  Eingebettete Rahmen dürfen `data:` weiter laden.
+- Im Protokoll stehen Adressen anderer Schemata als http(s) nur noch als
+  Schema (kein Inhalt aus `mailto:` oder `data:`).
+
+### Behoben
+- Die Meldung „Der Datenordner ist nicht nutzbar“ war nicht übersetzt.
+
+### Bekannt
+- `javascript:`-Adressen fragt WebKit 2.52 nicht bei der Hülle an; es führt
+  sie nur im eigenen Ursprung der Seite aus, wie ein Skript der Seite.
+
 ## [0.1.0] – 2026-10-23 „Hülle“
 
 ### Neu

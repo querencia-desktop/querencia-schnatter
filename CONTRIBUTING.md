@@ -53,6 +53,9 @@ Checkliste:
    programmen ZapZap und WasIstLos (siehe README, „Vorbilder“).
 8. Dienstbezogenes gehört nach `src/dienst/whatsapp.rs`, alles andere in die
    dienstneutrale Hülle `src/huelle/`.
+9. Kein `unsafe` außerhalb von `src/huelle/grafik/ffi.rs` (EGL-Abfrage der
+   Grafik-Probe, Umgebung beim Start); der Lint `unsafe_code = "deny"` in
+   `Cargo.toml` sorgt dafür.
 
 ## Lizenz der Beiträge
 

@@ -21,3 +21,5 @@ __pycache__/
 *.rej
 *.swp
 *~
+/integration/011/vorlage/querencia-nachrichten
+/integration/011/vorlage/share/

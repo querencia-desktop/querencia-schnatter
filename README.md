@@ -29,13 +29,20 @@ documentation is in German.
   Datei, danach eine Meldung mit „Öffnen“ und „Ordner öffnen“
 - Mikrofon (Sprachnachrichten), Kamera und Lesen der Zwischenablage: je Art
   einmal fragen, Antwort merken (Bearbeiten → Einstellungen vergisst sie)
-- fremde Links öffnet der Standardbrowser; das Fenster bleibt bei WhatsApp Web
+- fremde Links öffnet der Standardbrowser (http, https) bzw. das Mailprogramm
+  (mailto); das Fenster bleibt bei WhatsApp Web
 - Rechtschreibprüfung in der Sprache der Oberfläche und Englisch (nur
   installierte hunspell-Wörterbücher)
 - Zoom und Fenstergröße werden gemerkt, Vollbild mit F11
 - stürzt der Web-Prozess ab, lädt das Fenster neu und sagt es
 - Browserkennung umschaltbar (Bearbeiten → Einstellungen): WebKit-Standard
   (WhatsApp sieht Safari auf einem Mac) oder Linux-Kennung
+- Software-Grafik (Bearbeiten → Einstellungen): automatisch, an, aus; bei
+  OpenGL über zink auf nouveau zeichnet WebKit die Seite automatisch in
+  Software (der Bildbetrachter stürzte sonst ab, QD-169); der Info-Dialog
+  nennt den Renderer
+- Links mit anderen Schemata als http, https, mailto erst nach Rückfrage; die
+  Hauptseite wechselt nie auf `data:`, `file:` oder fremde `blob:`
 - Bewusst **nicht** Teil von 0.1: Anrufe, Panel-Symbol, Verstecken statt
   Beenden, Meldungen mit Absenderbild, mehrere Konten, `whatsapp://`-Links
 
@@ -55,8 +62,8 @@ Anwendungskennung (App-ID): `org.querencia.Nachrichten` · Binary:
 
 | | |
 |---|---|
-| Version | 0.1.0 „Hülle“ (Tag `nachrichten/0.1.0`), live seit 23.10.2026 17:14 (Integrationsfassung `nachrichten/0.1.0-int`; `-int3` mit Symbol-Rückfall bereit) |
-| Letzte Prüfung | 23.10.2026: 26 Unit-Tests, Clippy sauber, `i18n.py pruefen`; Prüfhülle Stufe L gegen die Prüfseite de/1920×1080/hell und en/1024×768/dunkel je 51 von 51; Anmeldeseiten-Wächter Stufe E, beide Kennungen, hell/dunkel, 1920×1080 und 1024×768: QR-Code nach 4,6–4,7 s; Integrationsprobe 99/0 (`-int`) bzw. 117/0 (`-int3`) |
+| Version | 0.1.1 (Tag `nachrichten/0.1.1`, Zweig `nachrichten-011`): Grafik-Rückfall und Härtung, zur Freigabe bereit (Integrationsfassung `integration/011/`, Tag `nachrichten/0.1.1-int`); live ist 0.1.0 „Hülle“ seit 23.10.2026 17:14 (`nachrichten/0.1.0-int`) |
+| Letzte Prüfung | 23.10.2026 (0.1.1): 32 Unit-Tests, Clippy sauber, `i18n.py pruefen` (102 Texte); Prüfhülle Stufe L: Prüfseite de/1920×1080/hell und en/1024×768/dunkel je 74 von 74, Grafik-Szenario je 32 von 32; Anmeldeseiten-Wächter Stufe E 0.1.0 gegen 0.1.1 (Speicher, Bibliotheken der Web-Prozesse); Integrationsprobe siehe [docs/integration.md](docs/integration.md) |
 | Bekannte Lücken | siehe [docs/testing.md](docs/testing.md), Abschnitt „Nicht getestet“ |
 | Getestet auf | Ubuntu 26.04, labwc 0.9.8, GTK 4.22, WebKitGTK 2.52.6, Rust 1.93 |
 | Nicht getestet | alles nach der Anmeldung (nur mit Konto, Abnahme durch den Besitzer), HiDPI, Mehrmonitor |
