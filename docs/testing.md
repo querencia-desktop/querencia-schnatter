@@ -96,13 +96,13 @@ den QR-Code; er gehört zu einer Sitzung, die mit dem Lauf endet. Kennung
 über `einstellungen.ini` (`standard` oder `linux`), Schema über gsettings
 im Profil. Vor jedem Release laufen lassen (R1).
 
-Gemessen (23.10.2026, 8 Läufe): QR-Code nach 4,6–12,7 s; Standard:
-macOS-Safari-Kennung (Quirk), Seite wirbt für die Mac-App; Linux: WebKits
-Linux-Kennung, keine Mac-Werbung; Sprache der Seite `de`; die Anmeldeseite
-selbst bleibt hell, auch wenn `prefers-color-scheme: dark` gilt. Speicher
-(PSS) gesamt 730–773 MiB (Hülle 192–213, Netzwerkprozess 44–49,
-Web-Prozesse 110–127 und 389–407); mit `GSK_RENDERER=cairo` 657 MiB
-(Hülle 89). Sandbox: beide Web-Prozesse in eigenen Namensräumen user, pid,
+Gemessen (23.10.2026, 8 Läufe, Binary `4c70dede…`): QR-Code nach 4,6–4,7 s;
+Standard: macOS-Safari-Kennung (Quirk), Seite wirbt für die Mac-App; Linux:
+WebKits Linux-Kennung, keine Mac-Werbung; Sprache der Seite `de`; die
+Anmeldeseite selbst bleibt hell, auch wenn `prefers-color-scheme: dark`
+gilt. Speicher (PSS) gesamt 748–787 MiB (Hülle 192–213, Netzwerkprozess
+41–50, Web-Prozesse ≈ 127 und 404–420); mit `GSK_RENDERER=cairo` 668 MiB
+(Hülle 90). Sandbox: beide Web-Prozesse in eigenen Namensräumen user, pid,
 net, mnt, ipc, uts, Seccomp 2, NoNewPrivs 1; `xdg-dbus-proxy` je
 Web-Prozess; Netzwerkprozess ohne Sandbox (wie vorgesehen).
 

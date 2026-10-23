@@ -56,7 +56,7 @@ Anwendungskennung (App-ID): `org.querencia.Nachrichten` · Binary:
 | | |
 |---|---|
 | Version | 0.1.0 „Hülle“ (Tag `nachrichten/0.1.0`), nicht live |
-| Letzte Prüfung | 23.10.2026: 26 Unit-Tests, Clippy sauber, `i18n.py pruefen`; Prüfhülle Stufe L gegen die Prüfseite de/1920×1080/hell und en/1024×768/dunkel je 51 von 51; Anmeldeseiten-Wächter Stufe E, beide Kennungen, hell/dunkel, 1920×1080 und 1024×768: QR-Code nach 4,6–12,7 s |
+| Letzte Prüfung | 23.10.2026: 26 Unit-Tests, Clippy sauber, `i18n.py pruefen`; Prüfhülle Stufe L gegen die Prüfseite de/1920×1080/hell und en/1024×768/dunkel je 51 von 51; Anmeldeseiten-Wächter Stufe E, beide Kennungen, hell/dunkel, 1920×1080 und 1024×768: QR-Code nach 4,6–4,7 s; Integrationsprobe 99/0 |
 | Bekannte Lücken | siehe [docs/testing.md](docs/testing.md), Abschnitt „Nicht getestet“ |
 | Getestet auf | Ubuntu 26.04, labwc 0.9.8, GTK 4.22, WebKitGTK 2.52.6, Rust 1.93 |
 | Nicht getestet | alles nach der Anmeldung (nur mit Konto, Abnahme durch den Besitzer), HiDPI, Mehrmonitor |
