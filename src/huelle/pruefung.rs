@@ -1,14 +1,14 @@
 //! Prüfhilfen im Programm, nur über Umgebungsvariablen (docs/testing.md):
 //!
-//! - `QUERENCIA_NACHRICHTEN_DEBUG=1`: Ereigniszeilen auf stderr
+//! - `QUERENCIA_WEBHUELLE_DEBUG=1`: Ereigniszeilen auf stderr
 //!   (`crate::ereignis`); Adressen ohne Abfrage und Fragment, Inhalte von
 //!   Meldungen nur auf der Prüfseite.
-//! - `QUERENCIA_NACHRICHTEN_PRUEFSEITE=<datei.html>`: statt des Dienstes die
+//! - `QUERENCIA_WEBHUELLE_PRUEFSEITE=<datei.html>`: statt des Dienstes die
 //!   lokale Prüfseite unter `http://localhost/` (kein Netz); Hosts und
 //!   Benachrichtigungsrecht gelten dann für `localhost`, Titelzähler und
 //!   Benutzerskript bleiben die des Dienstes. Der Fenstertitel sagt
 //!   „Prüfseite“.
-//! - `QUERENCIA_NACHRICHTEN_ZUSTAND=1`: alle 2 s (höchstens 3 Minuten) eine
+//! - `QUERENCIA_WEBHUELLE_ZUSTAND=1`: alle 2 s (höchstens 3 Minuten) eine
 //!   Zeile mit Merkmalen der Seite (Kennung, QR-Code vorhanden, dunkles
 //!   Schema, Rechte), ohne Seitentext.
 
@@ -20,8 +20,8 @@ use webkit::prelude::*;
 
 use crate::dienst::{Dienst, Start};
 
-const VAR_SEITE: &str = "QUERENCIA_NACHRICHTEN_PRUEFSEITE";
-const VAR_ZUSTAND: &str = "QUERENCIA_NACHRICHTEN_ZUSTAND";
+const VAR_SEITE: &str = "QUERENCIA_WEBHUELLE_PRUEFSEITE";
+const VAR_ZUSTAND: &str = "QUERENCIA_WEBHUELLE_ZUSTAND";
 const BASIS: &str = "http://localhost/";
 
 fn seite() -> &'static Option<String> {
@@ -106,7 +106,7 @@ const ZUSTAND_JS: &str = r#"(() => {
   });
 })()"#;
 
-/// Beobachtet die Seite, wenn `QUERENCIA_NACHRICHTEN_ZUSTAND=1`.
+/// Beobachtet die Seite, wenn `QUERENCIA_WEBHUELLE_ZUSTAND=1`.
 pub fn zustand_beobachten(view: &webkit::WebView) {
     if std::env::var(VAR_ZUSTAND).as_deref() != Ok("1") {
         return;

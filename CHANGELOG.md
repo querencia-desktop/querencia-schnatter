@@ -5,6 +5,30 @@ nach [Semantic Versioning](https://semver.org/lang/de/). Solange die Hauptversio
 0 ist, kann sich alles ändern. Jede Zeile nennt, was Nutzer merken; Unfertiges
 steht als „unfertig“ da.
 
+## [0.2.0] – 2026-10-24 „Webhülle“
+
+### Geändert
+- Neuer Name: **Querencia Webhülle** (englisch „Querencia Web Wrapper“), im
+  Menü „Webhülle“ unter Internet. Das Programm ist eine Hülle für WhatsApp
+  Web und kein Produkt von WhatsApp oder Meta; die Marke steht nur noch
+  beschreibend da („Hülle für WhatsApp Web“), nie im Namen oder im Symbol.
+  Programmdatei `querencia-webhuelle`, Anwendungskennung
+  `org.querencia.Webhuelle`.
+- Eigenes Programmsymbol: ein Fenster mit Adresszeile und Globus in
+  Querencia-Orange (statt des Chat-Symbols aus dem Symbolthema).
+- Der Info-Dialog nennt „Hülle für WhatsApp Web“ und „Kein Produkt von
+  WhatsApp oder Meta und nicht mit ihnen verbunden“.
+- Querencia Webhülle ist nicht mehr Teil der Standardinstallation, sondern
+  ein eigenes Paket, das man wahlweise installiert.
+
+### Neu
+- Umzug von Querencia Nachrichten: Beim ersten Start übernimmt die Webhülle
+  Anmeldung, Einstellungen und Cache aus den Ordnern
+  `querencia-nachrichten` (umbenannt, nichts kopiert oder gelöscht). Läuft
+  Querencia Nachrichten noch, sagt das Fenster es und die Webhülle startet
+  erst nach dem Schließen. Gibt es schon Ordner der Webhülle, bleiben die
+  alten unangetastet liegen.
+
 ## [0.1.1] – 2026-10-23
 
 ### Neu

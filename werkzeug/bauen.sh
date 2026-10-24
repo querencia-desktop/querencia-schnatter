@@ -1,5 +1,5 @@
 #!/bin/bash
-# Querencia Nachrichten: fmt, Clippy, Tests und Release-Build auf einem der
+# Querencia Webhülle: fmt, Clippy, Tests und Release-Build auf einem der
 # gemeinsamen Bau-Plätze (~/.local/state/querencia/bau-platz.sh: nice 10,
 # 4 Jobs; Projektregel seit 20.10.2026) – offline, eigener TMPDIR.
 # Der Release-Build läuft mit --remap-path-prefix (Repo → /usr/src/…,
@@ -30,14 +30,14 @@ echo "== $ART $(git -C "$R" log -1 --format='%h %s' 2>/dev/null) (Arbeitsbaum: $
     fi
     if [ "$ART" != pruefen ]; then
       env -u WAYLAND_DISPLAY -u DISPLAY \
-        RUSTFLAGS="--remap-path-prefix=$R=/usr/src/querencia-nachrichten --remap-path-prefix=$RT=/usr/src/querencia-runtime --remap-path-prefix=$CH=/usr/share/cargo" \
+        RUSTFLAGS="--remap-path-prefix=$R=/usr/src/querencia-webhuelle --remap-path-prefix=$RT=/usr/src/querencia-runtime --remap-path-prefix=$CH=/usr/share/cargo" \
         CARGO_TARGET_DIR="$R/target/remap" \
         cargo build --release --offline --locked || exit 1
     fi
 ') >>"$LOG" 2>&1
 RC=$?
 echo "== $ART: fertig rc=$RC $(date +%T)" | tee -a "$LOG"
-B=$R/target/remap/release/querencia-nachrichten
+B=$R/target/remap/release/querencia-webhuelle
 if [ "$ART" != pruefen ] && [ -f "$B" ]; then
     sha256sum "$B" | tee "$L/release-sha256.txt"
     echo "Home-Pfade im Binary: $(strings -a "$B" | grep -c "$HOME")" | tee -a "$LOG"

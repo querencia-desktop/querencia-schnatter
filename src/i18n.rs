@@ -1,15 +1,15 @@
-//! Übersetzungen über GNU gettext (Textdomäne `querencia-nachrichten`).
+//! Übersetzungen über GNU gettext (Textdomäne `querencia-webhuelle`).
 //!
 //! Quellsprache im Code ist Englisch (msgid englisch, wie bei GNOME und
 //! Debian); Deutsch kommt aus `po/de.po`. Ohne passenden Katalog zeigt das
 //! Programm die englischen Texte. Die Sprache wählt gettext wie üblich über
 //! `LANGUAGE`, `LC_ALL`, `LC_MESSAGES` und `LANG`.
 //!
-//! Die Kataloge (`<lang>/LC_MESSAGES/querencia-nachrichten.mo`) sucht das Programm
+//! Die Kataloge (`<lang>/LC_MESSAGES/querencia-webhuelle.mo`) sucht das Programm
 //! zuerst neben der Binary (`<ablage>/share/locale`, unveränderliche Ablage
-//! unter `~/opt/querencia/nachrichten/<sha16>/`), dann im Präfix der Binary
+//! unter `~/opt/querencia/webhuelle/<sha16>/`), dann im Präfix der Binary
 //! (`/usr/bin/../share/locale`), zuletzt in `/usr/share/locale`.
-//! `QUERENCIA_NACHRICHTEN_LOCALEDIR` setzt das Verzeichnis ausdrücklich (Tests).
+//! `QUERENCIA_WEBHUELLE_LOCALEDIR` setzt das Verzeichnis ausdrücklich (Tests).
 //!
 //! Texte mit Platzhaltern stehen als ein Satz im Katalog („Downloaded “{name}”.“),
 //! nie zusammengesetzt; [`gettext_f`] setzt die Werte erst
@@ -25,7 +25,7 @@ pub use gettextrs::gettext;
 use gettextrs::{bind_textdomain_codeset, bindtextdomain, textdomain};
 
 /// Textdomäne = Name der .mo-Dateien.
-pub const DOMAIN: &str = "querencia-nachrichten";
+pub const DOMAIN: &str = "querencia-webhuelle";
 
 /// Textdomäne binden; vor `Application::run` aufrufen. Die Locale aus der
 /// Umgebung setzt GTK selbst beim Start (`gtk_init` ruft `setlocale(LC_ALL,
@@ -36,7 +36,7 @@ pub fn init() {
     let dir = locale_dir();
     if let Err(err) = bindtextdomain(DOMAIN, dir.as_path()) {
         eprintln!(
-            "querencia-nachrichten: Übersetzungen nicht gebunden ({}): {err}",
+            "querencia-webhuelle: Übersetzungen nicht gebunden ({}): {err}",
             dir.display()
         );
     }
@@ -47,11 +47,10 @@ pub fn init() {
 
 /// Verzeichnis der Kataloge (siehe Modulbeschreibung).
 pub fn locale_dir() -> PathBuf {
-    if let Some(dir) = std::env::var_os("QUERENCIA_NACHRICHTEN_LOCALEDIR").filter(|d| !d.is_empty())
-    {
+    if let Some(dir) = std::env::var_os("QUERENCIA_WEBHUELLE_LOCALEDIR").filter(|d| !d.is_empty()) {
         return PathBuf::from(dir);
     }
-    // current_exe() löst den Link ~/opt/querencia/bin/querencia-nachrichten auf.
+    // current_exe() löst den Link ~/opt/querencia/bin/querencia-webhuelle auf.
     let exe_dir = std::env::current_exe()
         .ok()
         .and_then(|exe| exe.canonicalize().ok())
@@ -137,7 +136,7 @@ mod tests {
     /// übersetzt sein (sonst sähe die deutsche Sitzung Englisch).
     #[test]
     fn german_catalog_is_complete() {
-        let pot = include_str!("../po/querencia-nachrichten.pot");
+        let pot = include_str!("../po/querencia-webhuelle.pot");
         let de = include_str!("../po/de.po");
         assert!(!de.contains("#, fuzzy"), "de.po enthält fuzzy-Einträge");
         let ids = |text: &str| -> Vec<String> {

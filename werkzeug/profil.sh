@@ -1,11 +1,11 @@
 #!/bin/bash
-# Prüfhülle Querencia Nachrichten: legt ein Profil für einen Lauf an
+# Prüfhülle Querencia Webhülle: legt ein Profil für einen Lauf an
 # (Muster: Querencia Dokumente werkzeug/profil.sh).
 #   profil.sh <profil> <binary> <hell|dunkel> <standard|linux> <BxH des Fensters>
 # Inhalt: labwc rc.xml der Sitzung (Runtime-Repo, nur Kopie), gsettings
 # (keyfile) mit Thema Querencia-Klassisch, Symbolthema Querencia, Schrift
 # DejaVu Sans 12 und Farbschema, Thema und Symbole als Link (in der Hülle
-# per --lesen sichtbar), Ablage-Kopie unter <profil>/opt/nachrichten/<sha16>/
+# per --lesen sichtbar), Ablage-Kopie unter <profil>/opt/webhuelle/<sha16>/
 # mit share/locale wie die spätere Live-Ablage, Download-Ordner mit einer
 # schon vorhandenen probe-download.txt, Testöffner für https, mailto, ssh,
 # smb, Ordner und Textdateien (testoeffner.sh protokolliert statt zu
@@ -23,6 +23,9 @@ for t in Querencia-Klassisch Querencia-Klassisch-Dunkel; do
   ln -sfn "$(readlink -f "$HOME/.local/share/themes/$t")" "$P/data/themes/$t"
 done
 ln -sfn "$HOME/.local/share/icons/Querencia" "$P/data/icons/Querencia"
+# Programmsymbol in hicolor des Profils, wie es Integration und Paket ablegen
+mkdir -p "$P/data/icons/hicolor/scalable/apps"
+cp "$R/data/icons/org.querencia.Webhuelle.svg" "$P/data/icons/hicolor/scalable/apps/"
 case $SCHEMA in hell) CS=default ;; dunkel) CS=prefer-dark ;; *) echo "Schema hell|dunkel" >&2; exit 2 ;; esac
 cat > "$P/config/glib-2.0/settings/keyfile" <<X
 [org/gnome/system/wsdd]
@@ -41,12 +44,12 @@ X
 printf 'schon da\n' > "$P/heim/Downloads/probe-download.txt"
 # Ablage-Kopie (Binary + Kataloge)
 S=$(sha256sum "$BIN" | cut -c1-16)
-A=$P/opt/nachrichten/$S
+A=$P/opt/webhuelle/$S
 mkdir -p "$A"
-cp "$BIN" "$A/querencia-nachrichten"
+cp "$BIN" "$A/querencia-webhuelle"
 (cd "$R" && python3 werkzeug/i18n.py mo "$A/share/locale" >/dev/null)
 chmod -R a-w "$A"
-ln -sfn "$A/querencia-nachrichten" "$P/opt/bin/querencia-nachrichten"
+ln -sfn "$A/querencia-webhuelle" "$P/opt/bin/querencia-webhuelle"
 # Testöffner statt Browser, Dateimanager, Texteditor und Programmen für
 # ssh: und smb: (0.1.1, QD-162 a)
 for art in browser ordner datei fremd; do
@@ -76,8 +79,8 @@ x-scheme-handler/ssh=qn-test-fremd.desktop
 x-scheme-handler/smb=qn-test-fremd.desktop
 X
 update-desktop-database "$P/data/applications" 2>/dev/null || true
-mkdir -p -m 700 "$P/config/querencia-nachrichten"
+mkdir -p -m 700 "$P/config/querencia-webhuelle"
 printf '[Fenster]\nbreite=%s\nhoehe=%s\nmaximiert=false\n\n[Seite]\nkennung=%s\n' \
-  "${FENSTER%x*}" "${FENSTER#*x}" "$KENNUNG" > "$P/config/querencia-nachrichten/einstellungen.ini"
-[ -n "${GRAFIK:-}" ] && printf '\n[Grafik]\nsoftware=%s\n' "$GRAFIK" >> "$P/config/querencia-nachrichten/einstellungen.ini"
+  "${FENSTER%x*}" "${FENSTER#*x}" "$KENNUNG" > "$P/config/querencia-webhuelle/einstellungen.ini"
+[ -n "${GRAFIK:-}" ] && printf '\n[Grafik]\nsoftware=%s\n' "$GRAFIK" >> "$P/config/querencia-webhuelle/einstellungen.ini"
 echo "$A"

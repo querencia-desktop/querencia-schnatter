@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prüfhülle Querencia Nachrichten, Stufe E: PIDs der Prozesse dieses Laufs.
+"""Prüfhülle Querencia Webhülle, Stufe E: PIDs der Prozesse dieses Laufs.
 
 Aufruf: eigene.py <sitzungs-id> <laufzeitordner>
 Gibt jede PID aus, deren Sitzung <sitzungs-id> ist oder deren Umgebung genau

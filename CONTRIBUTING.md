@@ -1,4 +1,4 @@
-# Mitmachen bei Querencia Nachrichten
+# Mitmachen bei Querencia Webhülle
 
 Danke für das Interesse. Querencia ist in einer frühen Alpha-Phase; bitte
 rechne mit Rückfragen und langsamen Antworten.

@@ -2,7 +2,7 @@
 # Die isolierte GUI-Prüfung (labwc, Bildschirmfotos) läuft NICHT hier, sondern
 # bei der Entwicklung (siehe CONTRIBUTING.md).
 #
-# Querencia Nachrichten 0.1.0: NOCH NICHT GELAUFEN. Die Pfad-Abhängigkeiten
+# Querencia Webhülle 0.2.0 (bis 0.1.1 Querencia Nachrichten): NOCH NICHT GELAUFEN. Die Pfad-Abhängigkeiten
 # auf ../querencia-runtime (E11) holt der Schritt „Runtime daneben“; vor der
 # Veröffentlichung werden sie Git-Abhängigkeiten mit Tag (README,
 # „Veröffentlichungspunkt“), dann entfällt der Schritt.

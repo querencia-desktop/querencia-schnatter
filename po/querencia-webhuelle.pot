@@ -1,11 +1,11 @@
-# Übersetzungsvorlage für Querencia Nachrichten.
+# Übersetzungsvorlage für Querencia Webhülle.
 # Copyright (C) 2026 Querencia
-# Diese Datei steht unter derselben Lizenz wie Querencia Nachrichten (GPL-3.0-or-later).
+# Diese Datei steht unter derselben Lizenz wie Querencia Webhülle (GPL-3.0-or-later).
 # Erzeugt mit werkzeug/i18n.py pot – nicht von Hand bearbeiten.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: querencia-nachrichten\n"
+"Project-Id-Version: querencia-webhuelle\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -18,27 +18,27 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #. TRANSLATORS: Desktop-Datei, Schlüssel Name
-#: data/org.querencia.Nachrichten.desktop.in:12
-msgid "Messages"
+#: data/org.querencia.Webhuelle.desktop.in:13
+msgid "Web Wrapper"
 msgstr ""
 
 #. TRANSLATORS: Desktop-Datei, Schlüssel GenericName
-#: data/org.querencia.Nachrichten.desktop.in:13
-msgid "Messenger"
+#: data/org.querencia.Webhuelle.desktop.in:14 src/huelle/dialoge.rs:263
+msgid "Wrapper for WhatsApp Web"
 msgstr ""
 
 #. TRANSLATORS: Desktop-Datei, Schlüssel Comment
-#: data/org.querencia.Nachrichten.desktop.in:14
-msgid "Chat with WhatsApp Web in its own window"
+#: data/org.querencia.Webhuelle.desktop.in:15
+msgid "Use WhatsApp Web in its own window"
 msgstr ""
 
 #. TRANSLATORS: Desktop-Datei, Schlüssel Keywords (Liste, Einträge mit ; trennen und abschließen)
-#: data/org.querencia.Nachrichten.desktop.in:20
-msgid "WhatsApp;Chat;Messenger;Messages;"
+#: data/org.querencia.Webhuelle.desktop.in:21
+msgid "WhatsApp;Chat;Messenger;Messages;Wrapper;"
 msgstr ""
 
-#: src/huelle/dialoge.rs:171 src/huelle/fenster.rs:57 src/huelle/fenster.rs:60 src/huelle/mod.rs:99 src/main.rs:81
-msgid "Querencia Messages"
+#: src/huelle/dialoge.rs:171 src/huelle/fenster.rs:57 src/huelle/fenster.rs:60 src/huelle/mod.rs:124 src/main.rs:86
+msgid "Querencia Web Wrapper"
 msgstr ""
 
 #: src/huelle/dialoge.rs:225
@@ -46,221 +46,219 @@ msgid "_Close"
 msgstr ""
 
 #. TRANSLATORS: Fenstertitel des Info-Dialogs
-#: src/huelle/dialoge.rs:247
-msgid "About Querencia Messages"
+#: src/huelle/dialoge.rs:248
+msgid "About Querencia Web Wrapper"
 msgstr ""
 
-#: src/huelle/dialoge.rs:253
+#: src/huelle/dialoge.rs:254
 #, no-c-format
-msgid "Querencia Messages {version}"
+msgid "Querencia Web Wrapper {version}"
 msgstr ""
 
-#: src/huelle/dialoge.rs:262
+#: src/huelle/dialoge.rs:264
 msgid ""
-"WhatsApp Web in its own window for Querencia Desktop.\n"
-"\n"
-"Not affiliated with WhatsApp or Meta. WhatsApp is a trademark\n"
-"of its owner. Calls are not possible."
+"Not a product of WhatsApp or Meta and not affiliated with them.\n"
+"WhatsApp is a trademark of its owner. Calls are not possible."
 msgstr ""
 
-#: src/huelle/dialoge.rs:269
+#: src/huelle/dialoge.rs:270
 msgid "Alpha – not released for everyday use."
 msgstr ""
 
-#: src/huelle/dialoge.rs:290
+#: src/huelle/dialoge.rs:291
 msgid "License: GPL-3.0-or-later"
 msgstr ""
 
-#: src/huelle/dialoge.rs:291
+#: src/huelle/dialoge.rs:292
 #, no-c-format
 msgid "Web engine: WebKitGTK {version} (LGPL)"
 msgstr ""
 
-#: src/huelle/dialoge.rs:312 src/huelle/dialoge.rs:349
+#: src/huelle/dialoge.rs:313 src/huelle/dialoge.rs:350
 #, no-c-format
 msgid "Web page graphics: {renderer}"
 msgstr ""
 
-#: src/huelle/dialoge.rs:314
+#: src/huelle/dialoge.rs:315
 msgid "determining…"
 msgstr ""
 
-#: src/huelle/dialoge.rs:321
+#: src/huelle/dialoge.rs:322
 msgid ""
 "Software graphics, switched on automatically: OpenGL runs through zink on nouveau here."
 msgstr ""
 
-#: src/huelle/dialoge.rs:325
+#: src/huelle/dialoge.rs:326
 msgid ""
 "Software graphics, switched on automatically: the graphics test failed."
 msgstr ""
 
-#: src/huelle/dialoge.rs:327
+#: src/huelle/dialoge.rs:328
 msgid "Software graphics, switched on in the preferences."
 msgstr ""
 
-#: src/huelle/dialoge.rs:329
+#: src/huelle/dialoge.rs:330
 msgid "Graphics settings come from the environment of the session."
 msgstr ""
 
-#: src/huelle/dialoge.rs:331
+#: src/huelle/dialoge.rs:332
 msgid "Software graphics are switched off in the preferences."
 msgstr ""
 
-#: src/huelle/dialoge.rs:332
+#: src/huelle/dialoge.rs:333
 msgid "Graphics hardware as chosen by Mesa."
 msgstr ""
 
-#: src/huelle/dialoge.rs:345
+#: src/huelle/dialoge.rs:346
 msgid "unknown"
 msgstr ""
 
-#: src/huelle/dialoge.rs:364
-msgid "Querencia Messages Help"
-msgstr ""
-
-#: src/huelle/dialoge.rs:370
-msgid "What this is"
+#: src/huelle/dialoge.rs:365
+msgid "Querencia Web Wrapper Help"
 msgstr ""
 
 #: src/huelle/dialoge.rs:371
-msgid ""
-"Querencia Messages shows WhatsApp Web in its own window. It is not affiliated with WhatsApp; your messages go directly between this window and WhatsApp."
+msgid "What this is"
 msgstr ""
 
-#: src/huelle/dialoge.rs:378
-msgid "Signing in"
+#: src/huelle/dialoge.rs:372
+msgid ""
+"Querencia Web Wrapper shows WhatsApp Web in its own window. It is not a product of WhatsApp or Meta and not affiliated with them; your messages go directly between this window and WhatsApp."
 msgstr ""
 
 #: src/huelle/dialoge.rs:379
+msgid "Signing in"
+msgstr ""
+
+#: src/huelle/dialoge.rs:380
 msgid ""
 "Open WhatsApp on your phone, choose “Linked devices”, then “Link a device”, and scan the QR code in the window. You stay signed in until you log out."
 msgstr ""
 
-#: src/huelle/dialoge.rs:386
+#: src/huelle/dialoge.rs:387
 msgid "No calls"
 msgstr ""
 
-#: src/huelle/dialoge.rs:387
+#: src/huelle/dialoge.rs:388
 msgid ""
 "Voice and video calls are not possible: the web engine of Ubuntu is built without WebRTC. Take calls on your phone. Voice messages work."
 msgstr ""
 
-#: src/huelle/dialoge.rs:394
+#: src/huelle/dialoge.rs:395
 msgid "Notifications"
 msgstr ""
 
-#: src/huelle/dialoge.rs:395
+#: src/huelle/dialoge.rs:396
 msgid ""
 "New messages are announced by the notification area of the desktop while the window is open. Closing the window quits the program; then there are no notifications."
 msgstr ""
 
-#: src/huelle/dialoge.rs:402
+#: src/huelle/dialoge.rs:403
 msgid "Downloads"
 msgstr ""
 
-#: src/huelle/dialoge.rs:403
+#: src/huelle/dialoge.rs:404
 msgid ""
 "Downloaded files go to your Downloads folder without a question; a file never overwrites another one. A notification offers to open the file or its folder."
 msgstr ""
 
-#: src/huelle/dialoge.rs:410
+#: src/huelle/dialoge.rs:411
 msgid "Microphone, camera, clipboard"
 msgstr ""
 
-#: src/huelle/dialoge.rs:411
+#: src/huelle/dialoge.rs:412
 msgid ""
 "The page asks once for each; the answer is remembered. Edit → Preferences forgets the answers."
 msgstr ""
 
-#: src/huelle/dialoge.rs:417
+#: src/huelle/dialoge.rs:418
 msgid "Logging out"
 msgstr ""
 
-#: src/huelle/dialoge.rs:418
+#: src/huelle/dialoge.rs:419
 msgid ""
 "File → Log Out and Delete Data removes everything this program stored for WhatsApp Web on this computer. Your chats stay on your phone."
 msgstr ""
 
-#: src/huelle/dialoge.rs:460
-msgid "Querencia Messages Preferences"
-msgstr ""
-
-#: src/huelle/dialoge.rs:469
-msgid "Browser identification"
+#: src/huelle/dialoge.rs:461
+msgid "Querencia Web Wrapper Preferences"
 msgstr ""
 
 #: src/huelle/dialoge.rs:470
+msgid "Browser identification"
+msgstr ""
+
+#: src/huelle/dialoge.rs:471
 msgid "_Standard of the web engine (WhatsApp sees Safari on a Mac)"
 msgstr ""
 
-#: src/huelle/dialoge.rs:474
+#: src/huelle/dialoge.rs:475
 msgid "_Linux identification without site exceptions"
 msgstr ""
 
-#: src/huelle/dialoge.rs:480
+#: src/huelle/dialoge.rs:481
 msgid ""
 "Changing it reloads the page. If WhatsApp Web stops working, switch back."
 msgstr ""
 
-#: src/huelle/dialoge.rs:507
+#: src/huelle/dialoge.rs:508
 msgid "Sound"
 msgstr ""
 
-#: src/huelle/dialoge.rs:508
+#: src/huelle/dialoge.rs:509
 msgid "_Play sounds and voice messages"
 msgstr ""
 
-#: src/huelle/dialoge.rs:519
+#: src/huelle/dialoge.rs:520
 msgid "Software graphics"
 msgstr ""
 
-#: src/huelle/dialoge.rs:524
+#: src/huelle/dialoge.rs:525
 msgid "_Automatic: only where the graphics driver is known to fail"
 msgstr ""
 
-#: src/huelle/dialoge.rs:526
+#: src/huelle/dialoge.rs:527
 msgid "_On: always draw web pages in software"
 msgstr ""
 
-#: src/huelle/dialoge.rs:527
+#: src/huelle/dialoge.rs:528
 msgid "Off: always use the graphics _hardware"
 msgstr ""
 
-#: src/huelle/dialoge.rs:543
+#: src/huelle/dialoge.rs:544
 msgid ""
-"Software graphics avoid crashes with some graphics drivers. A change takes effect the next time Querencia Messages starts."
+"Software graphics avoid crashes with some graphics drivers. A change takes effect the next time Querencia Web Wrapper starts."
 msgstr ""
 
-#: src/huelle/dialoge.rs:554
+#: src/huelle/dialoge.rs:555
 msgid "Remembered permissions"
 msgstr ""
 
-#: src/huelle/dialoge.rs:575
+#: src/huelle/dialoge.rs:576
 msgid "_Forget Answers"
 msgstr ""
 
-#: src/huelle/dialoge.rs:604
+#: src/huelle/dialoge.rs:605
 msgid "Microphone"
 msgstr ""
 
-#: src/huelle/dialoge.rs:605
+#: src/huelle/dialoge.rs:606
 msgid "Camera"
 msgstr ""
 
-#: src/huelle/dialoge.rs:606
+#: src/huelle/dialoge.rs:607
 msgid "Reading the clipboard"
 msgstr ""
 
-#: src/huelle/dialoge.rs:612
+#: src/huelle/dialoge.rs:613
 msgid "allowed"
 msgstr ""
 
-#: src/huelle/dialoge.rs:613
+#: src/huelle/dialoge.rs:614
 msgid "denied"
 msgstr ""
 
-#: src/huelle/dialoge.rs:614
+#: src/huelle/dialoge.rs:615
 msgid "not asked yet"
 msgstr ""
 
@@ -318,7 +316,7 @@ msgid ""
 "Everything this program stored on this computer is deleted: the sign-in, cached chats and media, and the remembered permissions. Your chats stay on your phone. Downloaded files are kept."
 msgstr ""
 
-#: src/huelle/fenster.rs:535 src/huelle/navigation.rs:178
+#: src/huelle/fenster.rs:535 src/huelle/navigation.rs:180
 msgid "_Cancel"
 msgstr ""
 
@@ -402,22 +400,33 @@ msgstr ""
 msgid "_Help"
 msgstr ""
 
-#: src/huelle/mod.rs:100
+#: src/huelle/mod.rs:45
+msgid ""
+"Querencia Messages is still running. Close it and start Querencia Web Wrapper again: it then takes over the sign-in and the settings."
+msgstr ""
+
+#: src/huelle/mod.rs:49
+#, no-c-format
+msgid ""
+"The folders of Querencia Messages could not be taken over: {error}. Nothing was deleted."
+msgstr ""
+
+#: src/huelle/mod.rs:80
 #, no-c-format
 msgid "The data folder cannot be used: {error}"
 msgstr ""
 
-#: src/huelle/navigation.rs:171
+#: src/huelle/navigation.rs:173
 msgid "Open the link with another program?"
 msgstr ""
 
-#: src/huelle/navigation.rs:172
+#: src/huelle/navigation.rs:174
 #, no-c-format
 msgid ""
 "The link is not a web or email address. Opening it starts the program that is registered for “{scheme}:” addresses with this target:"
 msgstr ""
 
-#: src/huelle/navigation.rs:179
+#: src/huelle/navigation.rs:181
 msgid "_Open Link"
 msgstr ""
 

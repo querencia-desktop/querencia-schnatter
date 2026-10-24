@@ -13,7 +13,7 @@
     box-shadow: 0 8px 40px #000; border-radius: 4px; }
   #betrachter.offen img { transform: scale(1); opacity: 1; }
 </style></head><body>
-<!-- Prüfseite Querencia Nachrichten (werkzeug/pruefseite.html): lokal unter
+<!-- Prüfseite Querencia Webhülle (werkzeug/pruefseite.html): lokal unter
      http://localhost/, kein Netz. Ergebnisse als Konsolenzeilen
      „PRUEF {json}“ (nur auf der Prüfseite schreibt die Hülle die Konsole
      nach stdout). Tasten (echte Nutzergeste über qeingabe):
@@ -26,8 +26,11 @@
      ohne Geste auf data: · q … auf file: · b … auf fremdes blob: · y … auf
      javascript: (je nach 3 s, ohne Geste) · v Bildbetrachter (großes Bild,
      Einblenden mit Zoom wie WhatsApp Web; misst Dekodier- und Zeichenzeit,
-     Escape schließt) -->
-<h1>Prüfseite Querencia Nachrichten</h1>
+     Escape schließt).
+     Ab 0.2.0 (Umzug der Ordner): a Attrappen-Anmeldung anlegen (ein Zufallswert
+     als Cookie, in localStorage und in IndexedDB) · r sie lesen; beim Laden
+     liest die Seite sie einmal (Zeile „speicher“). -->
+<h1>Prüfseite Querencia Webhülle</h1>
 <p>Tasten: <kbd>m</kbd> Mikrofon, <kbd>k</kbd> Kamera, <kbd>z</kbd> Zwischenablage,
 <kbd>g</kbd> Standort, <kbd>f</kbd>/<kbd>n</kbd>/<kbd>w</kbd> fremde Links,
 <kbd>d</kbd> Dateiwahl, <kbd>t</kbd> Textfeld, <kbd>c</kbd> Meldung;
@@ -72,7 +75,48 @@ async function medien(art) {
   } catch (e) { zeige('getusermedia_' + art, e.name); }
 }
 
+// Attrappe einer Anmeldung (0.2.0, Umzug): derselbe Zufallswert in den drei
+// Speichern, die WebKit im Datenordner hält (Cookies, localStorage,
+// IndexedDB). Übersteht er Umzug und Rückfall, haben die Daten überlebt.
+const SPEICHER = 'qw-anmeldung-attrappe';
+function idb() {
+  return new Promise((ok, f) => {
+    const r = indexedDB.open('qw-attrappe', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('s');
+    r.onsuccess = () => ok(r.result); r.onerror = () => f(r.error);
+  });
+}
+async function idbSetzen(v) {
+  const db = await idb();
+  await new Promise((ok, f) => {
+    const t = db.transaction('s', 'readwrite'); t.objectStore('s').put(v, 'k');
+    t.oncomplete = ok; t.onerror = () => f(t.error);
+  });
+  db.close();
+}
+async function idbLesen() {
+  const db = await idb();
+  const v = await new Promise((ok, f) => {
+    const q = db.transaction('s').objectStore('s').get('k');
+    q.onsuccess = () => ok(q.result === undefined ? null : q.result); q.onerror = () => f(q.error);
+  });
+  db.close(); return v;
+}
+async function speicherLesen() {
+  const c = document.cookie.split('; ').find(x => x.startsWith(SPEICHER + '='));
+  let i; try { i = await idbLesen(); } catch (e) { i = 'fehler ' + e.name; }
+  zeige('speicher', {cookie: c ? c.split('=')[1] : null, local: localStorage.getItem(SPEICHER), idb: i});
+}
+async function speicherAnlegen() {
+  const t = Array.from(crypto.getRandomValues(new Uint8Array(8)), b => b.toString(16).padStart(2, '0')).join('');
+  document.cookie = SPEICHER + '=' + t + '; max-age=31536000; path=/';
+  localStorage.setItem(SPEICHER, t);
+  try { await idbSetzen(t); } catch (e) { zeige('speicher_idb_fehler', e.name); }
+  zeige('speicher_angelegt', t);
+}
+
 async function lauf() {
+  await speicherLesen();
   zeige('secure_context', window.isSecureContext);
   zeige('origin', location.origin);
   zeige('ua', navigator.userAgent);
@@ -128,6 +172,8 @@ document.addEventListener('keydown', async ev => {
     return;
   }
   zeige('taste', ev.key);
+  // Kürzel mit Strg/Alt gehören der Hülle (Zoom, Menüs), nicht den Tasten der Seite
+  if (ev.ctrlKey || ev.altKey || ev.metaKey) return;
   switch (ev.key) {
     case 'm': await medien('audio'); break;
     case 'k': await medien('video'); break;
@@ -152,6 +198,8 @@ document.addEventListener('keydown', async ev => {
       setTimeout(() => { location.href = 'http://127.0.0.1:8765/fremd-ohne-geste'; }, 3000);
       break;
     case 'v': betrachter(); break;
+    case 'a': await speicherAnlegen(); await speicherLesen(); break;
+    case 'r': await speicherLesen(); break;
     case 's': document.getElementById('ssh').click(); break;
     case 'o': document.getElementById('smbneu').click(); break;
     case 'j': document.getElementById('mail').click(); break;

@@ -15,11 +15,11 @@ popover.querencia-menu .qmenu-item:disabled { color: @insensitive_fg_color; }
 popover.querencia-menu separator { margin: 3px 1px; min-height: 1px; background-color: @borders; }
 
 /* Menüleiste */
-window.querencia-nachrichten box.querencia-menuleiste { background-color: @theme_bg_color; padding: 0 2px; border-bottom: 1px solid alpha(@borders, 0.5); }
-window.querencia-nachrichten menubutton.querencia-menuknopf > button { min-height: 0; padding: 2px 8px; border: 1px solid transparent; border-radius: 0; box-shadow: none; background: none; color: @theme_fg_color; }
-window.querencia-nachrichten menubutton.querencia-menuknopf arrow { min-width: 0; min-height: 0; margin: 0; padding: 0; -gtk-icon-source: none; }
-window.querencia-nachrichten menubutton.querencia-menuknopf > button:checked { background-color: @theme_selected_bg_color; color: @theme_selected_fg_color; }
+window.querencia-webhuelle box.querencia-menuleiste { background-color: @theme_bg_color; padding: 0 2px; border-bottom: 1px solid alpha(@borders, 0.5); }
+window.querencia-webhuelle menubutton.querencia-menuknopf > button { min-height: 0; padding: 2px 8px; border: 1px solid transparent; border-radius: 0; box-shadow: none; background: none; color: @theme_fg_color; }
+window.querencia-webhuelle menubutton.querencia-menuknopf arrow { min-width: 0; min-height: 0; margin: 0; padding: 0; -gtk-icon-source: none; }
+window.querencia-webhuelle menubutton.querencia-menuknopf > button:checked { background-color: @theme_selected_bg_color; color: @theme_selected_fg_color; }
 
 /* Hinweisleiste über der Seite (Absturz, Ladefehler) */
-window.querencia-nachrichten box.qn-hinweis { padding: 4px 8px; background-color: @theme_bg_color; border-bottom: 1px solid @borders; }
-window.querencia-nachrichten box.qn-hinweis button { min-height: 0; padding: 2px 8px; }
+window.querencia-webhuelle box.qn-hinweis { padding: 4px 8px; background-color: @theme_bg_color; border-bottom: 1px solid @borders; }
+window.querencia-webhuelle box.qn-hinweis button { min-height: 0; padding: 2px 8px; }

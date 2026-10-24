@@ -634,8 +634,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "querencia-nachrichten"
-version = "0.1.1"
+name = "querencia-webhuelle"
+version = "0.2.0"
 dependencies = [
  "gettext-rs",
  "gtk4",

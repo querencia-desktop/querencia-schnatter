@@ -1,5 +1,69 @@
 # Integration in die laufende Sitzung
 
+## Fassung 0.2.0: Querencia Webhülle löst Querencia Nachrichten ab (`integration/webhuelle-020/`)
+
+`webhuelle-020-integrieren.sh` (Tag `webhuelle/0.2.0-int`, Code-Tag
+`webhuelle/0.2.0`) wechselt den Live-Stand Querencia Nachrichten 0.1.1
+(Ablage `7ce4b992509920bb`) auf Querencia Webhülle 0.2.0 und mit `zurueck`
+wieder auf 0.1.1. Live braucht es `WEBH_FREIGABE=ja` (Freigabe der
+Status-Session); mit umgelenktem `HOME` arbeitet es nur dort (Probe).
+
+| Kürzel | Komponente | aktivieren | zurueck |
+|---|---|---|---|
+| A | Ablage `~/opt/querencia/webhuelle/<sha16>/` (Binary 0555, `share/locale/de/LC_MESSAGES/querencia-webhuelle.mo`, `querencia-oberflaeche.mo`, `share/icons/hicolor/scalable/apps/org.querencia.Webhuelle.svg`, `SHA256SUMS` 0444; `.herkunft`) | anlegen (unter Hilfsnamen, geprüft, umbenannt) | bleibt liegen |
+| PN | Link `~/opt/querencia/bin/querencia-webhuelle` | setzen | entfernen |
+| S | Symbol-Link `~/.local/share/icons/hicolor/scalable/apps/org.querencia.Webhuelle.svg` → Ablage (danach `touch` auf `~/.local/share/icons/hicolor`) | setzen | entfernen |
+| DN | Starter `~/.local/share/applications/org.querencia.Webhuelle.desktop` („Webhülle“, Internet, `Icon=org.querencia.Webhuelle`) | setzen | entfernen |
+| M | Ordner `~/.local/share`, `~/.cache`, `~/.config`: `querencia-nachrichten` ↔ `querencia-webhuelle` | umbenennen alt → neu (`mv`, nichts kopiert oder gelöscht) | umbenennen neu → alt |
+| PA | Link `~/opt/querencia/bin/querencia-nachrichten` (0.1.1) | **erst nach gelungenem Umzug** entfernen | wiederherstellen |
+| DA | Starter `org.querencia.Nachrichten.desktop` (0.1.1, Vorlage aus `integration/011`, Symbol-Rückfall wie dort) | **erst nach gelungenem Umzug** entfernen | wiederherstellen |
+
+- Läuft Querencia Nachrichten oder Querencia Webhülle (`/proc/<pid>/exe`),
+  verweigert das Skript jeden anstehenden Umzug (Exit 2): Der
+  Netzwerkprozess schriebe sonst weiter in den verschobenen Ordner.
+- Besteht ein Ordner unter beiden Namen oder liegt ein Link oder eine Datei
+  an einer der Stellen, verweigert es (Exit 2); nichts wird zusammengeführt.
+- `XDG_DATA_HOME`, `XDG_CONFIG_HOME`, `XDG_CACHE_HOME` müssen fehlen oder
+  auf die Vorgaben zeigen.
+- Sperren: dieselbe wie die Nachrichten-Skripte
+  (`~/.local/state/querencia/nachrichten-integrieren.lock`) und eine eigene
+  (`webhuelle-integrieren.lock`). Sicherung
+  `~/.local/state/querencia/sicherung-webhuelle-020-*`: Zustand, Link-Ziele,
+  Starter, Journal – **nie die Ordner selbst** (Benutzerdaten). Bei einem
+  Fehler oder Signal rollt es zurück (Exit 1), auch einen schon gemachten
+  Umzug.
+- Startet nichts. Ab dem nächsten Start aus dem Menü läuft die Webhülle; das
+  Programm selbst würde den Umzug beim ersten Start genauso machen
+  (`src/huelle/umzug.rs`) und findet danach nichts mehr zu tun.
+- Rückbau-Reihenfolge: zuerst dieses Skript (→ 0.1.1), dann bei Bedarf
+  `integration/011` (→ 0.1.0). Solange 0.2.0 aktiv ist, verweigert
+  `integration/011` (der Link `querencia-nachrichten` fehlt).
+
+```bash
+bash integration/webhuelle-020/webhuelle-020-integrieren.sh pruefen
+```
+
+```bash
+WEBH_FREIGABE=ja bash integration/webhuelle-020/webhuelle-020-integrieren.sh aktivieren
+```
+
+```bash
+WEBH_FREIGABE=ja bash integration/webhuelle-020/webhuelle-020-integrieren.sh zurueck
+```
+
+Probe: `bash integration/webhuelle-020/probe.sh gui-test/integration-webhuelle-020`
+baut im Wegwerf-HOME den Live-Stand 0.1.1 nach (Kopien der Ablagen 0.1.0 und
+0.1.1, Link, Starter) mit Ordnern unter dem alten Namen, die nur eine
+Attrappe enthalten, und prüft aktivieren/zurueck (Inode, Inhalt, Rechte der
+Ordner), Idempotenz, laufende Programme (eine Kopie von `sleep` unter dem
+Programmnamen), Ordnerzustände, Fehler und Signale an jeder Stelle,
+Fremdes, veränderte Vorlagen und Ablagen, beide Sperren und das
+Zusammenspiel mit `integration/011`. Live nur zwei Verweigerungen ohne
+Freigabe; am Ende unverändert (verglichen werden nur Existenz und Inode der
+Sitzungsordner, nie ihr Inhalt).
+
+## Ältere Fassungen (Querencia Nachrichten)
+
 Drei Fassungen:
 
 | Ordner | Tag | Binary | Inhalt |

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Prüfhülle Querencia Nachrichten, nach dem Prüfrahmen Querencia Dateien
+# Prüfhülle Querencia Webhülle, nach dem Prüfrahmen Querencia Dateien
 # (querencia-runtime/werkzeug/dateien-pruefrahmen/huelle.sh, pruefrahmen/0.1.1,
 # QD-142): gleicher Aufbau, eigene Stufen für eine Webansicht.
 #
@@ -55,7 +55,10 @@ if [ "${1:-}" = "--_innen" ]; then
   if [ "$STUFE" != E ]; then
     for verboten in "/run/user/$HOST_UID/bus" "/run/user/$HOST_UID/wayland-0" \
                     "/run/user/$HOST_UID/pipewire-0" /run/dbus/system_bus_socket.live \
-                    "$HEIM_ECHT/.ssh" "$HEIM_ECHT/.local/share/Trash" "$HEIM_ECHT/.local/share/querencia-nachrichten"; do
+                    "$HEIM_ECHT/.ssh" "$HEIM_ECHT/.local/share/Trash" \
+                    "$HEIM_ECHT/.local/share/querencia-nachrichten" "$HEIM_ECHT/.cache/querencia-nachrichten" \
+                    "$HEIM_ECHT/.config/querencia-nachrichten" "$HEIM_ECHT/.local/share/querencia-webhuelle" \
+                    "$HEIM_ECHT/.cache/querencia-webhuelle" "$HEIM_ECHT/.config/querencia-webhuelle"; do
       if [ -e "$verboten" ]; then status "isolation sichtbar=$verboten"; exit 92; fi
     done
   fi

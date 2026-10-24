@@ -15,6 +15,7 @@ pub mod rechte;
 pub mod rechtschreibung;
 pub mod sitzung;
 pub mod sprache;
+pub mod umzug;
 pub mod zoom;
 
 use std::cell::RefCell;
@@ -29,20 +30,39 @@ use einstellungen::Einstellungen;
 use fenster::Fenster;
 use sitzung::Ordner;
 
-/// Programmsymbol, vorerst aus dem Symbolthema (Chat-Symbol aus GNOME 2;
-/// das eigene Symbol `org.querencia.Nachrichten` liefert QD-166).
-pub const SYMBOL: &str = "empathy";
+/// Programmsymbol (`data/icons/org.querencia.Webhuelle.svg`, hicolor):
+/// Fenster mit Adresszeile und Globus, kein Logo eines Dienstes.
+pub const SYMBOL: &str = "org.querencia.Webhuelle";
 
 /// Startet die Hülle in `app` für `dienst`: Ordner, Sitzung, Rechte vorab,
 /// Rechtschreibung, Downloads, ein Fenster. Ein zweiter Start holt nur das
-/// vorhandene Fenster nach vorn.
-pub fn starten(app: &gtk::Application, dienst: Dienst) {
+/// vorhandene Fenster nach vorn. Ließ der Umzug (`umzug`) keinen Start zu,
+/// zeigt das Fenster nur den Grund.
+pub fn starten(app: &gtk::Application, dienst: Dienst, umzug: &umzug::Stand) {
+    crate::ereignis("umzug", &umzug.ereignis());
+    let sperre = match umzug {
+        s if s.start_erlaubt() => None,
+        umzug::Stand::Fertig(_) => None,
+        umzug::Stand::AltesProgrammLaeuft(_) => Some(gettext(
+            "Querencia Messages is still running. Close it and start Querencia Web \
+             Wrapper again: it then takes over the sign-in and the settings.",
+        )),
+        umzug::Stand::Gescheitert(grund) => Some(gettext_f(
+            "The folders of Querencia Messages could not be taken over: {error}. \
+             Nothing was deleted.",
+            &[("error", grund)],
+        )),
+    };
     let dienst = Rc::new(dienst);
     let haupt: Rc<RefCell<Option<Rc<Fenster>>>> = Rc::default();
     let h = haupt.clone();
     app.connect_activate(move |app| {
         if let Some(f) = h.borrow().as_ref() {
             f.zeigen();
+            return;
+        }
+        if let Some(text) = &sperre {
+            fehler_und_ende(app, text);
             return;
         }
         crate::ereignis(
@@ -56,7 +76,13 @@ pub fn starten(app: &gtk::Application, dienst: Dienst) {
         let ordner = Ordner::aus_xdg();
         if let Err(e) = ordner.vorbereiten() {
             crate::log(&format!("Sitzungsordner nicht nutzbar: {e}"));
-            fehler_und_ende(app, &e.to_string());
+            fehler_und_ende(
+                app,
+                &gettext_f(
+                    "The data folder cannot be used: {error}",
+                    &[("error", &e.to_string())],
+                ),
+            );
             return;
         }
         let einstellungen = Rc::new(Einstellungen::laden(&ordner.einstellungen()));
@@ -96,16 +122,14 @@ pub fn starten(app: &gtk::Application, dienst: Dienst) {
 
 fn fehler_und_ende(app: &gtk::Application, text: &str) {
     let w = gtk::ApplicationWindow::new(app);
-    w.set_title(Some(&gettext("Querencia Messages")));
-    let l = gtk::Label::new(Some(&gettext_f(
-        "The data folder cannot be used: {error}",
-        &[("error", text)],
-    )));
+    w.set_title(Some(&gettext("Querencia Web Wrapper")));
+    let l = gtk::Label::new(Some(text));
     l.set_margin_top(24);
     l.set_margin_bottom(24);
     l.set_margin_start(24);
     l.set_margin_end(24);
     l.set_wrap(true);
+    l.set_max_width_chars(60);
     w.set_child(Some(&l));
     w.present();
 }

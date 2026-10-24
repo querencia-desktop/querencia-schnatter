@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title description">
+  <title id="title">Querencia Webhülle</title>
+  <desc id="description">Programmfenster mit grauem Rahmen wie bei Querencia Dateien und Terminal, helle Fläche, oben eine Adresszeile mit einem Punkt in Querencia-Orange, darunter ein Globus in Querencia-Orange (#F07746) mit hellen Längen- und Breitenkreisen: eine Webseite im eigenen Fenster. Kein Logo eines Dienstes, flächig.</desc>
+  <!-- Fenster -->
+  <rect x="4" y="7" width="56" height="50" rx="4" fill="#5a5a5a"/>
+  <!-- Titelleiste -->
+  <rect x="9" y="10" width="20" height="3" rx="1.5" fill="#9a9a9a"/>
+  <!-- Ansicht -->
+  <rect x="9" y="16" width="46" height="36" rx="1.5" fill="#f4f3f1"/>
+  <!-- Adresszeile mit Punkt -->
+  <rect x="12" y="19" width="40" height="5" rx="2.5" fill="#c9c6c2"/>
+  <circle cx="15" cy="21.5" r="1.5" fill="#F07746"/>
+  <rect x="18.5" y="20.5" width="20" height="2" rx="1" fill="#9a9a9a"/>
+  <!-- Globus: Fläche, Rand, Längen- und Breitenkreise -->
+  <circle cx="32" cy="38" r="11" fill="#F07746" stroke="#5a5a5a" stroke-width="2.5"/>
+  <ellipse cx="32" cy="38" rx="4.5" ry="9.75" fill="none" stroke="#fcd9c9" stroke-width="1.6"/>
+  <path d="M32 28.25 V47.75 M22.25 38 H41.75 M23.6 33 H40.4 M23.6 43 H40.4" fill="none" stroke="#fcd9c9" stroke-width="1.6"/>
+</svg>

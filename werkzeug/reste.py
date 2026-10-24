@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prüfhülle Querencia Nachrichten: Reste eines Hüllenlaufs finden
+"""Prüfhülle Querencia Webhülle: Reste eines Hüllenlaufs finden
 (unverändert übernommen aus dem Prüfrahmen Querencia Dateien, pruefrahmen/0.1.1).
 
 Aufruf:

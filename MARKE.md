@@ -49,10 +49,13 @@ nennt den Fork nicht „Querencia“.
 
 ## Fremde Marken
 
-Querencia Nachrichten ist **nicht mit WhatsApp oder Meta verbunden** und
-wird von ihnen weder unterstützt noch geprüft; „WhatsApp“ ist eine Marke
+Querencia Webhülle (bis 0.1.1 „Querencia Nachrichten“) ist **kein Produkt
+von WhatsApp oder Meta**, **nicht mit ihnen verbunden** und wird von ihnen
+weder unterstützt noch geprüft; „WhatsApp“ ist eine Marke
 ihres Inhabers und wird nur genannt, um zu beschreiben, welche Webseite das
-Programm zeigt. Das Programm zeigt kein WhatsApp-Logo als eigenes Symbol.
+Programm zeigt („Hülle für WhatsApp Web“), nie im Programmnamen. Das
+Programm zeigt kein WhatsApp-Logo; sein Symbol ist ein eigenes
+(`data/icons/org.querencia.Webhuelle.svg`).
 
 Dieses Projekt ist mit GNOME, MATE, Ubuntu, Canonical, Debian und den
 Autoren der Vorbildprogramme (ZapZap, WasIstLos) weder verbunden noch von ihnen unterstützt;
@@ -67,4 +70,4 @@ Anfragen zur Verwendung von Name oder Logo bitte als Issue im Repo
 [`querencia-desktop/querencia`](https://github.com/querencia-desktop/querencia)
 oder an das GitHub-Konto des Projektbesitzers `pottrauschen`.
 
-Stand: 23.10.2026
+Stand: 24.10.2026

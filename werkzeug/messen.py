@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prüfhülle Querencia Nachrichten: Speicher (PSS) und Sandbox der Hülle und
+"""Prüfhülle Querencia Webhülle: Speicher (PSS) und Sandbox der Hülle und
 aller ihrer Nachkommen (WebKit-Netzwerk- und Web-Prozesse, bwrap,
 xdg-dbus-proxy). Liest nur /proc, beendet nichts.
 

@@ -2,9 +2,10 @@
 //!
 //! Ohne dauerhafte Sitzung gibt es keine Benachrichtigungen (gemessen:
 //! `Notification.permission` bleibt `default`) und bei jedem Start eine neue
-//! Anmeldung. Daten liegen unter `XDG_DATA_HOME/querencia-nachrichten`, der
-//! Cache unter `XDG_CACHE_HOME/querencia-nachrichten`, die Einstellungen
-//! unter `XDG_CONFIG_HOME/querencia-nachrichten`; alle drei Ordner 0700,
+//! Anmeldung. Daten liegen unter `XDG_DATA_HOME/querencia-webhuelle`, der
+//! Cache unter `XDG_CACHE_HOME/querencia-webhuelle`, die Einstellungen
+//! unter `XDG_CONFIG_HOME/querencia-webhuelle` (bis 0.1.1 hießen sie
+//! `querencia-nachrichten`; den Umzug macht [`super::umzug`]); alle drei Ordner 0700,
 //! auch wenn sie schon mit anderen Rechten bestanden (R9: dort liegen die
 //! Anmeldedaten).
 //!
@@ -22,7 +23,7 @@ use std::path::{Path, PathBuf};
 use gtk::glib;
 
 /// Name der Ordner unter den XDG-Basisordnern.
-pub const NAME: &str = "querencia-nachrichten";
+pub const NAME: &str = "querencia-webhuelle";
 /// Merkdatei im Einstellungsordner: beim nächsten Start Daten und Cache leeren.
 const VORMERKUNG: &str = "daten-loeschen";
 
@@ -143,9 +144,9 @@ mod tests {
     fn ordner_sind_0700_auch_wenn_sie_offen_bestanden() {
         let t = tmp("rechte");
         let o = Ordner {
-            daten: t.join("data/querencia-nachrichten"),
-            cache: t.join("cache/querencia-nachrichten"),
-            konfig: t.join("config/querencia-nachrichten"),
+            daten: t.join("data/querencia-webhuelle"),
+            cache: t.join("cache/querencia-webhuelle"),
+            konfig: t.join("config/querencia-webhuelle"),
         };
         fs::create_dir_all(&o.cache).unwrap();
         fs::set_permissions(&o.cache, fs::Permissions::from_mode(0o755)).unwrap();

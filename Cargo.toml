@@ -1,9 +1,9 @@
 [package]
-name = "querencia-nachrichten"
-version = "0.1.1"
+name = "querencia-webhuelle"
+version = "0.2.0"
 edition = "2024"
 rust-version = "1.92"
-description = "Querencia Nachrichten: schlanke GTK-4-Hülle um WhatsApp Web für Querencia Desktop"
+description = "Querencia Webhülle: schlanke GTK-4-Hülle für WhatsApp Web (Querencia Desktop; bis 0.1.1 Querencia Nachrichten)"
 license = "GPL-3.0-or-later"
 publish = false
 

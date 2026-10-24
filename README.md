@@ -1,30 +1,42 @@
-# Querencia Nachrichten
+# Querencia Webhülle
 
-WhatsApp Web im eigenen Fenster, für alle, die am Rechner schreiben wollen,
-ohne einen Browser-Reiter offen zu halten. Teil von
-[Querencia Desktop](https://querencialinux.org) – einer klassischen
-Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust, GTK 4).
+Eine Hülle für WhatsApp Web: die Seite im eigenen Fenster, für alle, die am
+Rechner schreiben wollen, ohne einen Browser-Reiter offen zu halten. Ein
+Zusatzprogramm zu [Querencia Desktop](https://querencialinux.org) – einer
+klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust,
+GTK 4) –, **nicht Teil der Standardinstallation**, sondern ein eigenes,
+wahlweise installierbares Paket (`querencia-webhuelle`). Bis Version 0.1.1
+hieß das Programm „Querencia Nachrichten“.
 
-*English summary:* „Querencia Messages“ shows WhatsApp Web in a window of
-its own (GTK 4, WebKitGTK 6.0), with the classic Querencia menu bar.
-Not affiliated with WhatsApp or Meta. No calls. Alpha software;
-documentation is in German.
+*English summary:* „Querencia Web Wrapper“ is a wrapper for WhatsApp Web:
+it shows the page in a window of its own (GTK 4, WebKitGTK 6.0), with the
+classic Querencia menu bar. Not a product of WhatsApp or Meta and not
+affiliated with them. No calls. Optional package, not part of the default
+installation. Alpha software; documentation is in German.
 
 > **Alpha.** Keine Anrufe (Ubuntus WebKitGTK ist ohne WebRTC gebaut). Meldungen
 > kommen nur, solange das Fenster offen ist; Schließen beendet das Programm
-> (Symbol im Panel und Hintergrundbetrieb folgen in 0.2). **Nicht mit
-> WhatsApp oder Meta verbunden**; WhatsApp ist eine Marke ihres Inhabers.
+> (Symbol im Panel und Hintergrundbetrieb folgen später). **Kein Produkt von
+> WhatsApp oder Meta und nicht mit ihnen verbunden**; WhatsApp ist eine Marke
+> ihres Inhabers und steht nur beschreibend da, nie im Programmnamen oder im
+> Symbol.
 
 ## Zweck
 
 - `https://web.whatsapp.com` in einer WebKitGTK-6.0-Ansicht, darüber nur die
   klassische Menüleiste (Datei, Bearbeiten, Ansicht, Hilfe)
-- dauerhafte Anmeldung (Sitzung unter `~/.local/share/querencia-nachrichten`
-  und `~/.cache/querencia-nachrichten`, Ordner 0700); „Datei → Abmelden und
-  Daten löschen“ leert beides nach Rückfrage
+- dauerhafte Anmeldung (Sitzung unter `~/.local/share/querencia-webhuelle`
+  und `~/.cache/querencia-webhuelle`, Einstellungen unter
+  `~/.config/querencia-webhuelle`, Ordner 0700); „Datei → Abmelden und
+  Daten löschen“ leert Sitzung und Cache nach Rückfrage
+- Umzug von Querencia Nachrichten: Beim ersten Start benennt 0.2.0 die drei
+  Ordner `querencia-nachrichten` in `querencia-webhuelle` um (nichts wird
+  kopiert oder gelöscht, die Anmeldung bleibt); läuft Nachrichten noch, sagt
+  das Fenster es und startet nicht; gibt es den neuen Ordner schon, bleibt
+  der alte liegen (`src/huelle/umzug.rs`)
 - Meldungen neuer Nachrichten über Querencia Benachrichtigungen (WebKits
   Standardweg); ein Klick holt das Fenster nach vorn
-- ungelesene Nachrichten im Fenstertitel („(3) Querencia Nachrichten“)
+- ungelesene Nachrichten im Fenstertitel („(3) Querencia Webhülle“)
 - Downloads ohne Rückfrage in den Download-Ordner, nie über eine vorhandene
   Datei, danach eine Meldung mit „Öffnen“ und „Ordner öffnen“
 - Mikrofon (Sprachnachrichten), Kamera und Lesen der Zwischenablage: je Art
@@ -43,11 +55,17 @@ documentation is in German.
   nennt den Renderer
 - Links mit anderen Schemata als http, https, mailto erst nach Rückfrage; die
   Hauptseite wechselt nie auf `data:`, `file:` oder fremde `blob:`
-- Bewusst **nicht** Teil von 0.1: Anrufe, Panel-Symbol, Verstecken statt
+- eigenes Programmsymbol (Fenster mit Adresszeile und Globus,
+  `data/icons/org.querencia.Webhuelle.svg`), kein Logo eines Dienstes
+- Bewusst **nicht** enthalten: Anrufe, Panel-Symbol, Verstecken statt
   Beenden, Meldungen mit Absenderbild, mehrere Konten, `whatsapp://`-Links
 
-Anwendungskennung (App-ID): `org.querencia.Nachrichten` · Binary:
-`querencia-nachrichten` · Debian-Paket (später): `querencia-nachrichten`
+Name: deutsch „Querencia Webhülle“, englisch „Querencia Web Wrapper“, im Menü
+„Webhülle“ / „Web Wrapper“ (Internet) · Beschreibung: „Hülle für WhatsApp
+Web“ / „Wrapper for WhatsApp Web“ · Anwendungskennung (App-ID, D-Bus-Name):
+`org.querencia.Webhuelle` · Binary: `querencia-webhuelle` · Debian-Paket:
+`querencia-webhuelle` (optional, nicht im Metapaket `querencia-desktop`) ·
+bis 0.1.1: `org.querencia.Nachrichten`, `querencia-nachrichten`
 
 | Taste | Wirkung |
 |---|---|
@@ -62,8 +80,8 @@ Anwendungskennung (App-ID): `org.querencia.Nachrichten` · Binary:
 
 | | |
 |---|---|
-| Version | 0.1.1 (Tag `nachrichten/0.1.1`, Zweig `nachrichten-011`): Grafik-Rückfall und Härtung, zur Freigabe bereit (Integrationsfassung `integration/011/`, Tag `nachrichten/0.1.1-int`); live ist 0.1.0 „Hülle“ seit 23.10.2026 17:14 (`nachrichten/0.1.0-int`) |
-| Letzte Prüfung | 23.10.2026 (0.1.1): 32 Unit-Tests, Clippy sauber, `i18n.py pruefen` (102 Texte); Prüfhülle Stufe L: Prüfseite de/1920×1080/hell und en/1024×768/dunkel je 74 von 74, Grafik-Szenario je 32 von 32; Anmeldeseiten-Wächter Stufe E 0.1.0 gegen 0.1.1 (Speicher, Bibliotheken der Web-Prozesse); Integrationsprobe siehe [docs/integration.md](docs/integration.md) |
+| Version | 0.2.0 (Tag `webhuelle/0.2.0`, Zweig `webhuelle`): Umbenennung in Querencia Webhülle mit Umzug der Ordner und eigenem Symbol, zur Freigabe bereit (Integrationsfassung `integration/webhuelle-020/`, Tag `webhuelle/0.2.0-int`); live ist Querencia Nachrichten 0.1.1 seit 23.10.2026 22:39 (`nachrichten/0.1.1-int`) |
+| Letzte Prüfung | 24.10.2026 (0.2.0): 39 Unit-Tests, Clippy sauber, `i18n.py pruefen` (104 Texte); Prüfhülle Stufe L: Prüfseite de/1920×1080/hell und en/1024×768/dunkel je 74 von 74, Grafik-Szenario je 44 von 44, Umzug von 0.1.1 je 58 von 58; Anmeldeseiten-Wächter Stufe E; Integrationsprobe siehe [docs/integration.md](docs/integration.md) |
 | Bekannte Lücken | siehe [docs/testing.md](docs/testing.md), Abschnitt „Nicht getestet“ |
 | Getestet auf | Ubuntu 26.04, labwc 0.9.8, GTK 4.22, WebKitGTK 2.52.6, Rust 1.93 |
 | Nicht getestet | alles nach der Anmeldung (nur mit Konto, Abnahme durch den Besitzer), HiDPI, Mehrmonitor |
@@ -99,8 +117,8 @@ Werkzeuge; Entscheidung E8):
   für `https://web.whatsapp.com`, Rechtschreibung in der Systemsprache.
 
 Das Projekt ist mit ZapZap, WasIstLos, WhatsApp und Meta weder verbunden noch
-von ihnen unterstützt. Kein WhatsApp-Logo im Programm; das Programmsymbol
-kommt vorerst aus dem Symbolthema.
+von ihnen unterstützt. Kein WhatsApp-Logo im Programm; das Programmsymbol ist
+ein eigenes (Fenster mit Adresszeile und Globus in Querencia-Orange).
 
 ## Lizenz
 

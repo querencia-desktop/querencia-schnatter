@@ -168,7 +168,7 @@ fn frage_bauen(
     ja: &str,
     antwort: impl FnOnce(bool) + 'static,
 ) {
-    let w = fenster(eltern, &gettext("Querencia Messages"), true);
+    let w = fenster(eltern, &gettext("Querencia Web Wrapper"), true);
     let k_nein = gtk::Button::with_mnemonic(nein);
     let k_ja = gtk::Button::with_mnemonic(ja);
     k_ja.add_css_class("suggested-action");
@@ -237,21 +237,22 @@ fn mit_schliessen(w: &gtk::Window, inhalt: &impl IsA<gtk::Widget>) {
 /// Website von Querencia Desktop (Info-Dialog).
 pub const WEBSITE: &str = "https://querencialinux.org";
 
-/// Info: Symbol, Name, Version, Hinweis auf die Alpha und die fehlende
-/// Verbindung zu WhatsApp, Website, Copyright, Lizenz, WebKitGTK-Stand.
+/// Info: Symbol, Name, Version, Beschreibung („Hülle für WhatsApp Web“),
+/// Hinweis, dass es kein Produkt von WhatsApp oder Meta ist, Alpha,
+/// Website, Copyright, Lizenz, WebKitGTK-Stand.
 pub fn info(eltern: &gtk::Window, platz: &Platz, symbol: &str) {
     if platz.vorholen() {
         return;
     }
     // TRANSLATORS: Fenstertitel des Info-Dialogs
-    let w = fenster(eltern, &gettext("About Querencia Messages"), false);
+    let w = fenster(eltern, &gettext("About Querencia Web Wrapper"), false);
     let inhalt = gtk::Box::new(gtk::Orientation::Vertical, 8);
     let bild = gtk::Image::from_icon_name(symbol);
     bild.set_pixel_size(64);
     inhalt.append(&bild);
     let name = gtk::Label::new(None);
     let titel = gettext_f(
-        "Querencia Messages {version}",
+        "Querencia Web Wrapper {version}",
         &[("version", env!("CARGO_PKG_VERSION"))],
     );
     name.set_markup(&format!(
@@ -259,10 +260,10 @@ pub fn info(eltern: &gtk::Window, platz: &Platz, symbol: &str) {
         glib::markup_escape_text(&titel)
     ));
     inhalt.append(&name);
+    inhalt.append(&gtk::Label::new(Some(&gettext("Wrapper for WhatsApp Web"))));
     let text = gtk::Label::new(Some(&gettext(
-        "WhatsApp Web in its own window for Querencia Desktop.\n\n\
-         Not affiliated with WhatsApp or Meta. WhatsApp is a trademark\n\
-         of its owner. Calls are not possible.",
+        "Not a product of WhatsApp or Meta and not affiliated with them.\n\
+         WhatsApp is a trademark of its owner. Calls are not possible.",
     )));
     text.set_justify(gtk::Justification::Center);
     inhalt.append(&text);
@@ -361,7 +362,7 @@ pub fn hilfe(eltern: &gtk::Window, platz: &Platz) {
     if platz.vorholen() {
         return;
     }
-    let w = fenster(eltern, &gettext("Querencia Messages Help"), false);
+    let w = fenster(eltern, &gettext("Querencia Web Wrapper Help"), false);
     w.set_resizable(true);
     w.set_default_size(560, 520);
     let inhalt = gtk::Box::new(gtk::Orientation::Vertical, 6);
@@ -369,9 +370,9 @@ pub fn hilfe(eltern: &gtk::Window, platz: &Platz) {
         (
             gettext("What this is"),
             gettext(
-                "Querencia Messages shows WhatsApp Web in its own window. It is not \
-                 affiliated with WhatsApp; your messages go directly between this \
-                 window and WhatsApp.",
+                "Querencia Web Wrapper shows WhatsApp Web in its own window. It is \
+                 not a product of WhatsApp or Meta and not affiliated with them; \
+                 your messages go directly between this window and WhatsApp.",
             ),
         ),
         (
@@ -457,7 +458,7 @@ pub fn einstellungen(
     if platz.vorholen() {
         return;
     }
-    let w = fenster(eltern, &gettext("Querencia Messages Preferences"), false);
+    let w = fenster(eltern, &gettext("Querencia Web Wrapper Preferences"), false);
     let inhalt = gtk::Box::new(gtk::Orientation::Vertical, 6);
     let ueberschrift = |text: &str| {
         let l = gtk::Label::new(None);
@@ -542,7 +543,7 @@ pub fn einstellungen(
     }
     let gh = gtk::Label::new(Some(&gettext(
         "Software graphics avoid crashes with some graphics drivers. A change takes \
-         effect the next time Querencia Messages starts.",
+         effect the next time Querencia Web Wrapper starts.",
     )));
     gh.set_xalign(0.0);
     gh.set_wrap(true);
