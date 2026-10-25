@@ -55,7 +55,8 @@ msgid ""
 "Not a product of WhatsApp or Meta and not affiliated with them.\n"
 "WhatsApp is a trademark of its owner. Calls are not possible."
 msgstr ""
-"Kein Produkt von WhatsApp oder Meta und nicht mit ihnen verbundenWhatsApp ist eine Marke ihres Inhabers. Anrufe sind nicht möglich."
+"Kein Produkt von WhatsApp oder Meta und nicht mit ihnen verbunden.\n"
+"WhatsApp ist eine Marke ihres Inhabers. Anrufe sind nicht möglich."
 
 #: src/huelle/dialoge.rs:271
 msgid "Alpha – not released for everyday use."

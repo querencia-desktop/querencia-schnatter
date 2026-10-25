@@ -15,7 +15,7 @@ Aufruf (im Repo-Wurzelverzeichnis):
   i18n.py mo <ziel>               <ziel>/<lang>/LC_MESSAGES/<domäne>.mo für jede po/LINGUAS-Sprache
                                   (dazu die Kataloge aus BIBLIOTHEKEN)
   i18n.py desktop <ein.in> <aus>  Desktop-Datei mit Name[lang]= usw. (wie msgfmt --desktop)
-  i18n.py pruefen                 .pot aktuell, alle .po vollständig, Platzhalter und Zugriffstasten stimmen
+  i18n.py pruefen                 .pot aktuell, alle .po vollständig, Platzhalter, Zugriffstasten und Umbrüche stimmen
 
 Erkannte Aufrufe in Rust: gettext("…"), gettext_f("…", …), ngettext("…", "…", n),
 ngettext_f("…", "…", n, …), pgettext("ctx", "…"). Ein Kommentar
@@ -536,6 +536,9 @@ def cmd_pruefen(root):
                     fehler.append(f"{lang}: Zugriffstaste (_) fehlt oder doppelt: {e['id']!r} -> {s!r}")
                 if e["id"].endswith("\n") != s.endswith("\n"):
                     fehler.append(f"{lang}: Zeilenende abweichend: {e['id']!r}")
+                # 0.2.0 verlor im Info-Dialog so einen Umbruch samt Punkt
+                if e["id"].count("\n") != s.count("\n"):
+                    fehler.append(f"{lang}: Zahl der Zeilenumbrüche abweichend: {e['id']!r}")
     import tempfile
     for src in sources(root)[1]:
         dst = src[: -len(".in")]
