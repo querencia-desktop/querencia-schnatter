@@ -30,9 +30,9 @@ use einstellungen::Einstellungen;
 use fenster::Fenster;
 use sitzung::Ordner;
 
-/// Programmsymbol (`data/icons/org.querencia.Webhuelle.svg`, hicolor):
-/// Fenster mit Adresszeile und Globus, kein Logo eines Dienstes.
-pub const SYMBOL: &str = "org.querencia.Webhuelle";
+/// Programmsymbol (`data/icons/org.querencia.Schnatter.svg`, hicolor):
+/// grüne Sprechblase mit Schnabel, kein Logo eines Dienstes.
+pub const SYMBOL: &str = "org.querencia.Schnatter";
 
 /// Startet die Hülle in `app` für `dienst`: Ordner, Sitzung, Rechte vorab,
 /// Rechtschreibung, Downloads, ein Fenster. Ein zweiter Start holt nur das
@@ -43,12 +43,13 @@ pub fn starten(app: &gtk::Application, dienst: Dienst, umzug: &umzug::Stand) {
     let sperre = match umzug {
         s if s.start_erlaubt() => None,
         umzug::Stand::Fertig(_) => None,
-        umzug::Stand::AltesProgrammLaeuft(_) => Some(gettext(
-            "Querencia Messages is still running. Close it and start Querencia Web \
-             Wrapper again: it then takes over the sign-in and the settings.",
+        umzug::Stand::AltesProgrammLaeuft { name, .. } => Some(gettext_f(
+            "{program} is still running. Close it and start Schnatter again: it \
+             then takes over the sign-in and the settings.",
+            &[("program", &umzug::anzeigename(name))],
         )),
         umzug::Stand::Gescheitert(grund) => Some(gettext_f(
-            "The folders of Querencia Messages could not be taken over: {error}. \
+            "The folders of the previous version could not be taken over: {error}. \
              Nothing was deleted.",
             &[("error", grund)],
         )),
@@ -122,7 +123,7 @@ pub fn starten(app: &gtk::Application, dienst: Dienst, umzug: &umzug::Stand) {
 
 fn fehler_und_ende(app: &gtk::Application, text: &str) {
     let w = gtk::ApplicationWindow::new(app);
-    w.set_title(Some(&gettext("Querencia Web Wrapper")));
+    w.set_title(Some(&gettext("Schnatter")));
     let l = gtk::Label::new(Some(text));
     l.set_margin_top(24);
     l.set_margin_bottom(24);

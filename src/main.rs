@@ -1,7 +1,8 @@
-//! Querencia Webhülle (englisch „Querencia Web Wrapper“) – eine Hülle für
-//! WhatsApp Web im eigenen Fenster für Querencia Desktop. Bis 0.1.1 hieß
-//! das Programm „Querencia Nachrichten“ (`querencia-nachrichten`,
-//! `org.querencia.Nachrichten`); die Ordner zieht `huelle::umzug` um.
+//! Schnatter – WhatsApp Web im eigenen Fenster für Querencia Desktop. In
+//! 0.2.0 hieß das Programm „Querencia Webhülle“ (`querencia-webhuelle`,
+//! `org.querencia.Webhuelle`), bis 0.1.1 „Querencia Nachrichten“
+//! (`querencia-nachrichten`, `org.querencia.Nachrichten`); die Ordner zieht
+//! `huelle::umzug` um.
 //!
 //! Eine schlanke GTK-4-Hülle um eine WebKitGTK-6.0-Ansicht: Menüleiste aus
 //! `querencia-oberflaeche`, sonst nur die Seite. Dauerhafte Sitzung,
@@ -25,11 +26,11 @@ use gtk::prelude::*;
 use gtk::{gio, glib};
 use querencia_oberflaeche::{farbschema, icon_theme, portal};
 
-pub const APP_ID: &str = "org.querencia.Webhuelle";
-const PROGRAMM: &str = "querencia-webhuelle";
+pub const APP_ID: &str = "org.querencia.Schnatter";
+const PROGRAMM: &str = "querencia-schnatter";
 const STIL: &str = include_str!("style.css");
 
-/// Eine Protokollzeile auf stderr („querencia-webhuelle: …“).
+/// Eine Protokollzeile auf stderr („querencia-schnatter: …“).
 pub fn log(text: &str) {
     eprintln!("{PROGRAMM}: {text}");
 }
@@ -37,12 +38,12 @@ pub fn log(text: &str) {
 fn debug() -> Option<Instant> {
     static BEGINN: OnceLock<Option<Instant>> = OnceLock::new();
     *BEGINN.get_or_init(|| {
-        (std::env::var("QUERENCIA_WEBHUELLE_DEBUG").as_deref() == Ok("1")).then(Instant::now)
+        (std::env::var("QUERENCIA_SCHNATTER_DEBUG").as_deref() == Ok("1")).then(Instant::now)
     })
 }
 
-/// Eine Ereigniszeile für Prüfungen, nur mit `QUERENCIA_WEBHUELLE_DEBUG=1`
-/// (`huelle::pruefung`): „querencia-webhuelle: E 12.345 art text“.
+/// Eine Ereigniszeile für Prüfungen, nur mit `QUERENCIA_SCHNATTER_DEBUG=1`
+/// (`huelle::pruefung`): „querencia-schnatter: E 12.345 art text“.
 pub fn ereignis(art: &str, text: &str) {
     if let Some(b) = debug() {
         eprintln!(
@@ -83,7 +84,7 @@ fn main() -> glib::ExitCode {
     huelle::grafik::vorbereiten(einstellungen.grafik());
     i18n::init();
     let modus = portal::prepare(PROGRAMM);
-    glib::set_application_name(&i18n::gettext("Querencia Web Wrapper"));
+    glib::set_application_name(&i18n::gettext("Schnatter"));
     let app = gtk::Application::builder()
         .application_id(APP_ID)
         .flags(gio::ApplicationFlags::empty())

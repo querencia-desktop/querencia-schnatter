@@ -1,11 +1,11 @@
-# Übersetzungsvorlage für Querencia Webhülle.
+# Übersetzungsvorlage für Schnatter.
 # Copyright (C) 2026 Querencia
-# Diese Datei steht unter derselben Lizenz wie Querencia Webhülle (GPL-3.0-or-later).
+# Diese Datei steht unter derselben Lizenz wie Schnatter (GPL-3.0-or-later).
 # Erzeugt mit werkzeug/i18n.py pot – nicht von Hand bearbeiten.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: querencia-webhuelle\n"
+"Project-Id-Version: querencia-schnatter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -18,27 +18,23 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #. TRANSLATORS: Desktop-Datei, Schlüssel Name
-#: data/org.querencia.Webhuelle.desktop.in:13
-msgid "Web Wrapper"
+#: data/org.querencia.Schnatter.desktop.in:13 src/huelle/dialoge.rs:171 src/huelle/fenster.rs:57 src/huelle/fenster.rs:60 src/huelle/mod.rs:126 src/main.rs:87
+msgid "Schnatter"
 msgstr ""
 
 #. TRANSLATORS: Desktop-Datei, Schlüssel GenericName
-#: data/org.querencia.Webhuelle.desktop.in:14 src/huelle/dialoge.rs:263
+#: data/org.querencia.Schnatter.desktop.in:14
 msgid "Wrapper for WhatsApp Web"
 msgstr ""
 
 #. TRANSLATORS: Desktop-Datei, Schlüssel Comment
-#: data/org.querencia.Webhuelle.desktop.in:15
-msgid "Use WhatsApp Web in its own window"
+#: data/org.querencia.Schnatter.desktop.in:15 src/huelle/dialoge.rs:264
+msgid "WhatsApp Web in its own window"
 msgstr ""
 
 #. TRANSLATORS: Desktop-Datei, Schlüssel Keywords (Liste, Einträge mit ; trennen und abschließen)
-#: data/org.querencia.Webhuelle.desktop.in:21
+#: data/org.querencia.Schnatter.desktop.in:21
 msgid "WhatsApp;Chat;Messenger;Messages;Wrapper;"
-msgstr ""
-
-#: src/huelle/dialoge.rs:171 src/huelle/fenster.rs:57 src/huelle/fenster.rs:60 src/huelle/mod.rs:124 src/main.rs:86
-msgid "Querencia Web Wrapper"
 msgstr ""
 
 #: src/huelle/dialoge.rs:225
@@ -46,219 +42,219 @@ msgid "_Close"
 msgstr ""
 
 #. TRANSLATORS: Fenstertitel des Info-Dialogs
-#: src/huelle/dialoge.rs:248
-msgid "About Querencia Web Wrapper"
+#: src/huelle/dialoge.rs:249
+msgid "About Schnatter"
 msgstr ""
 
-#: src/huelle/dialoge.rs:254
+#: src/huelle/dialoge.rs:255
 #, no-c-format
-msgid "Querencia Web Wrapper {version}"
+msgid "Schnatter {version}"
 msgstr ""
 
-#: src/huelle/dialoge.rs:264
+#: src/huelle/dialoge.rs:265
 msgid ""
 "Not a product of WhatsApp or Meta and not affiliated with them.\n"
 "WhatsApp is a trademark of its owner. Calls are not possible."
 msgstr ""
 
-#: src/huelle/dialoge.rs:270
+#: src/huelle/dialoge.rs:271
 msgid "Alpha – not released for everyday use."
 msgstr ""
 
-#: src/huelle/dialoge.rs:291
+#: src/huelle/dialoge.rs:292
 msgid "License: GPL-3.0-or-later"
 msgstr ""
 
-#: src/huelle/dialoge.rs:292
+#: src/huelle/dialoge.rs:293
 #, no-c-format
 msgid "Web engine: WebKitGTK {version} (LGPL)"
 msgstr ""
 
-#: src/huelle/dialoge.rs:313 src/huelle/dialoge.rs:350
+#: src/huelle/dialoge.rs:314 src/huelle/dialoge.rs:351
 #, no-c-format
 msgid "Web page graphics: {renderer}"
 msgstr ""
 
-#: src/huelle/dialoge.rs:315
+#: src/huelle/dialoge.rs:316
 msgid "determining…"
 msgstr ""
 
-#: src/huelle/dialoge.rs:322
+#: src/huelle/dialoge.rs:323
 msgid ""
 "Software graphics, switched on automatically: OpenGL runs through zink on nouveau here."
 msgstr ""
 
-#: src/huelle/dialoge.rs:326
+#: src/huelle/dialoge.rs:327
 msgid ""
 "Software graphics, switched on automatically: the graphics test failed."
 msgstr ""
 
-#: src/huelle/dialoge.rs:328
+#: src/huelle/dialoge.rs:329
 msgid "Software graphics, switched on in the preferences."
 msgstr ""
 
-#: src/huelle/dialoge.rs:330
+#: src/huelle/dialoge.rs:331
 msgid "Graphics settings come from the environment of the session."
 msgstr ""
 
-#: src/huelle/dialoge.rs:332
+#: src/huelle/dialoge.rs:333
 msgid "Software graphics are switched off in the preferences."
 msgstr ""
 
-#: src/huelle/dialoge.rs:333
+#: src/huelle/dialoge.rs:334
 msgid "Graphics hardware as chosen by Mesa."
 msgstr ""
 
-#: src/huelle/dialoge.rs:346
+#: src/huelle/dialoge.rs:347
 msgid "unknown"
 msgstr ""
 
-#: src/huelle/dialoge.rs:365
-msgid "Querencia Web Wrapper Help"
-msgstr ""
-
-#: src/huelle/dialoge.rs:371
-msgid "What this is"
+#: src/huelle/dialoge.rs:366
+msgid "Schnatter Help"
 msgstr ""
 
 #: src/huelle/dialoge.rs:372
-msgid ""
-"Querencia Web Wrapper shows WhatsApp Web in its own window. It is not a product of WhatsApp or Meta and not affiliated with them; your messages go directly between this window and WhatsApp."
+msgid "What this is"
 msgstr ""
 
-#: src/huelle/dialoge.rs:379
-msgid "Signing in"
+#: src/huelle/dialoge.rs:373
+msgid ""
+"Schnatter shows WhatsApp Web in its own window. It is not a product of WhatsApp or Meta and not affiliated with them; your messages go directly between this window and WhatsApp."
 msgstr ""
 
 #: src/huelle/dialoge.rs:380
+msgid "Signing in"
+msgstr ""
+
+#: src/huelle/dialoge.rs:381
 msgid ""
 "Open WhatsApp on your phone, choose “Linked devices”, then “Link a device”, and scan the QR code in the window. You stay signed in until you log out."
 msgstr ""
 
-#: src/huelle/dialoge.rs:387
+#: src/huelle/dialoge.rs:388
 msgid "No calls"
 msgstr ""
 
-#: src/huelle/dialoge.rs:388
+#: src/huelle/dialoge.rs:389
 msgid ""
 "Voice and video calls are not possible: the web engine of Ubuntu is built without WebRTC. Take calls on your phone. Voice messages work."
 msgstr ""
 
-#: src/huelle/dialoge.rs:395
+#: src/huelle/dialoge.rs:396
 msgid "Notifications"
 msgstr ""
 
-#: src/huelle/dialoge.rs:396
+#: src/huelle/dialoge.rs:397
 msgid ""
 "New messages are announced by the notification area of the desktop while the window is open. Closing the window quits the program; then there are no notifications."
 msgstr ""
 
-#: src/huelle/dialoge.rs:403
+#: src/huelle/dialoge.rs:404
 msgid "Downloads"
 msgstr ""
 
-#: src/huelle/dialoge.rs:404
+#: src/huelle/dialoge.rs:405
 msgid ""
 "Downloaded files go to your Downloads folder without a question; a file never overwrites another one. A notification offers to open the file or its folder."
 msgstr ""
 
-#: src/huelle/dialoge.rs:411
+#: src/huelle/dialoge.rs:412
 msgid "Microphone, camera, clipboard"
 msgstr ""
 
-#: src/huelle/dialoge.rs:412
+#: src/huelle/dialoge.rs:413
 msgid ""
 "The page asks once for each; the answer is remembered. Edit → Preferences forgets the answers."
 msgstr ""
 
-#: src/huelle/dialoge.rs:418
+#: src/huelle/dialoge.rs:419
 msgid "Logging out"
 msgstr ""
 
-#: src/huelle/dialoge.rs:419
+#: src/huelle/dialoge.rs:420
 msgid ""
 "File → Log Out and Delete Data removes everything this program stored for WhatsApp Web on this computer. Your chats stay on your phone."
 msgstr ""
 
-#: src/huelle/dialoge.rs:461
-msgid "Querencia Web Wrapper Preferences"
-msgstr ""
-
-#: src/huelle/dialoge.rs:470
-msgid "Browser identification"
+#: src/huelle/dialoge.rs:462
+msgid "Schnatter Preferences"
 msgstr ""
 
 #: src/huelle/dialoge.rs:471
+msgid "Browser identification"
+msgstr ""
+
+#: src/huelle/dialoge.rs:472
 msgid "_Standard of the web engine (WhatsApp sees Safari on a Mac)"
 msgstr ""
 
-#: src/huelle/dialoge.rs:475
+#: src/huelle/dialoge.rs:476
 msgid "_Linux identification without site exceptions"
 msgstr ""
 
-#: src/huelle/dialoge.rs:481
+#: src/huelle/dialoge.rs:482
 msgid ""
 "Changing it reloads the page. If WhatsApp Web stops working, switch back."
 msgstr ""
 
-#: src/huelle/dialoge.rs:508
+#: src/huelle/dialoge.rs:509
 msgid "Sound"
 msgstr ""
 
-#: src/huelle/dialoge.rs:509
+#: src/huelle/dialoge.rs:510
 msgid "_Play sounds and voice messages"
 msgstr ""
 
-#: src/huelle/dialoge.rs:520
+#: src/huelle/dialoge.rs:521
 msgid "Software graphics"
 msgstr ""
 
-#: src/huelle/dialoge.rs:525
+#: src/huelle/dialoge.rs:526
 msgid "_Automatic: only where the graphics driver is known to fail"
 msgstr ""
 
-#: src/huelle/dialoge.rs:527
+#: src/huelle/dialoge.rs:528
 msgid "_On: always draw web pages in software"
 msgstr ""
 
-#: src/huelle/dialoge.rs:528
+#: src/huelle/dialoge.rs:529
 msgid "Off: always use the graphics _hardware"
 msgstr ""
 
-#: src/huelle/dialoge.rs:544
+#: src/huelle/dialoge.rs:545
 msgid ""
-"Software graphics avoid crashes with some graphics drivers. A change takes effect the next time Querencia Web Wrapper starts."
+"Software graphics avoid crashes with some graphics drivers. A change takes effect the next time Schnatter starts."
 msgstr ""
 
-#: src/huelle/dialoge.rs:555
+#: src/huelle/dialoge.rs:556
 msgid "Remembered permissions"
 msgstr ""
 
-#: src/huelle/dialoge.rs:576
+#: src/huelle/dialoge.rs:577
 msgid "_Forget Answers"
 msgstr ""
 
-#: src/huelle/dialoge.rs:605
+#: src/huelle/dialoge.rs:606
 msgid "Microphone"
 msgstr ""
 
-#: src/huelle/dialoge.rs:606
+#: src/huelle/dialoge.rs:607
 msgid "Camera"
 msgstr ""
 
-#: src/huelle/dialoge.rs:607
+#: src/huelle/dialoge.rs:608
 msgid "Reading the clipboard"
 msgstr ""
 
-#: src/huelle/dialoge.rs:613
+#: src/huelle/dialoge.rs:614
 msgid "allowed"
 msgstr ""
 
-#: src/huelle/dialoge.rs:614
+#: src/huelle/dialoge.rs:615
 msgid "denied"
 msgstr ""
 
-#: src/huelle/dialoge.rs:615
+#: src/huelle/dialoge.rs:616
 msgid "not asked yet"
 msgstr ""
 
@@ -266,7 +262,7 @@ msgstr ""
 msgid "download"
 msgstr ""
 
-#: src/huelle/downloads.rs:133 src/i18n.rs:133
+#: src/huelle/downloads.rs:133 src/i18n.rs:132
 msgid "Download finished"
 msgstr ""
 
@@ -400,18 +396,19 @@ msgstr ""
 msgid "_Help"
 msgstr ""
 
-#: src/huelle/mod.rs:45
-msgid ""
-"Querencia Messages is still running. Close it and start Querencia Web Wrapper again: it then takes over the sign-in and the settings."
-msgstr ""
-
-#: src/huelle/mod.rs:49
+#: src/huelle/mod.rs:46
 #, no-c-format
 msgid ""
-"The folders of Querencia Messages could not be taken over: {error}. Nothing was deleted."
+"{program} is still running. Close it and start Schnatter again: it then takes over the sign-in and the settings."
 msgstr ""
 
-#: src/huelle/mod.rs:80
+#: src/huelle/mod.rs:51
+#, no-c-format
+msgid ""
+"The folders of the previous version could not be taken over: {error}. Nothing was deleted."
+msgstr ""
+
+#: src/huelle/mod.rs:82
 #, no-c-format
 msgid "The data folder cannot be used: {error}"
 msgstr ""
@@ -468,4 +465,12 @@ msgstr ""
 
 #: src/huelle/rechte.rs:224
 msgid "_Allow"
+msgstr ""
+
+#: src/huelle/umzug.rs:45
+msgid "Querencia Web Wrapper"
+msgstr ""
+
+#: src/huelle/umzug.rs:46
+msgid "Querencia Messages"
 msgstr ""

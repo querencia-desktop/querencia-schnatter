@@ -49,13 +49,15 @@ nennt den Fork nicht „Querencia“.
 
 ## Fremde Marken
 
-Querencia Webhülle (bis 0.1.1 „Querencia Nachrichten“) ist **kein Produkt
+Schnatter (0.2.0 „Querencia Webhülle“, bis 0.1.1 „Querencia Nachrichten“)
+ist **kein Produkt
 von WhatsApp oder Meta**, **nicht mit ihnen verbunden** und wird von ihnen
 weder unterstützt noch geprüft; „WhatsApp“ ist eine Marke
 ihres Inhabers und wird nur genannt, um zu beschreiben, welche Webseite das
-Programm zeigt („Hülle für WhatsApp Web“), nie im Programmnamen. Das
+Programm zeigt („WhatsApp Web als eigenes Fenster“), nie im Programmnamen. Das
 Programm zeigt kein WhatsApp-Logo; sein Symbol ist ein eigenes
-(`data/icons/org.querencia.Webhuelle.svg`).
+(`data/icons/org.querencia.Schnatter.svg`, grüne Sprechblase mit
+Schnabel; kein Kreis, kein Telefonhörer).
 
 Dieses Projekt ist mit GNOME, MATE, Ubuntu, Canonical, Debian und den
 Autoren der Vorbildprogramme (ZapZap, WasIstLos) weder verbunden noch von ihnen unterstützt;

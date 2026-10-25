@@ -59,9 +59,9 @@ bash werkzeug/lauf.sh funktionen en 1024x768 dunkel
 ```
 
 `werkzeug/szenario-funktionen.sh` startet die Ablage-Kopie des Release-Baus
-mit `QUERENCIA_WEBHUELLE_PRUEFSEITE=werkzeug/pruefseite.html` (lokal unter
+mit `QUERENCIA_SCHNATTER_PRUEFSEITE=werkzeug/pruefseite.html` (lokal unter
 `http://localhost/`, Hosts und Benachrichtigungsrecht für `localhost`) und
-`QUERENCIA_WEBHUELLE_DEBUG=1`, eine Attrappe von
+`QUERENCIA_SCHNATTER_DEBUG=1`, eine Attrappe von
 `org.freedesktop.Notifications` (`attrappe_benachrichtigungen.py`, klickt
 nach Regel), einen Prüföffner statt Browser, Dateimanager und Texteditor
 (`testoeffner.sh`) und einen HTTP-Server auf 127.0.0.1 in der Hülle. Echte
@@ -98,34 +98,37 @@ ab („Not allowed to load local resource“), die Seite bleibt. `javascript:`
 ohne Geste: WebKit 2.52 fragt die Hülle nicht (0 Entscheidungen) und führt
 die Adresse im eigenen Ursprung aus; das Szenario hält das nur fest.
 
-## Umzug von Querencia Nachrichten (Stufe L, 0.2.0)
+## Umzug von Querencia Webhülle und Querencia Nachrichten (Stufe L, 0.3.0)
 
 ```bash
-ALT_ABLAGE=~/opt/querencia/nachrichten/7ce4b992509920bb bash werkzeug/lauf.sh umzug de 1920x1080 hell
+ALT_ABLAGE=~/opt/querencia/webhuelle/ab424b7fc122d7e9 bash werkzeug/lauf.sh umzug de 1920x1080 hell
 ALT_ABLAGE=~/opt/querencia/nachrichten/7ce4b992509920bb bash werkzeug/lauf.sh umzug en 1024x768 dunkel
 ```
 
-`werkzeug/szenario-umzug.sh` prüft den Umzug der Ordner `querencia-nachrichten`
-→ `querencia-webhuelle` **nur mit einer Attrappen-Anmeldung im Wegwerfprofil**:
-`ALT_ABLAGE` kopiert die Ablage 0.1.1 (nur gelesen) ins Profil, die
-Einstellungen liegen dort unter dem alten Namen. Die Prüfseite legt mit der
+`werkzeug/szenario-umzug.sh` prüft den Umzug der Ordner `querencia-schnatter`
+(0.2.0) bzw. `querencia-nachrichten` (0.1.1) → `querencia-schnatter` **nur mit
+einer Attrappen-Anmeldung im Wegwerfprofil**: `ALT_ABLAGE` kopiert die
+Ablage 0.2.0 oder 0.1.1 (nur gelesen) ins Profil, das Szenario erkennt an der
+Binary, welche es ist; die Einstellungen liegen dort unter dem alten Namen.
+Im Folgenden ist „alt“ diese Fassung. Die Prüfseite legt mit der
 Taste `a` einen Zufallswert als Cookie, in localStorage und in IndexedDB an
-(Taste `r` und jeder Start lesen ihn, Zeile „speicher“). Ablauf: (1) 0.1.1
+(Taste `r` und jeder Start lesen ihn, Zeile „speicher“). Ablauf: (1) alt
 legt die Attrappe an und merkt Zoom 1,25; danach bekommt jeder alte Ordner
-eine Marke mit Zufallsinhalt, Inode und Dateiliste werden notiert. (2) 0.1.1
-läuft, 0.2.0 startet: Ereignis `umzug blockiert pid=…`, Hinweisfenster (Foto),
-kein Start, kein neuer Ordner. (3) 0.2.0 allein: `umzug daten=verschoben
-cache=verschoben konfig=verschoben`, je Ordner eine Protokollzeile, alte
+eine Marke mit Zufallsinhalt, Inode und Dateiliste werden notiert. (2) alt
+läuft, 0.3.0 startet: Ereignis `umzug blockiert name=… pid=…`, Hinweisfenster
+(Foto), kein Start, kein neuer Ordner. (3) 0.3.0 allein: `umzug
+daten=verschoben-<webhuelle|nachrichten> …` für alle drei Ordner, je Ordner eine Protokollzeile, alte
 Namen weg, neue 0700 mit **derselben Inode** (umbenannt, nicht kopiert),
 Marke byte-gleich, keine Datei verloren, Attrappe in localStorage und
 IndexedDB da, Zoom übernommen; Info-Dialog (Foto). (4) Zweiter Start: nichts
-zu tun. (5) Rückfall wie `integration/webhuelle-020` `zurueck` (`mv` neu →
-alt): 0.1.1 findet die Attrappe; wieder vor: 0.2.0 auch. (6) Ein alter Ordner
+zu tun. (5) Rückfall wie `integration/schnatter-030` `zurueck` (`mv` neu →
+alt): alt findet die Attrappe; wieder vor: 0.3.0 auch. (6) Ein alter Ordner
 taucht neben dem neuen auf: `daten=alt-bleibt`, er bleibt unberührt. Am Ende
-läuft keines der beiden Programme mehr. 58 Punkte.
+läuft keines der Programme mehr. 58 Punkte. Die Fälle „beide alten Namen
+liegen nebeneinander“, „Link unter dem neueren Namen“ und „Fehler beim
+dritten Umbenennen“ decken die Unit-Tests in `src/huelle/umzug.rs` ab.
 
-Gemessen (24.10.2026, de/1920×1080/hell und en/1024×768/dunkel, je 58 von
-58): Cookies überstehen schon in 0.1.1 keinen Neustart (WebKit ohne
+Gemessen in 0.2.0 (24.10.2026, Umzug von 0.1.1, je 58 von 58): Cookies überstehen schon in 0.1.1 keinen Neustart (WebKit ohne
 dauerhaften Cookie-Speicher, kein `cookies.sqlite` im Datenordner; Zeilen
 „INFO cookie … null“) – unabhängig vom Umzug. WhatsApp Web hält seine
 Sitzung in IndexedDB und localStorage; beide überstehen Umzug, Rückfall und
@@ -140,14 +143,14 @@ VERGLEICH_BIN=<0.1.0-Binary> bash werkzeug/lauf.sh grafik en 1024x768 dunkel
 
 Dazu `de 1024x768 hell` und `en 1920x1080 dunkel` (alle vier Kombinationen).
 `VERGLEICH_BIN` (wahlweise) kopiert eine zweite Binary ins Profil, nur
-gelesen; sie läuft als Fall „vergleich“. Seit 0.2.0 nur mit Binaries ab
-0.2.0 (Anwendungskennung, Ordner und Prüfvariablen heißen bei 0.1.x anders);
+gelesen; sie läuft als Fall „vergleich“. Seit 0.3.0 nur mit Binaries ab
+0.3.0 (Anwendungskennung, Ordner und Prüfvariablen heißen bei 0.1.x und 0.2.0 anders);
 ohne `VERGLEICH_BIN` hat das Szenario 44 Punkte (24.10.2026: je 44 von 44). `GRAFIK_FAELLE`
 legt Fälle und Reihenfolge fest, `NAMENSZUSATZ` hängt einen Zusatz an den
 Namen des Laufs.
 
 `werkzeug/szenario-grafik.sh` misst die Erkennung auf zwei Wegen: die
-Grafik-Probe des Programms (`querencia-webhuelle --grafik-probe`,
+Grafik-Probe des Programms (`querencia-schnatter --grafik-probe`,
 surfaceless EGL, GLES 2) gegen `eglinfo -B -p surfaceless`, je ohne und mit
 den drei Variablen; dann startet es die Hülle gegen die Prüfseite viermal
 (Einstellung automatisch, an, aus, dazu „Umgebung“ mit schon gesetzten
@@ -204,7 +207,7 @@ bash werkzeug/lauf.sh anmeldeseite E de 1024x768 dunkel linux
 ```
 
 `werkzeug/szenario-anmeldeseite.sh` lädt web.whatsapp.com mit
-`QUERENCIA_WEBHUELLE_ZUSTAND=1` (Merkmale der Seite alle 2 s, ohne
+`QUERENCIA_SCHNATTER_ZUSTAND=1` (Merkmale der Seite alle 2 s, ohne
 Seitentext), wartet auf den QR-Code, fotografiert den ganzen Bildschirm,
 misst Speicher und Sandbox (`messen.py`: PSS aus `smaps_rollup`,
 Namensräume, Seccomp, NoNewPrivs je Prozess), beendet das Programm über
@@ -260,7 +263,8 @@ WebKit-Sandbox an, Sitzung danach gelöscht.
   geprüft sind Autoplay-Zustand und WebKits Attrappen-Geräte).
 - HiDPI, Mehrmonitor, Ruhezustand, Netzwechsel.
 - Der Umzug mit einer echten Anmeldung (nur mit Konto; geprüft mit einer
-  Attrappe in localStorage und IndexedDB, Bericht der Welle webhuelle).
+  Attrappe in localStorage und IndexedDB, Berichte der Wellen webhuelle und
+  schnatter).
 - Der Bildbetrachter von WhatsApp Web mit Software-Grafik (nur mit Konto;
   der Besitzer hat den Weg mit den drei Variablen in der Shell bestätigt, QD-169).
 - Die Grafik-Probe auf anderer Hardware (AMD, Intel, NVIDIA-Treiber): geprüft

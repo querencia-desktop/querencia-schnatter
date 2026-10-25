@@ -634,22 +634,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "querencia-webhuelle"
-version = "0.2.0"
+name = "querencia-oberflaeche"
+version = "0.1.1"
+dependencies = [
+ "gettext-rs",
+ "gtk4",
+]
+
+[[package]]
+name = "querencia-schnatter"
+version = "0.3.0"
 dependencies = [
  "gettext-rs",
  "gtk4",
  "querencia-dateiarbeit",
  "querencia-oberflaeche",
  "webkit6",
-]
-
-[[package]]
-name = "querencia-oberflaeche"
-version = "0.1.0"
-dependencies = [
- "gettext-rs",
- "gtk4",
 ]
 
 [[package]]

@@ -33,7 +33,7 @@ bash werkzeug/bauen.sh release    # nur Release
   eigenem `TMPDIR` (`tmp/`). GUI- und Messläufe laufen nie unter einem
   Bau-Platz.
 - Der Release-Build läuft mit `--remap-path-prefix` für das Repo
-  (`/usr/src/querencia-webhuelle`), den Runtime-Checkout
+  (`/usr/src/querencia-schnatter`), den Runtime-Checkout
   (`/usr/src/querencia-runtime`) und das Cargo-Home (`/usr/share/cargo`)
   nach `target/remap/release/`. Das Skript zählt am Ende die Home-Pfade im
   Binary (Soll 0).
@@ -46,44 +46,46 @@ Englisch steht im Code (msgid), Deutsch in `po/de.po`. Werkzeug ist
 `werkzeug/i18n.py` aus Querencia Dokumente (nur Python-Standardbibliothek):
 
 ```bash
-python3 werkzeug/i18n.py pot      # po/querencia-webhuelle.pot aus src/ und data/*.desktop.in
+python3 werkzeug/i18n.py pot      # po/querencia-schnatter.pot aus src/ und data/*.desktop.in
 python3 werkzeug/i18n.py update   # po/de.po nachziehen, dann übersetzen
-python3 werkzeug/i18n.py desktop data/org.querencia.Webhuelle.desktop.in data/org.querencia.Webhuelle.desktop
+python3 werkzeug/i18n.py desktop data/org.querencia.Schnatter.desktop.in data/org.querencia.Schnatter.desktop
 python3 werkzeug/i18n.py pruefen  # muss PASS melden
 python3 werkzeug/i18n.py mo <ziel>
 msgfmt -c -o /dev/null po/de.po   # Gegenprobe mit GNU gettext
 ```
 
-`i18n.py mo` legt neben `querencia-webhuelle.mo` auch
+`i18n.py mo` legt neben `querencia-schnatter.mo` auch
 `querencia-oberflaeche.mo` ab (aus dem po-Ordner der Bibliothek im
 Runtime-Checkout; Tastennamen „Strg“ in den Menüs). Die Binary sucht die
-Kataloge in dieser Reihenfolge: `QUERENCIA_WEBHUELLE_LOCALEDIR`,
+Kataloge in dieser Reihenfolge: `QUERENCIA_SCHNATTER_LOCALEDIR`,
 `<Ordner der Binary>/share/locale`, `<Präfix>/share/locale`,
 `/usr/share/locale`. Ohne Katalog ist die Oberfläche englisch.
 
 ## Symbol
 
-Eigenes Programmsymbol `data/icons/org.querencia.Webhuelle.svg` (seit 0.2.0;
-vorher `empathy` aus dem Symbolthema): ein Programmfenster mit grauem Rahmen
-wie bei Querencia Dateien, Adresszeile und ein Globus in Querencia-Orange –
-eine Webseite im eigenen Fenster. Kein Logo eines Dienstes, nicht das
-Querencia-Logo; Lizenz wie das Programm (GPL-3.0-or-later). Es liegt nur als
+Eigenes Programmsymbol `data/icons/org.querencia.Schnatter.svg` (seit 0.3.0;
+0.2.0 ein Fenster mit Globus, bis 0.1.1 `empathy` aus dem Symbolthema): eine
+grüne Sprechblase mit dunkelgrünem Rand und Zipfel, ein Auge und ein
+Schnabel in Querencia-Orange, in der Blase drei helle Punkte. Kein Logo
+eines Dienstes (kein Kreis, kein Telefonhörer), nicht das Querencia-Logo; Lizenz wie das Programm (GPL-3.0-or-later). Es liegt nur als
 SVG in `hicolor/scalable/apps/` (nie zusätzlich `hicolor/48x48`,
 GTK-4.22-Absturz). Im Thema Querencia gibt es das Symbol noch nicht; GTK
 findet es über hicolor.
 
 ## Paket
 
-Quellpaket `querencia-webhuelle` im Packaging-Repo (`querencia-packaging`,
-Ordner `querencia-webhuelle/`), **nicht** im Metapaket `querencia-desktop`:
-wer es will, installiert es selbst. Inhalt:
+Quellpaket `querencia-schnatter` im Packaging-Repo (`querencia-packaging`,
+Ordner `querencia-schnatter/`), **nicht** im Metapaket `querencia-desktop`:
+wer es will, installiert es selbst. Es ersetzt `querencia-schnatter` (0.2.0)
+und `querencia-nachrichten` (Replaces, Breaks, Provides); beim Upgrade zieht
+das Programm die Ordner beim ersten Start um. Inhalt:
 
-- `/usr/bin/querencia-webhuelle`
-- `/usr/share/locale/de/LC_MESSAGES/querencia-webhuelle.mo` (die Kataloge
+- `/usr/bin/querencia-schnatter`
+- `/usr/share/locale/de/LC_MESSAGES/querencia-schnatter.mo` (die Kataloge
   der Runtime-Bibliotheken kommen aus `querencia-shell`)
-- `/usr/share/applications/org.querencia.Webhuelle.desktop`
-- `/usr/share/metainfo/org.querencia.Webhuelle.metainfo.xml`
-- `/usr/share/icons/hicolor/scalable/apps/org.querencia.Webhuelle.svg`
+- `/usr/share/applications/org.querencia.Schnatter.desktop`
+- `/usr/share/metainfo/org.querencia.Schnatter.metainfo.xml`
+- `/usr/share/icons/hicolor/scalable/apps/org.querencia.Schnatter.svg`
 - Depends `libwebkitgtk-6.0-4` (aus den gelinkten Bibliotheken); dieses
   Paket hängt selbst schon von `bubblewrap` und `xdg-dbus-proxy` (WebKits
   Sandbox der Web-Prozesse) und `gstreamer1.0-plugins-good` ab. Recommends

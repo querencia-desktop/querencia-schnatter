@@ -168,7 +168,7 @@ fn frage_bauen(
     ja: &str,
     antwort: impl FnOnce(bool) + 'static,
 ) {
-    let w = fenster(eltern, &gettext("Querencia Web Wrapper"), true);
+    let w = fenster(eltern, &gettext("Schnatter"), true);
     let k_nein = gtk::Button::with_mnemonic(nein);
     let k_ja = gtk::Button::with_mnemonic(ja);
     k_ja.add_css_class("suggested-action");
@@ -237,7 +237,8 @@ fn mit_schliessen(w: &gtk::Window, inhalt: &impl IsA<gtk::Widget>) {
 /// Website von Querencia Desktop (Info-Dialog).
 pub const WEBSITE: &str = "https://querencialinux.org";
 
-/// Info: Symbol, Name, Version, Beschreibung („Hülle für WhatsApp Web“),
+/// Info: Symbol, Name, Version, Beschreibung („WhatsApp Web als eigenes
+/// Fenster“),
 /// Hinweis, dass es kein Produkt von WhatsApp oder Meta ist, Alpha,
 /// Website, Copyright, Lizenz, WebKitGTK-Stand.
 pub fn info(eltern: &gtk::Window, platz: &Platz, symbol: &str) {
@@ -245,14 +246,14 @@ pub fn info(eltern: &gtk::Window, platz: &Platz, symbol: &str) {
         return;
     }
     // TRANSLATORS: Fenstertitel des Info-Dialogs
-    let w = fenster(eltern, &gettext("About Querencia Web Wrapper"), false);
+    let w = fenster(eltern, &gettext("About Schnatter"), false);
     let inhalt = gtk::Box::new(gtk::Orientation::Vertical, 8);
     let bild = gtk::Image::from_icon_name(symbol);
     bild.set_pixel_size(64);
     inhalt.append(&bild);
     let name = gtk::Label::new(None);
     let titel = gettext_f(
-        "Querencia Web Wrapper {version}",
+        "Schnatter {version}",
         &[("version", env!("CARGO_PKG_VERSION"))],
     );
     name.set_markup(&format!(
@@ -260,7 +261,9 @@ pub fn info(eltern: &gtk::Window, platz: &Platz, symbol: &str) {
         glib::markup_escape_text(&titel)
     ));
     inhalt.append(&name);
-    inhalt.append(&gtk::Label::new(Some(&gettext("Wrapper for WhatsApp Web"))));
+    inhalt.append(&gtk::Label::new(Some(&gettext(
+        "WhatsApp Web in its own window",
+    ))));
     let text = gtk::Label::new(Some(&gettext(
         "Not a product of WhatsApp or Meta and not affiliated with them.\n\
          WhatsApp is a trademark of its owner. Calls are not possible.",
@@ -362,7 +365,7 @@ pub fn hilfe(eltern: &gtk::Window, platz: &Platz) {
     if platz.vorholen() {
         return;
     }
-    let w = fenster(eltern, &gettext("Querencia Web Wrapper Help"), false);
+    let w = fenster(eltern, &gettext("Schnatter Help"), false);
     w.set_resizable(true);
     w.set_default_size(560, 520);
     let inhalt = gtk::Box::new(gtk::Orientation::Vertical, 6);
@@ -370,7 +373,7 @@ pub fn hilfe(eltern: &gtk::Window, platz: &Platz) {
         (
             gettext("What this is"),
             gettext(
-                "Querencia Web Wrapper shows WhatsApp Web in its own window. It is \
+                "Schnatter shows WhatsApp Web in its own window. It is \
                  not a product of WhatsApp or Meta and not affiliated with them; \
                  your messages go directly between this window and WhatsApp.",
             ),
@@ -458,7 +461,7 @@ pub fn einstellungen(
     if platz.vorholen() {
         return;
     }
-    let w = fenster(eltern, &gettext("Querencia Web Wrapper Preferences"), false);
+    let w = fenster(eltern, &gettext("Schnatter Preferences"), false);
     let inhalt = gtk::Box::new(gtk::Orientation::Vertical, 6);
     let ueberschrift = |text: &str| {
         let l = gtk::Label::new(None);
@@ -543,7 +546,7 @@ pub fn einstellungen(
     }
     let gh = gtk::Label::new(Some(&gettext(
         "Software graphics avoid crashes with some graphics drivers. A change takes \
-         effect the next time Querencia Web Wrapper starts.",
+         effect the next time Schnatter starts.",
     )));
     gh.set_xalign(0.0);
     gh.set_wrap(true);

@@ -54,16 +54,16 @@ impl Fenster {
         let titel = if pruefung::aktiv() {
             gettext_f(
                 "{program} – test page",
-                &[("program", &gettext("Querencia Web Wrapper"))],
+                &[("program", &gettext("Schnatter"))],
             )
         } else {
-            gettext("Querencia Web Wrapper")
+            gettext("Schnatter")
         };
         let fenster = gtk::ApplicationWindow::builder()
             .application(app)
             .title(&titel)
             .build();
-        fenster.add_css_class("querencia-webhuelle");
+        fenster.add_css_class("querencia-schnatter");
         let (b, h, maximiert) = einstellungen.fenster();
         fenster.set_default_size(b, h);
         if maximiert {

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Prüfhülle Querencia Webhülle, Stufe L: Grafik-Rückfall (0.1.1, QD-169).
+# Prüfhülle Schnatter, Stufe L: Grafik-Rückfall (0.1.1, QD-169).
 # Läuft IN der Hülle (lauf.sh grafik). Misst die Erkennung auf zwei Wegen
 # (eigene Probe „--grafik-probe“ gegen eglinfo -B, surfaceless) und startet
 # die Hülle gegen die Prüfseite in vier Fällen: Einstellung automatisch, an,
@@ -26,9 +26,9 @@ pruefe() { # NAME MUSTER DATEI ZEIT
 ja() { if "$@"; then echo PASS; else echo FAIL; fi; }
 nicht() { ! "$@"; }
 aktion() { # win|app NAME
-  local pfad=/org/querencia/Webhuelle
+  local pfad=/org/querencia/Schnatter
   [ "$1" = win ] && pfad=$pfad/window/1
-  gdbus call --session --dest org.querencia.Webhuelle --object-path "$pfad" \
+  gdbus call --session --dest org.querencia.Schnatter --object-path "$pfad" \
     --method org.gtk.Actions.Activate "$2" '[]' '{}' >>"$L/szenario.log" 2>&1
 }
 renderer() { sed -n 's/^renderer=//p; s/^ *OpenGL ES profile renderer: //p' | head -1; }
@@ -55,14 +55,14 @@ case $R_PROBE in *zink*NVK*|*zink*nouveau*) ERKANNT=1 ;; *) ERKANNT=0 ;; esac
 echo "INFO zink-auf-nouveau-hier $ERKANNT" >>"$E"
 
 python3 -I "$W/attrappe_benachrichtigungen.py" "$L/attrappe.log" "=-" &
-export QUERENCIA_WEBHUELLE_DEBUG=1 QUERENCIA_WEBHUELLE_PRUEFSEITE=$W/pruefseite.html
+export QUERENCIA_SCHNATTER_DEBUG=1 QUERENCIA_SCHNATTER_PRUEFSEITE=$W/pruefseite.html
 export WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1
-INI=$QN_PROFIL/config/querencia-webhuelle/einstellungen.ini
+INI=$QN_PROFIL/config/querencia-schnatter/einstellungen.ini
 . "$W/eingabe.sh"
 
 # 2. Die Hülle in vier Fällen (und mit der Vergleichs-Binary)
 FAELLE=${GRAFIK_FAELLE:-"automatisch an aus umgebung"}
-VB=$QN_PROFIL/opt/vergleich/querencia-webhuelle
+VB=$QN_PROFIL/opt/vergleich/querencia-schnatter
 [ -x "$VB" ] && FAELLE="vergleich $FAELLE"
 for fall in $FAELLE; do
   sed -i '/^\[Grafik\]/,$d' "$INI"
@@ -87,8 +87,8 @@ for fall in $FAELLE; do
   grep -o '"k":"bildbetrachter","v":{[^}]*}' "$A" | sed "s/^.*\"v\":/INFO $fall bildbetrachter /" >>"$E"
   sleep 1
   grep -q "web-process-terminated" "$A" && echo "FAIL $fall-bildbetrachter-ohne-absturz" >>"$E" || echo "PASS $fall-bildbetrachter-ohne-absturz" >>"$E"
-  G=$(grep -m1 "querencia-webhuelle: Grafik:" "$A")
-  echo "INFO $fall ${G#*querencia-webhuelle: }" >>"$E"
+  G=$(grep -m1 "querencia-schnatter: Grafik:" "$A")
+  echo "INFO $fall ${G#*querencia-schnatter: }" >>"$E"
   python3 -I "$W/karten.py" "$APP" >"$L/karten-$fall.txt" 2>&1
   sed "s/^/INFO $fall /" "$L/karten-$fall.txt" >>"$E"
   WEB=$(grep '^karten WebKitWebProces' "$L/karten-$fall.txt" | grep -v 'nicht lesbar')

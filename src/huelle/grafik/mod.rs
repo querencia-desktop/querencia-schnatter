@@ -163,7 +163,7 @@ fn deutung(code: Option<i32>, signal: Option<i32>) -> Probe {
     }
 }
 
-/// Der Probe-Kindprozess (`querencia-webhuelle --grafik-probe`): drei
+/// Der Probe-Kindprozess (`querencia-schnatter --grafik-probe`): drei
 /// Zeilen auf stdout, Exit 0; sonst Exit 3–6 ([`ffi::Fehler`]).
 pub fn probe_im_kind() -> glib::ExitCode {
     match ffi::abfragen() {

@@ -1,4 +1,4 @@
-//! Einstellungen der Hülle in `XDG_CONFIG_HOME/querencia-webhuelle/
+//! Einstellungen der Hülle in `XDG_CONFIG_HOME/querencia-schnatter/
 //! einstellungen.ini` (GLib-Schlüsseldatei, Ordner 0700): Fenstergröße,
 //! Zoom, Kennung (S4), Ton (E4), Software-Grafik (QD-169) und die
 //! gespeicherten Rechte je Art (E3).

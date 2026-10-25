@@ -1,4 +1,4 @@
-# Mitmachen bei Querencia Webhülle
+# Mitmachen bei Schnatter
 
 Danke für das Interesse. Querencia ist in einer frühen Alpha-Phase; bitte
 rechne mit Rückfragen und langsamen Antworten.

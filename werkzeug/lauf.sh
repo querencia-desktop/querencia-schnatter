@@ -1,9 +1,9 @@
 #!/bin/bash
-# Prüfhülle Querencia Webhülle: ein Lauf.
+# Prüfhülle Schnatter: ein Lauf.
 #   lauf.sh funktionen <de|en> <BxH> <hell|dunkel>
 #   [VERGLEICH_BIN=…] lauf.sh grafik <de|en> <BxH> <hell|dunkel>   (0.1.1, QD-169)
 #   lauf.sh anmeldeseite <N|E> <de|en> <BxH> <hell|dunkel> <standard|linux>
-#   ALT_ABLAGE=<Ablage 0.1.1> lauf.sh umzug <de|en> <BxH> <hell|dunkel>   (0.2.0)
+#   ALT_ABLAGE=<Ablage 0.2.0 oder 0.1.1> lauf.sh umzug <de|en> <BxH> <hell|dunkel>
 # Gestartet wird die Ablage-Kopie des Release-Baus (BIN=… überschreibt).
 # Ergebnis unter nachweis/<art>/<name>/. Sprache wie live: LANG=en_US.UTF-8,
 # LANGUAGE=de bzw. en.
@@ -18,7 +18,7 @@ case $ART in
                 NAME=$STUFE-$KENNUNG-$SPR-$RES-$SCHEMA${NAMENSZUSATZ:+-$NAMENSZUSATZ} ;;
   *) echo "lauf.sh funktionen|grafik|umzug|anmeldeseite …" >&2; exit 2 ;;
 esac
-BIN=${BIN:-$R/target/remap/release/querencia-webhuelle}
+BIN=${BIN:-$R/target/remap/release/querencia-schnatter}
 [ -x "$BIN" ] || { echo "Release-Bau fehlt: $BIN (werkzeug/bauen.sh release)" >&2; exit 2; }
 [ -x "$HIER/bin/qeingabe" ] || bash "$HIER/werkzeug-bauen.sh" >/dev/null
 OUT=$R/nachweis/$ART/$NAME
@@ -30,18 +30,23 @@ case $RES in 1920x1080) FENSTER=1400x900 ;; *) FENSTER=1000x700 ;; esac
 bash "$HIER/profil.sh" "$P" "$BIN" "$SCHEMA" "$KENNUNG" "$FENSTER" >/dev/null
 # Grafik-Szenario: eine Vergleichs-Binary (z. B. 0.1.0 aus der Ablage, nur gelesen) ins Profil
 if [ -n "${VERGLEICH_BIN:-}" ]; then
-  mkdir -p "$P/opt/vergleich"; cp "$VERGLEICH_BIN" "$P/opt/vergleich/querencia-webhuelle"
+  mkdir -p "$P/opt/vergleich"; cp "$VERGLEICH_BIN" "$P/opt/vergleich/querencia-schnatter"
   (cd "$R" && python3 werkzeug/i18n.py mo "$P/opt/vergleich/share/locale" >/dev/null)
 fi
-# Umzug (0.2.0): die Ablage 0.1.1 (Binary querencia-nachrichten und ihre
-# Kataloge, nur gelesen) ins Profil; Einstellungen unter dem alten Namen
+# Umzug (0.3.0): die Ablage 0.2.0 (Binary querencia-webhuelle) oder 0.1.1
+# (querencia-nachrichten) samt Katalogen, nur gelesen, ins Profil;
+# Einstellungen unter dem alten Namen
 if [ "$ART" = umzug ]; then
-  [ -x "${ALT_ABLAGE:-}/querencia-nachrichten" ] || { echo "ALT_ABLAGE=<Ablage 0.1.1> fehlt" >&2; exit 2; }
-  mkdir -p "$P/opt/alt"; cp -r "$ALT_ABLAGE/querencia-nachrichten" "$ALT_ABLAGE/share" "$P/opt/alt/"
-  mv -T "$P/config/querencia-webhuelle" "$P/config/querencia-nachrichten"
+  ALT_NAME=
+  for n in querencia-webhuelle querencia-nachrichten; do
+    [ -x "${ALT_ABLAGE:-}/$n" ] && { ALT_NAME=$n; break; }
+  done
+  [ -n "$ALT_NAME" ] || { echo "ALT_ABLAGE=<Ablage 0.2.0 oder 0.1.1> fehlt" >&2; exit 2; }
+  mkdir -p "$P/opt/alt"; cp -r "$ALT_ABLAGE/$ALT_NAME" "$ALT_ABLAGE/share" "$P/opt/alt/"
+  mv -T "$P/config/querencia-schnatter" "$P/config/$ALT_NAME"
 fi
 cat >"$P/env.sh" <<X
-BIN=\$(ls "$P"/opt/bin/querencia-webhuelle)
+BIN=\$(ls "$P"/opt/bin/querencia-schnatter)
 OUT=$OUT
 W=$HIER
 SPR=$SPR

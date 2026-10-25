@@ -31,8 +31,8 @@ import re
 import struct
 import sys
 
-DOMAIN = "querencia-webhuelle"
-PACKAGE = "Querencia Webhülle"
+DOMAIN = "querencia-schnatter"
+PACKAGE = "Schnatter"
 # Kataloge der Bibliotheken, die das Programm mitliefert (Domäne, po-Ordner
 # relativ zum Repo): `mo` übersetzt sie mit, `i18n::init` bindet sie.
 BIBLIOTHEKEN = (

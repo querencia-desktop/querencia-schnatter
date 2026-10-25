@@ -5,6 +5,28 @@ nach [Semantic Versioning](https://semver.org/lang/de/). Solange die Hauptversio
 0 ist, kann sich alles ändern. Jede Zeile nennt, was Nutzer merken; Unfertiges
 steht als „unfertig“ da.
 
+## [0.3.0] – 2026-10-26 „Schnatter“
+
+### Geändert
+- Neuer Name: **Schnatter** (deutsch und englisch gleich), im Menü unter
+  Internet; Beschreibung „WhatsApp Web als eigenes Fenster“. Die Marke
+  WhatsApp steht weiter nur beschreibend da, nie im Namen oder im Symbol.
+  Programmdatei `querencia-schnatter`, Anwendungskennung
+  `org.querencia.Schnatter`, Paket `querencia-schnatter` (ersetzt
+  `querencia-webhuelle`).
+- Neues Programmsymbol: eine grüne Sprechblase mit Auge und Schnabel (statt
+  des Fensters mit Globus).
+- Menüleiste mit Querencia Oberfläche 0.1.1 (wie Querencia Dateien 0.2.2).
+
+### Neu
+- Umzug von Querencia Webhülle 0.2.0 und Querencia Nachrichten 0.1.x: Beim
+  ersten Start übernimmt Schnatter Anmeldung, Einstellungen und Cache aus
+  den Ordnern `querencia-webhuelle` – oder, wer 0.2.0 übersprungen hat, aus
+  `querencia-nachrichten` (umbenannt, nichts kopiert oder gelöscht). Läuft
+  eines der alten Programme noch, sagt das Fenster es und Schnatter startet
+  erst nach dem Schließen. Gibt es schon Ordner von Schnatter, bleiben die
+  alten unangetastet liegen.
+
 ## [0.2.0] – 2026-10-24 „Webhülle“
 
 ### Geändert

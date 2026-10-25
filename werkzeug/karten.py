@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prüfhülle Querencia Webhülle: welche Grafikbibliotheken die Hülle und
+"""Prüfhülle Schnatter: welche Grafikbibliotheken die Hülle und
 ihre Nachkommen geladen haben und mit welchen Grafik-Variablen sie laufen
 (QD-169). Liest nur /proc/<pid>/maps und /proc/<pid>/environ, beendet
 nichts.

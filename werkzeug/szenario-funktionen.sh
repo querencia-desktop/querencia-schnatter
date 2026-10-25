@@ -1,5 +1,5 @@
 #!/bin/bash
-# Prüfhülle Querencia Webhülle, Stufe L: die Hülle gegen die lokale
+# Prüfhülle Schnatter, Stufe L: die Hülle gegen die lokale
 # Prüfseite (pruefseite.html), ohne Netz. Läuft IN der Hülle (lauf.sh).
 # Meldungen gehen an die Attrappe, Öffnen an testoeffner.sh, Eingaben über
 # qeingabe (virtuelle Tastatur im eigenen labwc). Ergebnis: $OUT/ (Fotos,
@@ -19,9 +19,9 @@ pruefe() { # NAME MUSTER DATEI ZEIT
   if warte "$2" "$3" "$4"; then echo "PASS $1" >>"$E"; else echo "FAIL $1 (fehlt: $2 in $(basename "$3"))" >>"$E"; fi
 }
 aktion() { # win|app NAME
-  local pfad=/org/querencia/Webhuelle
+  local pfad=/org/querencia/Schnatter
   [ "$1" = win ] && pfad=$pfad/window/1
-  gdbus call --session --dest org.querencia.Webhuelle --object-path "$pfad" \
+  gdbus call --session --dest org.querencia.Schnatter --object-path "$pfad" \
     --method org.gtk.Actions.Activate "$2" '[]' '{}' >>"$L/szenario.log" 2>&1
 }
 webprozesse() { # PIDs der WebKitWebProcess unter der App
@@ -41,7 +41,7 @@ warte '"name": "erhalten"' "$L/attrappe.log" 10 || echo "FAIL attrappe" >>"$E"
 mkdir -p "$QN_PROFIL/www" && echo '<title>fremd</title>fremd' > "$QN_PROFIL/www/fremd-ohne-geste"
 (cd "$QN_PROFIL/www" && exec python3 -I -m http.server 8765 --bind 127.0.0.1) >>"$L/http.log" 2>&1 &
 
-export QUERENCIA_WEBHUELLE_DEBUG=1 QUERENCIA_WEBHUELLE_PRUEFSEITE=$W/pruefseite.html
+export QUERENCIA_SCHNATTER_DEBUG=1 QUERENCIA_SCHNATTER_PRUEFSEITE=$W/pruefseite.html
 # Verschachteltes bwrap ist in der Hülle verboten (gemessen): WebKits eigene
 # Sandbox nur hier aus; gemessen wird sie in Stufe E.
 export WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1
@@ -70,11 +70,11 @@ pruefe autoplay-audiocontext '"k":"audio_context","v":"running"' "$O" 1
 pruefe autoplay-element '"k":"audio_element","v":"spielt"' "$O" 1
 pruefe titel-3 'titel ungelesen=Some\(3\)' "$A" 5
 pruefe titel-12 'titel ungelesen=Some\(12\)' "$A" 5
-pruefe titel-0 'titel ungelesen=None fenster="Querencia (Webhülle|Web Wrapper) – (Prüfseite|test page)"' "$A" 5
+pruefe titel-0 'titel ungelesen=None fenster="Schnatter – (Prüfseite|test page)"' "$A" 5
 pruefe rechtschreibung "rechtschreibung angefragt=.*angenommen=\[\"de_DE\", \"en_US\"\]|rechtschreibung angefragt=.*angenommen=\[\"en_US\"\]" "$A" 1
 sleep 1; foto start
 # 0.1.1 (QD-169): Grafik-Erkennung der Hülle gegen eglinfo -B, Bibliotheken der Prozesse
-G=$(grep -m1 "querencia-webhuelle: Grafik:" "$A")
+G=$(grep -m1 "querencia-schnatter: Grafik:" "$A")
 echo "INFO grafik ${G#*Grafik: }" >>"$E"
 pruefe grafik-ereignis "E [0-9.]+ grafik modus=automatisch grund=" "$A" 1
 python3 -I "$W/karten.py" "$APP" >"$L/karten.txt" 2>&1
@@ -128,7 +128,7 @@ q "key Escape"
 # Zoom (gemerkt)
 q "chord ctrl plus" "chord ctrl plus" "wait 800"
 foto zoom
-if grep -q '^zoom=1.25' "$QN_PROFIL/config/querencia-webhuelle/einstellungen.ini"; then echo "PASS zoom-gemerkt" >>"$E"; else echo "FAIL zoom-gemerkt ($(grep zoom "$QN_PROFIL/config/querencia-webhuelle/einstellungen.ini"))" >>"$E"; fi
+if grep -q '^zoom=1.25' "$QN_PROFIL/config/querencia-schnatter/einstellungen.ini"; then echo "PASS zoom-gemerkt" >>"$E"; else echo "FAIL zoom-gemerkt ($(grep zoom "$QN_PROFIL/config/querencia-schnatter/einstellungen.ini"))" >>"$E"; fi
 q "chord ctrl 0" "wait 500"
 # Menüs
 for m in "d datei" "b bearbeiten" "a ansicht" "h hilfe"; do
@@ -225,7 +225,7 @@ pruefe absturz-erkannt "web-process-terminated Crashed" "$A" 10
 pruefe absturz-neu-geladen "neu-laden nach Absturz 1" "$A" 5
 warte "load-changed Finished" "$A" 15; sleep 2; foto absturz-hinweis
 # Abmelden und Daten löschen (Rückfrage → zweiter Knopf)
-D=$QN_PROFIL/data/querencia-webhuelle
+D=$QN_PROFIL/data/querencia-schnatter
 echo "INFO daten-vorher $(find "$D" -type f | wc -l) Dateien, $(du -sk "$D" | cut -f1) KiB" >>"$E"
 aktion win abmelden; sleep 1; foto frage-abmelden
 q "key Tab" "key Return"
@@ -233,7 +233,7 @@ pruefe abmelden-geloescht "abmelden daten gelöscht" "$A" 15
 warte "teil1_fertig" "$O" 20
 echo "INFO daten-nach-abmelden $(find "$D" -type f | wc -l) Dateien, $(du -sk "$D" | cut -f1) KiB" >>"$E"
 for o in data cache config; do
-  m=$(stat -c %a "$QN_PROFIL/$o/querencia-webhuelle")
+  m=$(stat -c %a "$QN_PROFIL/$o/querencia-schnatter")
   [ "$m" = 700 ] && echo "PASS ordner-$o-0700" >>"$E" || echo "FAIL ordner-$o-0700 ($m)" >>"$E"
 done
 # Beenden über das Menü (Strg+Q) merkt die Fenstergröße; Neustart leert die vorgemerkten Ordner
@@ -241,9 +241,9 @@ q "chord ctrl q"
 for _ in $(seq 50); do kill -0 "$APP" 2>/dev/null || break; sleep 0.2; done
 kill -0 "$APP" 2>/dev/null && echo "FAIL beenden" >>"$E" || echo "PASS beenden" >>"$E"
 pruefe fenstergroesse-gemerkt "fenster-gemerkt $FENSTER maximiert=false" "$A" 1
-[ -e "$QN_PROFIL/config/querencia-webhuelle/daten-loeschen" ] && echo "PASS loeschen-vorgemerkt" >>"$E" || echo "FAIL loeschen-vorgemerkt" >>"$E"
+[ -e "$QN_PROFIL/config/querencia-schnatter/daten-loeschen" ] && echo "PASS loeschen-vorgemerkt" >>"$E" || echo "FAIL loeschen-vorgemerkt" >>"$E"
 # Ton aus (wie über die Einstellungen gespeichert) gilt beim nächsten Start
-printf '\n[Seite]\nton=false\n' >> "$QN_PROFIL/config/querencia-webhuelle/einstellungen.ini"
+printf '\n[Seite]\nton=false\n' >> "$QN_PROFIL/config/querencia-schnatter/einstellungen.ini"
 "$BIN" >"$L/app2.out" 2>"$L/app2.log" &
 APP=$!
 pruefe neustart-loescht "vorgemerkte Löschung der Sitzungsdaten ausgeführt" "$L/app2.log" 15
@@ -254,7 +254,7 @@ pruefe neustart-rechte-vergessen '"k":"permissions_camera","v":"prompt"' "$L/app
 aktion app beenden
 for _ in $(seq 50); do kill -0 "$APP" 2>/dev/null || break; sleep 0.2; done
 cp "$L"/*.log "$L"/*.out "$OUT/" 2>/dev/null
-cp "$QN_PROFIL/config/querencia-webhuelle/einstellungen.ini" "$OUT/" 2>/dev/null
+cp "$QN_PROFIL/config/querencia-schnatter/einstellungen.ini" "$OUT/" 2>/dev/null
 echo "== $(grep -c '^PASS' "$E") PASS, $(grep -c '^FAIL' "$E") FAIL" >>"$E"
 cat "$E"
 ! grep -q '^FAIL' "$E"

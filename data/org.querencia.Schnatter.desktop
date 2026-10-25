@@ -1,0 +1,26 @@
+[Desktop Entry]
+# Schnatter (0.2.0 „Querencia Webhülle“, bis 0.1.1 „Querencia Nachrichten“).
+# Desktop-ID = GApplication-ID org.querencia.Schnatter, damit labwc und die
+# Fensterliste das Fenster dieser Datei zuordnen.
+# Vorlage: Name, GenericName, Comment und Keywords sind englisch; die
+# Übersetzungen (Name[de]= …) setzt `werkzeug/i18n.py desktop` aus po/*.po
+# ein (entspricht msgfmt --desktop). Erzeugt: org.querencia.Schnatter.desktop.
+# Menü Internet (Network). Eigenes Symbol org.querencia.Schnatter (hicolor,
+# data/icons/); die Marke des Dienstes steht nur beschreibend in GenericName,
+# Comment und Keywords, nie im Namen oder Symbol.
+Type=Application
+Version=1.5
+Name=Schnatter
+GenericName[de]=Hülle für WhatsApp Web
+GenericName=Wrapper for WhatsApp Web
+Comment[de]=WhatsApp Web als eigenes Fenster
+Comment=WhatsApp Web in its own window
+Exec=querencia-schnatter
+TryExec=querencia-schnatter
+Icon=org.querencia.Schnatter
+Terminal=false
+Categories=GTK;Network;InstantMessaging;Chat;
+Keywords[de]=WhatsApp;Chat;Messenger;Nachrichten;Hülle;
+Keywords=WhatsApp;Chat;Messenger;Messages;Wrapper;
+StartupNotify=true
+StartupWMClass=org.querencia.Schnatter

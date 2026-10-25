@@ -1,4 +1,5 @@
-Querencia Webhülle (bis 0.1.1: Querencia Nachrichten) – Teil von Querencia Desktop
+Schnatter (0.2.0: Querencia Webhülle, bis 0.1.1: Querencia Nachrichten) – Teil von
+Querencia Desktop
 Copyright (C) 2026 Querencia Desktop contributors
 
 This program is free software: you can redistribute it and/or modify it
@@ -14,7 +15,7 @@ the file LICENSE for more details.
 Dateien mit eigenem Lizenzvermerk behalten diesen (README.md, Abschnitt
 „Lizenz“).
 
-Fremdbestandteile: Querencia Webhülle linkt dynamisch gegen WebKitGTK 6.0
+Fremdbestandteile: Schnatter linkt dynamisch gegen WebKitGTK 6.0
 (libwebkitgtk-6.0, LGPL-2.1 und BSD-2-Clause) und JavaScriptCore sowie GTK 4,
 GLib und libsoup (LGPL); die Rust-Bindings (gtk-rs, webkit6-rs) stehen unter
 MIT. Kein Code aus den Vorbildern ZapZap und WasIstLos (README, „Vorbilder“).
@@ -22,6 +23,6 @@ Die Datei werkzeug/virtual-keyboard-unstable-v1.xml (nur Testwerkzeug) ist
 eine gekürzte Kopie aus wayland-protocols bzw. wlroots und behält ihren
 MIT-Vermerk im Dateikopf. werkzeug/reste.py ist unverändert aus dem
 Prüfrahmen von querencia-runtime übernommen (GPL-3.0-or-later).
-Das Programmsymbol data/icons/org.querencia.Webhuelle.svg ist eigenes Werk
+Das Programmsymbol data/icons/org.querencia.Schnatter.svg ist eigenes Werk
 (GPL-3.0-or-later wie das Programm); es enthält kein Logo eines Dienstes
 und nicht das Querencia-Logo.
