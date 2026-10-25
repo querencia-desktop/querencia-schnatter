@@ -128,7 +128,16 @@ q "key Escape"
 # Zoom (gemerkt)
 q "chord ctrl plus" "chord ctrl plus" "wait 800"
 foto zoom
-if grep -q '^zoom=1.25' "$QN_PROFIL/config/querencia-schnatter/einstellungen.ini"; then echo "PASS zoom-gemerkt" >>"$E"; else echo "FAIL zoom-gemerkt ($(grep zoom "$QN_PROFIL/config/querencia-schnatter/einstellungen.ini"))" >>"$E"; fi
+# Die Einstellung erst abwarten: in en/1024×768/dunkel kamen die zwei Tasten
+# in 0.3.0 bis zu 2,5 s später an (Hauptschleife nach dem Rechtschreib-Schritt
+# belegt); die Wartezeit steht als INFO im Ergebnis
+t0=$(date +%s%N)
+if warte '^zoom=1\.25' "$QN_PROFIL/config/querencia-schnatter/einstellungen.ini" 5; then
+  echo "PASS zoom-gemerkt" >>"$E"
+else
+  echo "FAIL zoom-gemerkt ($(grep zoom "$QN_PROFIL/config/querencia-schnatter/einstellungen.ini"))" >>"$E"
+fi
+echo "INFO zoom-gemerkt nach $(( ($(date +%s%N) - t0) / 1000000 )) ms (nach 0,8 s Wartezeit der Tasten)" >>"$E"
 q "chord ctrl 0" "wait 500"
 # Menüs
 for m in "d datei" "b bearbeiten" "a ansicht" "h hilfe"; do
