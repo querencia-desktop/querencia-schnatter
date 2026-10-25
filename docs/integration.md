@@ -1,5 +1,73 @@
 # Integration in die laufende Sitzung
 
+## Fassung 0.3.0: Schnatter löst Querencia Webhülle ab (`integration/schnatter-030/`)
+
+`schnatter-030-integrieren.sh` (Tag `schnatter/0.3.0-int`, Code-Tag
+`schnatter/0.3.0`) wechselt den Live-Stand Querencia Webhülle 0.2.0 (Ablage
+`ab424b7fc122d7e9`) auf Schnatter 0.3.0 und mit `zurueck` wieder auf 0.2.0.
+Live braucht es `SCHNATTER_FREIGABE=ja` (Freigabe der Status-Session); mit
+umgelenktem `HOME` arbeitet es nur dort (Probe).
+
+| Kürzel | Komponente | aktivieren | zurueck |
+|---|---|---|---|
+| A | Ablage `~/opt/querencia/schnatter/<sha16>/` (Binary 0555, `share/locale/de/LC_MESSAGES/querencia-schnatter.mo`, `querencia-oberflaeche.mo`, `share/icons/hicolor/scalable/apps/org.querencia.Schnatter.svg`, `SHA256SUMS` 0444; `.herkunft`) | anlegen (unter Hilfsnamen, geprüft, umbenannt) | bleibt liegen |
+| PN | Link `~/opt/querencia/bin/querencia-schnatter` | setzen | entfernen |
+| S | Symbol-Link `~/.local/share/icons/hicolor/scalable/apps/org.querencia.Schnatter.svg` → Ablage (danach `touch` auf `~/.local/share/icons/hicolor`) | setzen | entfernen |
+| DN | Starter `~/.local/share/applications/org.querencia.Schnatter.desktop` („Schnatter“, Internet, `Icon=org.querencia.Schnatter`) | setzen | entfernen |
+| M | Ordner `~/.local/share`, `~/.cache`, `~/.config`: `querencia-webhuelle` ↔ `querencia-schnatter` | umbenennen alt → neu (`mv`, nichts kopiert oder gelöscht) | umbenennen neu → alt |
+| PA | Link `~/opt/querencia/bin/querencia-webhuelle` (0.2.0) | **erst nach gelungenem Umzug** entfernen | wiederherstellen |
+| DA | Starter `org.querencia.Webhuelle.desktop` (0.2.0, Vorlage aus `integration/webhuelle-020`) | **erst nach gelungenem Umzug** entfernen | wiederherstellen |
+
+- Der Symbol-Link `org.querencia.Webhuelle.svg` der Webhülle bleibt stehen
+  (er zeigt in die bleibende Ablage 0.2.0; der Rückfall braucht ihn).
+- Läuft Querencia Nachrichten, Querencia Webhülle oder Schnatter
+  (`/proc/<pid>/exe`), verweigert das Skript jeden anstehenden Umzug
+  (Exit 2): Der Netzwerkprozess schriebe sonst weiter in den verschobenen
+  Ordner.
+- Besteht ein Ordner unter beiden Namen, liegt ein Link oder eine Datei an
+  einer der Stellen oder ist von Querencia Nachrichten noch etwas da (Link,
+  Starter oder ein Ordner `querencia-nachrichten`), verweigert es (Exit 2);
+  nichts wird zusammengeführt. Wer 0.2.0 übersprungen hat, bekommt den
+  Umzug von `querencia-nachrichten` vom Programm selbst (oder vom Paket).
+- `XDG_DATA_HOME`, `XDG_CONFIG_HOME`, `XDG_CACHE_HOME` müssen fehlen oder
+  auf die Vorgaben zeigen.
+- Sperren: dieselben wie die Skripte von Nachrichten und Webhülle
+  (`nachrichten-integrieren.lock`, `webhuelle-integrieren.lock` unter
+  `~/.local/state/querencia/`) und eine eigene
+  (`schnatter-integrieren.lock`). Sicherung
+  `~/.local/state/querencia/sicherung-schnatter-030-*`: Zustand, Link-Ziele,
+  Starter, Journal – **nie die Ordner selbst**. Bei einem Fehler oder
+  Signal rollt es zurück (Exit 1), auch einen schon gemachten Umzug.
+- Startet nichts. Ab dem nächsten Start aus dem Menü läuft Schnatter.
+- Rückbau-Reihenfolge: zuerst dieses Skript (→ 0.2.0), dann bei Bedarf
+  `integration/webhuelle-020` (→ 0.1.1). Solange 0.3.0 aktiv ist,
+  verweigert `integration/webhuelle-020` (weder der Link
+  `querencia-webhuelle` noch `querencia-nachrichten` ist da).
+
+```bash
+bash integration/schnatter-030/schnatter-030-integrieren.sh pruefen
+```
+
+```bash
+SCHNATTER_FREIGABE=ja bash integration/schnatter-030/schnatter-030-integrieren.sh aktivieren
+```
+
+```bash
+SCHNATTER_FREIGABE=ja bash integration/schnatter-030/schnatter-030-integrieren.sh zurueck
+```
+
+Probe: `bash integration/schnatter-030/probe.sh gui-test/integration-schnatter-030`
+baut im Wegwerf-HOME den Live-Stand 0.2.0 nach (Kopien der Ablagen 0.2.0,
+0.1.1 und 0.1.0, Link, Starter, Symbol-Link) mit Ordnern unter dem Namen der
+Webhülle, die nur eine Attrappe enthalten, und prüft aktivieren/zurueck
+(Inode, Inhalt, Rechte der Ordner), Idempotenz, laufende Programme unter
+allen drei Namen, Ordnerzustände, Reste von Nachrichten, Fehler und Signale
+an jeder Stelle, Fremdes, veränderte Vorlagen und Ablagen, alle drei
+Sperren und die Kette mit `integration/webhuelle-020` (0.3.0 → 0.2.0 →
+0.1.1 → 0.2.0 → 0.3.0, Attrappe und Inode bleiben). Live nur zwei
+Verweigerungen ohne Freigabe; am Ende unverändert (verglichen werden nur
+Existenz und Inode der Sitzungsordner, nie ihr Inhalt).
+
 ## Fassung 0.2.0: Querencia Webhülle löst Querencia Nachrichten ab (`integration/webhuelle-020/`)
 
 `webhuelle-020-integrieren.sh` (Tag `webhuelle/0.2.0-int`, Code-Tag

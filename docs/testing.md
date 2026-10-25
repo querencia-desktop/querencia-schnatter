@@ -250,6 +250,19 @@ Standard QR nach 10,7 s, PSS 936 MiB; en/1024×768/dunkel Kennung Linux QR
 nach 6,6 s, PSS 773 MiB; Web-Prozesse mit libgallium ohne libvulkan_nouveau,
 WebKit-Sandbox an, Sitzung danach gelöscht.
 
+## Messungen 0.3.0 (26.10.2026, Binary `2f34faa4…`)
+
+Prüfseite 74 von 74 in de/1920×1080/hell und en/1024×768/dunkel (dazu
+de/1024×768/hell, en/1920×1080/dunkel und hell je 74 von 74). In
+en/1024×768/dunkel kamen die zwei Zoom-Tasten nach dem Rechtschreib-Schritt
+in 2 von 4 Läufen bis zu 2,5 s später an; seitdem wartet der Punkt
+„zoom-gemerkt“ bis 5 s und nennt die Wartezeit. Grafik-Szenario 44 von 44
+(de/1920/hell, en/1024/dunkel). Umzug je 58 von 58 in allen vier
+Kombinationen, einmal von der Ablage 0.2.0 und einmal von 0.1.1 aus.
+Anmeldeseite Stufe E: de/1920/hell Kennung Standard QR nach 6,6 s, PSS
+983 MiB; en/1024/dunkel Kennung Linux QR nach 12,8 s, PSS 685 MiB; WebKit-Sandbox an,
+Sitzung danach gelöscht.
+
 ## Nicht getestet
 
 - Alles nach der Anmeldung: Chats, Bilder senden, Sprachnachricht
