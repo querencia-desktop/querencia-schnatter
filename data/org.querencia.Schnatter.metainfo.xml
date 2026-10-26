@@ -11,6 +11,9 @@
   <name>Schnatter</name>
   <summary>WhatsApp Web in its own window</summary>
   <summary xml:lang="de">WhatsApp Web als eigenes Fenster</summary>
+  <summary xml:lang="es">WhatsApp Web en su propia ventana</summary>
+  <summary xml:lang="fr">WhatsApp Web dans sa propre fenêtre</summary>
+  <summary xml:lang="it">WhatsApp Web in una finestra propria</summary>
   <metadata_license>FSFAP</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <developer id="org.querencia">
@@ -23,6 +26,12 @@
     <p xml:lang="de">Schnatter zeigt WhatsApp Web in einem eigenen Fenster mit der klassischen Menüleiste von Querencia Desktop. Das Programm hält die Anmeldung, meldet neue Nachrichten über die Benachrichtigungen des Desktops, zeigt die Zahl ungelesener Nachrichten im Fenstertitel, legt Downloads im Download-Ordner ab und prüft die Rechtschreibung.</p>
     <p>Calls are not possible. This program is not a product of WhatsApp or Meta and is not affiliated with them; WhatsApp is a trademark of its owner. Version 0.2.0 was called Querencia Web Wrapper, versions up to 0.1.1 Querencia Messages; sign-in and settings are taken over on the first start.</p>
     <p xml:lang="de">Anrufe sind nicht möglich. Das Programm ist kein Produkt von WhatsApp oder Meta und nicht mit ihnen verbunden; WhatsApp ist eine Marke ihres Inhabers. Version 0.2.0 hieß Querencia Webhülle, die Versionen bis 0.1.1 Querencia Nachrichten; Anmeldung und Einstellungen übernimmt es beim ersten Start.</p>
+    <p xml:lang="es">Schnatter muestra WhatsApp Web en su propia ventana, con la barra de menús clásica de Querencia Desktop. Mantiene la sesión iniciada, avisa de los mensajes nuevos mediante las notificaciones del escritorio, muestra el número de mensajes sin leer en el título de la ventana, guarda las descargas en la carpeta Descargas y revisa la ortografía.</p>
+    <p xml:lang="es">No se pueden hacer llamadas. Este programa no es un producto de WhatsApp ni de Meta y no está asociado a ellas; WhatsApp es una marca de su propietario. La versión 0.2.0 se llamaba Querencia Webhülle y las versiones hasta la 0.1.1 Querencia Nachrichten; el inicio de sesión y la configuración se asumen en el primer arranque.</p>
+    <p xml:lang="fr">Schnatter affiche WhatsApp Web dans sa propre fenêtre, avec la barre de menus classique de Querencia Desktop. Il garde la connexion, signale les nouveaux messages par les notifications du bureau, affiche le nombre de messages non lus dans le titre de la fenêtre, enregistre les téléchargements dans le dossier Téléchargements et vérifie l’orthographe.</p>
+    <p xml:lang="fr">Les appels ne sont pas possibles. Ce programme n’est pas un produit de WhatsApp ni de Meta et n’y est pas affilié ; WhatsApp est une marque de son propriétaire. La version 0.2.0 s’appelait Querencia Webhülle, les versions jusqu’à 0.1.1 Querencia Nachrichten ; la connexion et les réglages sont repris au premier démarrage.</p>
+    <p xml:lang="it">Schnatter mostra WhatsApp Web in una finestra propria, con la classica barra dei menu di Querencia Desktop. Mantiene l’accesso, segnala i nuovi messaggi tramite le notifiche della scrivania, mostra il numero di messaggi non letti nel titolo della finestra, salva i download nella cartella Scaricati e controlla l’ortografia.</p>
+    <p xml:lang="it">Le chiamate non sono possibili. Questo programma non è un prodotto di WhatsApp o Meta e non è affiliato a esse; WhatsApp è un marchio del suo proprietario. La versione 0.2.0 si chiamava Querencia Webhülle, le versioni fino alla 0.1.1 Querencia Nachrichten; accesso e impostazioni vengono rilevati al primo avvio.</p>
   </description>
   <url type="homepage">https://querencialinux.org</url>
   <url type="bugtracker">https://github.com/querencia-desktop/querencia/issues</url>
@@ -48,6 +57,18 @@
     <keyword xml:lang="de">Chat</keyword>
     <keyword xml:lang="de">Nachrichten</keyword>
     <keyword xml:lang="de">Hülle</keyword>
+    <keyword xml:lang="es">WhatsApp</keyword>
+    <keyword xml:lang="es">chat</keyword>
+    <keyword xml:lang="es">mensajería</keyword>
+    <keyword xml:lang="es">envoltorio</keyword>
+    <keyword xml:lang="fr">WhatsApp</keyword>
+    <keyword xml:lang="fr">chat</keyword>
+    <keyword xml:lang="fr">messagerie</keyword>
+    <keyword xml:lang="fr">enveloppe</keyword>
+    <keyword xml:lang="it">WhatsApp</keyword>
+    <keyword xml:lang="it">chat</keyword>
+    <keyword xml:lang="it">messaggi</keyword>
+    <keyword xml:lang="it">contenitore</keyword>
   </keywords>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">intense</content_attribute>
@@ -59,6 +80,12 @@
     <color type="primary" scheme_preference="dark">#2B6B3D</color>
   </branding>
   <releases>
+    <release version="0.3.1" date="2026-10-26">
+      <description>
+        <p>User interface in Italian, Spanish and French.</p>
+        <p xml:lang="de">Oberfläche auf Italienisch, Spanisch und Französisch.</p>
+      </description>
+    </release>
     <release version="0.3.0" date="2026-10-26">
       <description>
         <p>Renamed from Querencia Web Wrapper to Schnatter, with a new icon; sign-in and settings of Querencia Web Wrapper or Querencia Messages are taken over.</p>

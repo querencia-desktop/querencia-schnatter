@@ -1,6 +1,6 @@
 [package]
 name = "querencia-schnatter"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2024"
 rust-version = "1.92"
 description = "Schnatter: schlanke GTK-4-Hülle für WhatsApp Web (Querencia Desktop; 0.2.0 Querencia Webhülle, bis 0.1.1 Querencia Nachrichten)"

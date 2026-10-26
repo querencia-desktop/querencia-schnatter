@@ -1,0 +1,495 @@
+# Schnatter: französische Übersetzung.
+# Copyright (C) 2026 Querencia Desktop contributors
+# Diese Datei steht unter derselben Lizenz wie Schnatter (GPL-3.0-or-later).
+# Begriffe nach der gemeinsamen Querencia-Begriffstabelle (GNOME-Wortwahl).
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: querencia-schnatter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2026-10-26 23:43+0100\n"
+"Last-Translator: Querencia Desktop contributors\n"
+"Language-Team: Français (Querencia)\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. TRANSLATORS: Desktop-Datei, Schlüssel Name
+#: data/org.querencia.Schnatter.desktop.in:13 src/huelle/dialoge.rs:171 src/huelle/fenster.rs:57 src/huelle/fenster.rs:60 src/huelle/mod.rs:126 src/main.rs:87
+msgid "Schnatter"
+msgstr "Schnatter"
+
+#. TRANSLATORS: Desktop-Datei, Schlüssel GenericName
+#: data/org.querencia.Schnatter.desktop.in:14
+msgid "Wrapper for WhatsApp Web"
+msgstr "Enveloppe pour WhatsApp Web"
+
+#. TRANSLATORS: Desktop-Datei, Schlüssel Comment
+#: data/org.querencia.Schnatter.desktop.in:15 src/huelle/dialoge.rs:264
+msgid "WhatsApp Web in its own window"
+msgstr "WhatsApp Web dans sa propre fenêtre"
+
+#. TRANSLATORS: Desktop-Datei, Schlüssel Keywords (Liste, Einträge mit ; trennen und abschließen)
+#: data/org.querencia.Schnatter.desktop.in:21
+msgid "WhatsApp;Chat;Messenger;Messages;Wrapper;"
+msgstr "WhatsApp;Chat;Messagerie;Messages;Enveloppe;"
+
+#: src/huelle/dialoge.rs:225
+msgid "_Close"
+msgstr "_Fermer"
+
+#. TRANSLATORS: Fenstertitel des Info-Dialogs
+#: src/huelle/dialoge.rs:249
+msgid "About Schnatter"
+msgstr "À propos de Schnatter"
+
+#: src/huelle/dialoge.rs:255
+#, no-c-format
+msgid "Schnatter {version}"
+msgstr "Schnatter {version}"
+
+#: src/huelle/dialoge.rs:265
+msgid ""
+"Not a product of WhatsApp or Meta and not affiliated with them.\n"
+"WhatsApp is a trademark of its owner. Calls are not possible."
+msgstr ""
+"Ce n’est pas un produit de WhatsApp ni de Meta et n’y est pas affilié.\n"
+"WhatsApp est une marque de son propriétaire. Les appels ne sont pas possibles."
+
+#: src/huelle/dialoge.rs:271
+msgid "Alpha – not released for everyday use."
+msgstr "Alpha – pas encore prêt pour un usage quotidien."
+
+#: src/huelle/dialoge.rs:292
+msgid "License: GPL-3.0-or-later"
+msgstr "Licence : GPL-3.0-or-later"
+
+#: src/huelle/dialoge.rs:293
+#, no-c-format
+msgid "Web engine: WebKitGTK {version} (LGPL)"
+msgstr "Moteur web : WebKitGTK {version} (LGPL)"
+
+#: src/huelle/dialoge.rs:314 src/huelle/dialoge.rs:351
+#, no-c-format
+msgid "Web page graphics: {renderer}"
+msgstr "Rendu des pages web : {renderer}"
+
+#: src/huelle/dialoge.rs:316
+msgid "determining…"
+msgstr "détermination…"
+
+#: src/huelle/dialoge.rs:323
+msgid ""
+"Software graphics, switched on automatically: OpenGL runs through zink on nouveau here."
+msgstr ""
+"Rendu logiciel, activé automatiquement : ici OpenGL passe par zink sur nouveau."
+
+#: src/huelle/dialoge.rs:327
+msgid ""
+"Software graphics, switched on automatically: the graphics test failed."
+msgstr "Rendu logiciel, activé automatiquement : le test graphique a échoué."
+
+#: src/huelle/dialoge.rs:329
+msgid "Software graphics, switched on in the preferences."
+msgstr "Rendu logiciel, activé dans les préférences."
+
+#: src/huelle/dialoge.rs:331
+msgid "Graphics settings come from the environment of the session."
+msgstr "Les réglages graphiques proviennent de l’environnement de la session."
+
+#: src/huelle/dialoge.rs:333
+msgid "Software graphics are switched off in the preferences."
+msgstr "Le rendu logiciel est désactivé dans les préférences."
+
+#: src/huelle/dialoge.rs:334
+msgid "Graphics hardware as chosen by Mesa."
+msgstr "Matériel graphique choisi par Mesa."
+
+#: src/huelle/dialoge.rs:347
+msgid "unknown"
+msgstr "inconnu"
+
+#: src/huelle/dialoge.rs:366
+msgid "Schnatter Help"
+msgstr "Aide de Schnatter"
+
+#: src/huelle/dialoge.rs:372
+msgid "What this is"
+msgstr "De quoi s’agit-il"
+
+#: src/huelle/dialoge.rs:373
+msgid ""
+"Schnatter shows WhatsApp Web in its own window. It is not a product of WhatsApp or Meta and not affiliated with them; your messages go directly between this window and WhatsApp."
+msgstr ""
+"Schnatter affiche WhatsApp Web dans sa propre fenêtre. Ce n’est pas un produit de WhatsApp ni de Meta et n’y est pas affilié ; vos messages circulent directement entre cette fenêtre et WhatsApp."
+
+#: src/huelle/dialoge.rs:380
+msgid "Signing in"
+msgstr "Connexion"
+
+#: src/huelle/dialoge.rs:381
+msgid ""
+"Open WhatsApp on your phone, choose “Linked devices”, then “Link a device”, and scan the QR code in the window. You stay signed in until you log out."
+msgstr ""
+"Ouvrez WhatsApp sur votre téléphone, choisissez « Appareils connectés », puis « Connecter un appareil », et scannez le code QR dans la fenêtre. Vous restez connecté jusqu’à votre déconnexion."
+
+#: src/huelle/dialoge.rs:388
+msgid "No calls"
+msgstr "Pas d’appels"
+
+#: src/huelle/dialoge.rs:389
+msgid ""
+"Voice and video calls are not possible: the web engine of Ubuntu is built without WebRTC. Take calls on your phone. Voice messages work."
+msgstr ""
+"Les appels vocaux et vidéo ne sont pas possibles : le moteur web d’Ubuntu est compilé sans WebRTC. Prenez les appels sur votre téléphone. Les messages vocaux fonctionnent."
+
+#: src/huelle/dialoge.rs:396
+msgid "Notifications"
+msgstr "Notifications"
+
+#: src/huelle/dialoge.rs:397
+msgid ""
+"New messages are announced by the notification area of the desktop while the window is open. Closing the window quits the program; then there are no notifications."
+msgstr ""
+"Les nouveaux messages sont signalés par la zone de notification du bureau tant que la fenêtre est ouverte. Fermer la fenêtre quitte le programme ; il n’y a alors plus de notifications."
+
+#: src/huelle/dialoge.rs:404
+msgid "Downloads"
+msgstr "Téléchargements"
+
+#: src/huelle/dialoge.rs:405
+msgid ""
+"Downloaded files go to your Downloads folder without a question; a file never overwrites another one. A notification offers to open the file or its folder."
+msgstr ""
+"Les fichiers téléchargés vont dans votre dossier Téléchargements sans question ; un fichier n’en écrase jamais un autre. Une notification propose d’ouvrir le fichier ou son dossier."
+
+#: src/huelle/dialoge.rs:412
+msgid "Microphone, camera, clipboard"
+msgstr "Microphone, caméra, presse-papiers"
+
+#: src/huelle/dialoge.rs:413
+msgid ""
+"The page asks once for each; the answer is remembered. Edit → Preferences forgets the answers."
+msgstr ""
+"La page demande une fois pour chacun ; la réponse est mémorisée. Édition → Préférences oublie les réponses."
+
+#: src/huelle/dialoge.rs:419
+msgid "Logging out"
+msgstr "Déconnexion"
+
+#: src/huelle/dialoge.rs:420
+msgid ""
+"File → Log Out and Delete Data removes everything this program stored for WhatsApp Web on this computer. Your chats stay on your phone."
+msgstr ""
+"Fichier → Se déconnecter et supprimer les données efface tout ce que ce programme a enregistré pour WhatsApp Web sur cet ordinateur. Vos discussions restent sur votre téléphone."
+
+#: src/huelle/dialoge.rs:462
+msgid "Schnatter Preferences"
+msgstr "Préférences de Schnatter"
+
+#: src/huelle/dialoge.rs:471
+msgid "Browser identification"
+msgstr "Identification du navigateur"
+
+#: src/huelle/dialoge.rs:472
+msgid "_Standard of the web engine (WhatsApp sees Safari on a Mac)"
+msgstr "_Par défaut du moteur web (WhatsApp voit Safari sur un Mac)"
+
+#: src/huelle/dialoge.rs:476
+msgid "_Linux identification without site exceptions"
+msgstr "Identification _Linux sans exceptions de sites"
+
+#: src/huelle/dialoge.rs:482
+msgid ""
+"Changing it reloads the page. If WhatsApp Web stops working, switch back."
+msgstr ""
+"La modifier recharge la page. Si WhatsApp Web ne fonctionne plus, revenez en arrière."
+
+#: src/huelle/dialoge.rs:509
+msgid "Sound"
+msgstr "Son"
+
+#: src/huelle/dialoge.rs:510
+msgid "_Play sounds and voice messages"
+msgstr "Lire les _sons et les messages vocaux"
+
+#: src/huelle/dialoge.rs:521
+msgid "Software graphics"
+msgstr "Rendu logiciel"
+
+#: src/huelle/dialoge.rs:526
+msgid "_Automatic: only where the graphics driver is known to fail"
+msgstr "_Automatique : seulement là où le pilote graphique échoue notoirement"
+
+#: src/huelle/dialoge.rs:528
+msgid "_On: always draw web pages in software"
+msgstr "Acti_vé : toujours dessiner les pages web en logiciel"
+
+#: src/huelle/dialoge.rs:529
+msgid "Off: always use the graphics _hardware"
+msgstr "Désactivé : toujours utiliser le _matériel graphique"
+
+#: src/huelle/dialoge.rs:545
+msgid ""
+"Software graphics avoid crashes with some graphics drivers. A change takes effect the next time Schnatter starts."
+msgstr ""
+"Le rendu logiciel évite des plantages avec certains pilotes graphiques. Une modification prend effet au prochain démarrage de Schnatter."
+
+#: src/huelle/dialoge.rs:556
+msgid "Remembered permissions"
+msgstr "Autorisations mémorisées"
+
+#: src/huelle/dialoge.rs:577
+msgid "_Forget Answers"
+msgstr "_Oublier les réponses"
+
+#: src/huelle/dialoge.rs:606
+msgid "Microphone"
+msgstr "Microphone"
+
+#: src/huelle/dialoge.rs:607
+msgid "Camera"
+msgstr "Caméra"
+
+#: src/huelle/dialoge.rs:608
+msgid "Reading the clipboard"
+msgstr "Lecture du presse-papiers"
+
+#: src/huelle/dialoge.rs:614
+msgid "allowed"
+msgstr "autorisé"
+
+#: src/huelle/dialoge.rs:615
+msgid "denied"
+msgstr "refusé"
+
+#: src/huelle/dialoge.rs:616
+msgid "not asked yet"
+msgstr "pas encore demandé"
+
+#: src/huelle/downloads.rs:42
+msgid "download"
+msgstr "téléchargement"
+
+#: src/huelle/downloads.rs:133 src/i18n.rs:132
+msgid "Download finished"
+msgstr "Téléchargement terminé"
+
+#: src/huelle/downloads.rs:136
+msgid "Open"
+msgstr "Ouvrir"
+
+#: src/huelle/downloads.rs:137
+msgid "Open Folder"
+msgstr "Ouvrir le dossier"
+
+#: src/huelle/downloads.rs:148
+msgid "Download failed"
+msgstr "Échec du téléchargement"
+
+#: src/huelle/downloads.rs:149
+#, no-c-format
+msgid "“{name}” could not be downloaded."
+msgstr "Impossible de télécharger « {name} »."
+
+#: src/huelle/fenster.rs:55
+#, no-c-format
+msgid "{program} – test page"
+msgstr "{program} – page de test"
+
+#: src/huelle/fenster.rs:266
+#, no-c-format
+msgid "{service} could not be loaded: {error}"
+msgstr "Impossible de charger {service} : {error}"
+
+#: src/huelle/fenster.rs:428
+msgid "The page stopped unexpectedly and was reloaded."
+msgstr "La page s’est arrêtée de manière inattendue et a été rechargée."
+
+#: src/huelle/fenster.rs:432
+msgid ""
+"The page stopped unexpectedly several times. Reload it when you are ready."
+msgstr ""
+"La page s’est arrêtée de manière inattendue plusieurs fois. Rechargez-la quand vous êtes prêt."
+
+#: src/huelle/fenster.rs:526
+#, no-c-format
+msgid "Log out of {service} and delete its data?"
+msgstr "Se déconnecter de {service} et supprimer ses données ?"
+
+#: src/huelle/fenster.rs:530
+msgid ""
+"Everything this program stored on this computer is deleted: the sign-in, cached chats and media, and the remembered permissions. Your chats stay on your phone. Downloaded files are kept."
+msgstr ""
+"Tout ce que ce programme a enregistré sur cet ordinateur est supprimé : la connexion, les discussions et médias en cache et les autorisations mémorisées. Vos discussions restent sur votre téléphone. Les fichiers téléchargés sont conservés."
+
+#: src/huelle/fenster.rs:535 src/huelle/navigation.rs:180
+msgid "_Cancel"
+msgstr "_Annuler"
+
+#: src/huelle/fenster.rs:536
+msgid "_Log Out and Delete"
+msgstr "Se _déconnecter et supprimer"
+
+#: src/huelle/fenster.rs:600 src/huelle/menue.rs:88
+msgid "_Reload"
+msgstr "_Recharger"
+
+#: src/huelle/fenster.rs:603
+msgid "Close"
+msgstr "Fermer"
+
+#: src/huelle/menue.rs:94
+msgid "_Log Out and Delete Data…"
+msgstr "Se _déconnecter et supprimer les données…"
+
+#: src/huelle/menue.rs:100
+msgid "_Quit"
+msgstr "_Quitter"
+
+#: src/huelle/menue.rs:112
+msgid "Cu_t"
+msgstr "Co_uper"
+
+#: src/huelle/menue.rs:118
+msgid "_Copy"
+msgstr "_Copier"
+
+#: src/huelle/menue.rs:124
+msgid "_Paste"
+msgstr "C_oller"
+
+#: src/huelle/menue.rs:131
+msgid "Select _All"
+msgstr "_Tout sélectionner"
+
+#: src/huelle/menue.rs:137
+msgid "Pr_eferences"
+msgstr "_Préférences"
+
+#: src/huelle/menue.rs:149
+msgid "Zoom _In"
+msgstr "Zoom a_vant"
+
+#: src/huelle/menue.rs:155
+msgid "Zoom _Out"
+msgstr "Zoom a_rrière"
+
+#: src/huelle/menue.rs:161
+msgid "_Normal Size"
+msgstr "Taille _normale"
+
+#: src/huelle/menue.rs:168
+msgid "_Full Screen"
+msgstr "_Plein écran"
+
+#: src/huelle/menue.rs:179
+msgid "_Contents"
+msgstr "_Sommaire"
+
+#: src/huelle/menue.rs:184
+msgid "_About"
+msgstr "À _propos"
+
+#: src/huelle/menue.rs:193
+msgid "_File"
+msgstr "_Fichier"
+
+#: src/huelle/menue.rs:194
+msgid "_Edit"
+msgstr "É_dition"
+
+#: src/huelle/menue.rs:195
+msgid "_View"
+msgstr "_Affichage"
+
+#: src/huelle/menue.rs:196
+msgid "_Help"
+msgstr "Aid_e"
+
+#: src/huelle/mod.rs:46
+#, no-c-format
+msgid ""
+"{program} is still running. Close it and start Schnatter again: it then takes over the sign-in and the settings."
+msgstr ""
+"{program} est encore en cours d’exécution. Fermez-le et relancez Schnatter : Schnatter reprendra alors la connexion et les réglages."
+
+#: src/huelle/mod.rs:51
+#, no-c-format
+msgid ""
+"The folders of the previous version could not be taken over: {error}. Nothing was deleted."
+msgstr ""
+"Impossible de reprendre les dossiers de la version précédente : {error}. Rien n’a été supprimé."
+
+#: src/huelle/mod.rs:82
+#, no-c-format
+msgid "The data folder cannot be used: {error}"
+msgstr "Le dossier de données est inutilisable : {error}"
+
+#: src/huelle/navigation.rs:173
+msgid "Open the link with another program?"
+msgstr "Ouvrir le lien avec un autre programme ?"
+
+#: src/huelle/navigation.rs:174
+#, no-c-format
+msgid ""
+"The link is not a web or email address. Opening it starts the program that is registered for “{scheme}:” addresses with this target:"
+msgstr ""
+"Le lien n’est pas une adresse web ni de courriel. L’ouvrir lance le programme associé aux adresses « {scheme}: » avec cette cible :"
+
+#: src/huelle/navigation.rs:181
+msgid "_Open Link"
+msgstr "_Ouvrir le lien"
+
+#: src/huelle/rechte.rs:91
+msgid "Your answer is remembered. Edit → Preferences can forget it again."
+msgstr "Votre réponse est mémorisée. Édition → Préférences peut l’oublier."
+
+#: src/huelle/rechte.rs:94
+#, no-c-format
+msgid "Allow {service} to use the microphone?"
+msgstr "Autoriser {service} à utiliser le microphone ?"
+
+#: src/huelle/rechte.rs:100
+msgid "The microphone is needed to record voice messages."
+msgstr "Le microphone est nécessaire pour enregistrer des messages vocaux."
+
+#: src/huelle/rechte.rs:104
+#, no-c-format
+msgid "Allow {service} to use the camera?"
+msgstr "Autoriser {service} à utiliser la caméra ?"
+
+#: src/huelle/rechte.rs:107
+msgid "The camera is needed to take photos. Calls are not possible."
+msgstr ""
+"La caméra est nécessaire pour prendre des photos. Les appels ne sont pas possibles."
+
+#: src/huelle/rechte.rs:111
+#, no-c-format
+msgid "Allow {service} to read the clipboard?"
+msgstr "Autoriser {service} à lire le presse-papiers ?"
+
+#: src/huelle/rechte.rs:117
+msgid ""
+"The page can then read what you copied, also from other programs. Pasting with Ctrl+V works without this."
+msgstr ""
+"La page pourra lire ce que vous avez copié, y compris depuis d’autres programmes. Coller avec Ctrl+V fonctionne sans cela."
+
+#: src/huelle/rechte.rs:223
+msgid "_Deny"
+msgstr "_Refuser"
+
+#: src/huelle/rechte.rs:224
+msgid "_Allow"
+msgstr "_Autoriser"
+
+#: src/huelle/umzug.rs:45
+msgid "Querencia Web Wrapper"
+msgstr "Querencia Enveloppe web"
+
+#: src/huelle/umzug.rs:46
+msgid "Querencia Messages"
+msgstr "Querencia Messages"

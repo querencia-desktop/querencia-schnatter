@@ -84,7 +84,7 @@ Binary: `querencia-schnatter` · Debian-Paket: `querencia-schnatter`
 
 | | |
 |---|---|
-| Version | 0.3.0 (Tag `schnatter/0.3.0`, Zweig `schnatter`): Umbenennung in Schnatter mit Umzug der Ordner beider früheren Namen und neuem Symbol, zur Freigabe (Integrationsfassung `integration/schnatter-030/`, Tag `schnatter/0.3.0-int`); live ist Querencia Webhülle 0.2.0 seit 24.10.2026 14:48 (`webhuelle/0.2.0-int`) |
+| Version | 0.3.1 (Tag `schnatter/0.3.1`): Italienisch, Spanisch, Französisch; 0.3.0 (Tag `schnatter/0.3.0`, Zweig `schnatter`): Umbenennung in Schnatter mit Umzug der Ordner beider früheren Namen und neuem Symbol, zur Freigabe (Integrationsfassung `integration/schnatter-030/`, Tag `schnatter/0.3.0-int`); live ist Querencia Webhülle 0.2.0 seit 24.10.2026 14:48 (`webhuelle/0.2.0-int`) |
 | Letzte Prüfung | 26.10.2026 (0.3.0): siehe [docs/testing.md](docs/testing.md) („Messungen 0.3.0“) und [docs/integration.md](docs/integration.md) |
 | Bekannte Lücken | siehe [docs/testing.md](docs/testing.md), Abschnitt „Nicht getestet“ |
 | Getestet auf | Ubuntu 26.04, labwc 0.9.8, GTK 4.22, WebKitGTK 2.52.6, Rust 1.93 |
