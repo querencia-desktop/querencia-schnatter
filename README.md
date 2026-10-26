@@ -5,8 +5,14 @@ Rechner schreiben wollen, ohne einen Browser-Reiter offen zu halten. Ein
 Zusatzprogramm zu [Querencia Desktop](https://querencialinux.org) – einer
 klassischen Desktopumgebung im GNOME-2-Stil für Wayland (labwc, Rust,
 GTK 4) –, **nicht Teil der Standardinstallation**, sondern ein eigenes,
-wahlweise installierbares Paket (`querencia-schnatter`). Version 0.2.0 hieß
-„Querencia Webhülle“, die Versionen bis 0.1.1 „Querencia Nachrichten“.
+wahlweise installierbares Paket (`querencia-schnatter`). Installiert wird es
+aus der APT-Quelle von Querencia Desktop mit `sudo apt install
+querencia-schnatter`; Anleitung auf <https://querencialinux.org>.
+
+**Name:** Bis 0.1.1 hieß das Programm „Querencia Nachrichten“, in 0.2.0
+„Querencia Webhülle“, seit 0.3.0 (Alpha 3.2, 26.10.2026) „Schnatter“. Das
+Paket `querencia-webhuelle` ist seitdem nur noch ein Übergangspaket auf
+`querencia-schnatter`.
 
 *English summary:* „Schnatter“ is a wrapper for WhatsApp Web:
 it shows the page in a window of its own (GTK 4, WebKitGTK 6.0), with the
@@ -84,11 +90,11 @@ Binary: `querencia-schnatter` · Debian-Paket: `querencia-schnatter`
 
 | | |
 |---|---|
-| Version | 0.3.0 (Tag `schnatter/0.3.0`, Zweig `schnatter`): Umbenennung in Schnatter mit Umzug der Ordner beider früheren Namen und neuem Symbol, zur Freigabe (Integrationsfassung `integration/schnatter-030/`, Tag `schnatter/0.3.0-int`); live ist Querencia Webhülle 0.2.0 seit 24.10.2026 14:48 (`webhuelle/0.2.0-int`) |
-| Letzte Prüfung | 26.10.2026 (0.3.0): siehe [docs/testing.md](docs/testing.md) („Messungen 0.3.0“) und [docs/integration.md](docs/integration.md) |
+| Version | 0.3.0 (Tag `schnatter/0.3.0`): Umbenennung in Schnatter mit Umzug der Ordner beider früheren Namen und neuem Symbol; Paket `querencia-schnatter` 0.3.0-1 seit Alpha 3.2 in der APT-Quelle |
+| Letzte Prüfung | 26.10.2026 (0.3.0): 41 Unit-Tests, Clippy sauber, `i18n.py pruefen`; isoliert Prüfseite 74 von 74, Grafik-Szenario 44 von 44, Umzug 58 von 58 je Kombination; Einzelheiten in [docs/testing.md](docs/testing.md) („Messungen 0.3.0“) |
 | Bekannte Lücken | siehe [docs/testing.md](docs/testing.md), Abschnitt „Nicht getestet“ |
 | Getestet auf | Ubuntu 26.04, labwc 0.9.8, GTK 4.22, WebKitGTK 2.52.6, Rust 1.93 |
-| Nicht getestet | alles nach der Anmeldung (nur mit Konto, Abnahme durch den Besitzer), HiDPI, Mehrmonitor |
+| Nicht getestet | andere Distributionen, alles nach der Anmeldung (automatische Prüfungen nie mit Konto), HiDPI, Mehrmonitor |
 
 Änderungen: [CHANGELOG.md](CHANGELOG.md).
 
@@ -97,17 +103,25 @@ Binary: `querencia-schnatter` · Debian-Paket: `querencia-schnatter`
 `cargo build --release --locked`, danach `cargo fmt --all --check`,
 `cargo clippy --all-targets --locked -- -D warnings`, `cargo test --locked`
 und `python3 werkzeug/i18n.py pruefen` (ohne Bildschirm). Voraussetzung:
-`libwebkitgtk-6.0-dev`; der Checkout von `querencia-runtime` liegt neben
-diesem Repo (siehe unten). Einzelheiten: [docs/building.md](docs/building.md);
+`libwebkitgtk-6.0-dev`; die Runtime-Bibliotheken liegen als Checkout
+`../querencia-runtime` neben diesem Repo (siehe unten). Einzelheiten: [docs/building.md](docs/building.md);
 Prüfhülle, Prüfseite und Anmeldeseiten-Wächter (`bash werkzeug/lauf.sh …`,
 nie in der laufenden Sitzung): [docs/testing.md](docs/testing.md);
 Integration: [docs/integration.md](docs/integration.md).
 
-**Veröffentlichungspunkt:** `querencia-oberflaeche` und
-`querencia-dateiarbeit` sind in 0.1 Pfad-Abhängigkeiten auf
-`../querencia-runtime/crates/…` (Stand `bd420d7`, Entscheidung E11). Vor der
-Veröffentlichung werden sie Git-Abhängigkeiten mit Tag; bis dahin baut die CI
-dieses Repos nicht für sich allein.
+**Runtime daneben:** `querencia-oberflaeche` (0.1.1) und
+`querencia-dateiarbeit` sind Pfad-Abhängigkeiten auf
+`../querencia-runtime/crates/…`. Die Runtime ist das öffentliche Repo
+[querencia-shell](https://github.com/querencia-desktop/querencia-shell)
+(ab Tag `dateien/0.2.2`); es wird unter dem Namen `querencia-runtime` neben
+dieses Repo geklont:
+
+```bash
+git clone https://github.com/querencia-desktop/querencia-shell.git ../querencia-runtime
+```
+
+Die CI nimmt einen festen Commit davon (`8f102f1`, Schritt „Runtime daneben“
+in `.github/workflows/ci.yml`).
 
 ## Vorbilder
 

@@ -22,7 +22,7 @@ MIT. Kein Code aus den Vorbildern ZapZap und WasIstLos (README, „Vorbilder“)
 Die Datei werkzeug/virtual-keyboard-unstable-v1.xml (nur Testwerkzeug) ist
 eine gekürzte Kopie aus wayland-protocols bzw. wlroots und behält ihren
 MIT-Vermerk im Dateikopf. werkzeug/reste.py ist unverändert aus dem
-Prüfrahmen von querencia-runtime übernommen (GPL-3.0-or-later).
+Prüfrahmen der Runtime (Repo querencia-shell) übernommen (GPL-3.0-or-later).
 Das Programmsymbol data/icons/org.querencia.Schnatter.svg ist eigenes Werk
 (GPL-3.0-or-later wie das Programm); es enthält kein Logo eines Dienstes
 und nicht das Querencia-Logo.

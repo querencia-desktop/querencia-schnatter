@@ -2,10 +2,9 @@
 # Die isolierte GUI-Prüfung (labwc, Bildschirmfotos) läuft NICHT hier, sondern
 # bei der Entwicklung (siehe CONTRIBUTING.md).
 #
-# Schnatter 0.3.0 (0.2.0 Querencia Webhülle, bis 0.1.1 Querencia Nachrichten): NOCH NICHT GELAUFEN. Die Pfad-Abhängigkeiten
-# auf ../querencia-runtime (E11) holt der Schritt „Runtime daneben“; vor der
-# Veröffentlichung werden sie Git-Abhängigkeiten mit Tag (README,
-# „Veröffentlichungspunkt“), dann entfällt der Schritt.
+# Anpassen je Repo: ENTWICKLUNGSPAKETE (Zeile unten), bei Workspaces ggf.
+# `--workspace`. Erster Lauf auf GitHub beim privaten Push am 21.10.2026; die
+# Fehler daraus behebt GH-7 (Prüfbenutzer, LANG, fehlende Werkzeuge).
 #
 # Annahmen:
 #  - Die Programme brauchen GTK 4.22 und gtk4-layer-shell/VTE (Ubuntu 26.04).
@@ -21,7 +20,25 @@
 #    für Namen mit Umlauten NULL (Querencia Archiv stürzte so ab), deshalb
 #    LANG=C.UTF-8 (in glibc eingebaut, kein locales-Paket nötig).
 #  - Das Image ist minimal (kein ps, kein update-desktop-database): Werkzeuge,
-#    die Tests aufrufen, gehören in ENTWICKLUNGSPAKETE.
+#    die Tests aufrufen, gehören in ENTWICKLUNGSPAKETE, ebenso Bibliotheken, die
+#    ein Programm erst zur Laufzeit per dlopen lädt (Querencia Sitzung:
+#    libpolkit-agent-1-0).
+#  - Das Image hat nur C.UTF-8; Tests, die unter `en_US.UTF-8` sortieren oder
+#    übersetzen (Querencia Shell: Anwendungskatalog des Panels), brauchen
+#    `locales-all` in ENTWICKLUNGSPAKETE.
+#  - Der Container darf keine Benutzer-Namensräume anlegen (`unshare -U`:
+#    „Operation not permitted“). Tests, die welche brauchen, schaltet das Repo
+#    über eine eigene Variable im Block `env` ab (Querencia Shell:
+#    QUERENCIA_DATEIARBEIT_OHNE_NAMENSRAUM=1).
+#  - actions/checkout@v7 und actions/cache@v6 laufen mit Node 24 (Runner ab
+#    2.327.1, bei GitHub gegeben) und sind im Container-Job geprüft. checkout
+#    legt keine Zugangsdaten ab (`persist-credentials: false`): Die CI liest nur.
+#  - Schnatter: Die Runtime-Crates sind Pfad-Abhängigkeiten auf
+#    ../querencia-runtime. Der Schritt „Runtime daneben“ holt dafür das
+#    öffentliche Repo querencia-shell auf einem festen Commit (Stand mit Tag
+#    dateien/0.2.2 und Querencia Oberfläche 0.1.1, passend zu Cargo.lock).
+#    Nicht der Tag selbst: Erst die Commits darüber sind rustfmt-sauber, und
+#    `cargo fmt --all` prüft die Pfad-Abhängigkeiten mit.
 name: CI
 
 on:
@@ -83,19 +100,27 @@ jobs:
       #       --default-toolchain 1.98.1 --profile minimal -c clippy -c rustfmt
       #     echo "/home/$PRUEFER/.cargo/bin" >> "$GITHUB_PATH"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Git-Eigentümer erlauben (Container)
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      # Pfad-Abhängigkeiten ../querencia-runtime/crates/… (Stand bd420d7)
+      # Pfad-Abhängigkeiten ../querencia-runtime/crates/… (README, „Runtime daneben“)
       - name: Runtime daneben
-        run: git clone --depth 50 https://github.com/querencia-desktop/querencia-runtime.git "$GITHUB_WORKSPACE/../querencia-runtime" && git -C "$GITHUB_WORKSPACE/../querencia-runtime" checkout bd420d7
+        env:
+          RUNTIME_COMMIT: 8f102f1088e4087a7b7df49b441d380a9139c755
+        run: |
+          R="$GITHUB_WORKSPACE/../querencia-runtime"
+          git init -q "$R"
+          git -C "$R" fetch -q --depth 1 https://github.com/querencia-desktop/querencia-shell.git "$RUNTIME_COMMIT"
+          git -C "$R" checkout -q FETCH_HEAD
 
       # Absolute Pfade: Die Cache-Aktion läuft als root (HOME=/github/home),
       # cargo als Prüfbenutzer mit CARGO_HOME=/home/pruefer/.cargo.
       - name: Cargo-Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             /home/pruefer/.cargo/registry/index

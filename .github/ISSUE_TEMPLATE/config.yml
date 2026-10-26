@@ -4,5 +4,5 @@ contact_links:
     url: https://github.com/querencia-desktop/querencia/issues/new/choose
     about: Alle Meldungen zu Querencia gehen an ein Repo. / All Querencia reports go to one repository.
   - name: Sicherheitslücke melden / Report a security vulnerability
-    url: https://github.com/querencia-desktop/querencia-nachrichten/security/advisories/new
+    url: https://github.com/querencia-desktop/querencia-schnatter/security/advisories/new
     about: Privat über GitHub, nicht als öffentliches Issue. / Privately via GitHub, not as a public issue.

@@ -14,9 +14,11 @@ Crates: gtk4 0.11 (Feature `v4_12`), webkit6 0.6.1 (Feature `v2_52`, E1),
 gettext-rs 0.8 (`gettext-system`), dazu die Runtime-Crates
 `querencia-oberflaeche` (klassische Menüs, Symbolthema, Farbschema,
 Settings-Portal) und `querencia-dateiarbeit` (freie Dateinamen) als
-**Pfad-Abhängigkeiten** auf `../querencia-runtime/crates/…` (E11, Stand
-`bd420d7`): Der Checkout von `querencia-runtime` liegt neben diesem Repo.
-Vor der Veröffentlichung werden daraus Git-Abhängigkeiten mit Tag. Alle
+**Pfad-Abhängigkeiten** auf `../querencia-runtime/crates/…` (E11): Der
+Checkout der Runtime – öffentlich das Repo `querencia-shell`, ab Tag
+`dateien/0.2.2` (Querencia Oberfläche 0.1.1; die CI nimmt einen festen Commit
+darüber) – liegt als `querencia-runtime`
+neben diesem Repo (README, „Runtime daneben“). Alle
 Versionen in `Cargo.lock`; die Bauskripte arbeiten offline
 (`--offline --locked`).
 
