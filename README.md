@@ -14,11 +14,12 @@ querencia-schnatter`; Anleitung auf <https://querencialinux.org>.
 Paket `querencia-webhuelle` ist seitdem nur noch ein Übergangspaket auf
 `querencia-schnatter`.
 
-*English summary:* „Schnatter“ is a wrapper for WhatsApp Web:
-it shows the page in a window of its own (GTK 4, WebKitGTK 6.0), with the
-classic Querencia menu bar. Not a product of WhatsApp or Meta and not
-affiliated with them. No calls. Optional package, not part of the default
-installation. Alpha software; documentation is in German.
+*English summary:* „Schnatter“ is a wrapper for WhatsApp Web: it shows the page
+in a window of its own (GTK 4, WebKitGTK 6.0), with the classic Querencia menu
+bar. Not a product of WhatsApp or Meta and not affiliated with them. No calls.
+Optional package, not part of the default installation. Alpha software; user
+interface in German, English, Italian, Spanish and French; documentation is in
+German.
 
 > **Alpha.** Keine Anrufe (Ubuntus WebKitGTK ist ohne WebRTC gebaut). Meldungen
 > kommen nur, solange das Fenster offen ist; Schließen beendet das Programm
