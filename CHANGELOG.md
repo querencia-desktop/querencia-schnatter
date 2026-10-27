@@ -5,6 +5,16 @@ nach [Semantic Versioning](https://semver.org/lang/de/). Solange die Hauptversio
 0 ist, kann sich alles ändern. Jede Zeile nennt, was Nutzer merken; Unfertiges
 steht als „unfertig“ da.
 
+## [0.3.1] – 2026-10-26
+
+### Hinzugefügt
+- Oberfläche auf Italienisch, Spanisch und Französisch (`po/it.po`,
+  `po/es.po`, `po/fr.po`, je 105 Texte) samt Desktop-Datei und MetaInfo
+  (Zusammenfassung, Beschreibung, Stichwörter). Die Tastennamen der Menüs
+  kommen aus dem Katalog `querencia-oberflaeche` der Runtime (it/es/fr seit
+  oberflaeche 0.1.2); `werkzeug/i18n.py mo` braucht deshalb die Runtime mit
+  diesen Katalogen.
+
 ## [0.3.0] – 2026-10-26 „Schnatter“
 
 ### Geändert
